@@ -1,0 +1,30 @@
+
+<Location /auth/shibboleth/index.php>
+  AuthType shibboleth
+  ShibRequestSetting requireSession true
+  Require shib-session
+</Location>
+
+RequestHeader set X-Shib-uid         %{uid}e
+
+RequestHeader set X-Shib-mail        %{mail}e
+RequestHeader set X-Shib-sn          %{sn}e
+RequestHeader set X-Shib-o           %{o}e
+RequestHeader set X-Shib-ou          %{ou}e
+RequestHeader set X-Shib-givenName   %{givenName}e
+RequestHeader set X-Shib-displayName %{displayName}e
+
+RequestHeader set X-Shib-eduPersonAffiliation       %{unscoped-affiliation}e
+RequestHeader set X-Shib-eduPersonPrincipalName     %{eppn}e
+RequestHeader set X-Shib-eduPersonEntitlement       %{entitlement}e
+RequestHeader set X-Shib-eduPersonScopedAffiliation %{affiliation}e
+RequestHeader set X-Shib-eduPersonTargetedID        %{targeted-id}e
+
+RequestHeader set X-Shib-isMemberOf    %{isMemberOf}e
+
+RequestHeader set X-Shib-jasn          %{jasn}e
+RequestHeader set X-Shib-jaGivenName   %{jaGivenName}e
+RequestHeader set X-Shib-jaDisplayName %{jaDisplayName}e
+RequestHeader set X-Shib-jao           %{jao}e
+RequestHeader set X-Shib-jaou          %{jaou}e
+RequestHeader set X-Shib-gakuninScopedPersonalUniqueCode %{gakuninScopedPersonalUniqueCode}e

@@ -1,0 +1,2 @@
+stack_name: cwh
+base_dir: "/srv/{{stack_name}}"

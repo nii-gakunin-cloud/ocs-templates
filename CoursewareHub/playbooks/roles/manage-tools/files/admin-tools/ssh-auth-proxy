@@ -1,0 +1,3 @@
+#!/bin/bash
+source ~/.hub-config
+ssh -i ~/.ssh/ssh-hub -o "StrictHostKeyChecking=no" -q ubuntu@${AUTH_PROXY_IP} -q "sudo docker exec -i ${AUTH_PROXY_NAME} bash"

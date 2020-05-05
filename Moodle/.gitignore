@@ -1,0 +1,13 @@
+.ipynb_checkpoints
+.log/
+.ssh/
+ansible.cfg
+.lc_wrapper_regex.txt
+hosts
+group_vars/Moodle*.yml
+group_vars/all/customize.yml
+__pycache__
+edit/
+*.bak
+notebooks.svg
+inventory.yml

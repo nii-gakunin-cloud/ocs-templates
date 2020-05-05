@@ -1,0 +1,638 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1240 1890">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2"/>
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>blockdiag {
+    node_width = 230;
+    node_height = 145;
+
+group {
+
+    orientation = portrait;
+    shape = line;
+    style = none;
+
+    group {
+        shape = line;
+        style = none;
+        "010" -&gt; "020";
+    }
+
+    group {
+        shape = line;
+        style = none;
+
+        group {
+            label = "&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#22793;&#26356;"
+            shape = line;
+#            style = dashed;
+            orientation = portrait;
+            "030";
+            "031";
+            "032";
+        }
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+
+            group {
+                label = "&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;"
+                shape = line;
+                orientation = portrait;
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "121";
+                    "191:&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "122";
+                    "192:&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "193:&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;";
+                }
+                "121" -&gt; "122" -&gt; "193:&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;";
+                "121" -&gt; "191:&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;";
+                "122" -&gt; "192:&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;";
+                "192:&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;" -&gt; "193:&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;";
+            }
+
+            group {
+                label = "Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;"
+                shape = line;
+                orientation = portrait;
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "141";
+                    "191:Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "142";
+                    "192:Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "193:Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;";
+                }
+                "141" -&gt; "142" -&gt; "193:Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;";
+                "141" -&gt; "191:Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;";
+                "142" -&gt; "192:Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;";
+                "192:Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;" -&gt; "193:Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;";
+            }
+            group {
+                shape = line;
+                style = none;
+                "155";
+            }
+        }
+
+        group {
+            shape = line;
+            style = none;
+            "220";
+        }
+    }
+
+    "020" -&gt; "030";
+    "020" -&gt; "031";
+    "020" -&gt; "032";
+    "020" -&gt; "121";
+    "020" -&gt; "155";
+    "020" -&gt; "141";
+    "020" -&gt; "220";
+}
+"900";
+}
+</desc>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="67" y="46"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="67" y="231"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="67" y="416"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="67" y="601"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="67" y="786"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="361" y="416"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="655" y="416"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="361" y="601"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="655" y="601"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="361" y="786"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="361" y="971"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="655" y="971"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="361" y="1156"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="655" y="1156"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="361" y="1341"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="361" y="1526"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="949" y="416"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="230" x="67" y="1711"/>
+  <rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="64" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="151">&#12481;&#12455;&#12483;&#12463;&#12392;&#12487;&#12501;&#12457;&#12523;&#12488;&#20516;&#12398;&#20445;&#23384;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="140">&#12522;&#12496;&#12540;&#12473;&#12503;&#12525;&#12461;&#12471;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="129">&#12487;&#12540;&#12479;&#12505;&#12540;&#12473;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="118">Moodle</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="107">VC&#12494;&#12540;&#12489;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="96">VCP SDK</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="85">&#20840;&#20307;&#27083;&#25104;</text><a xlink:href="../notebooks/010-&#12497;&#12521;&#12513;&#12540;&#12479;&#35373;&#23450;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="226" y="62">010:  &#12497;&#12521;&#12513;&#12540;&#12479;&#35373;&#23450;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="64" y="225"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="358">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="347">&#12450;&#12503;&#12522;&#12465;&#12540;&#12471;&#12519;&#12531;&#12467;&#12531;&#12486;&#12490;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="336">&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#37197;&#32622;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="325">&#12487;&#12540;&#12479;&#26684;&#32013;&#38936;&#22495;&#12398;&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="314">Ansible&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="303">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="292">VC&#12487;&#12451;&#12473;&#12463;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="281">&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="270">&#20840;&#20307;&#27083;&#25104;</text><a xlink:href="../notebooks/020-Moodle&#12398;&#36215;&#21205;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="226" y="247">020:  Moodle&#12398;&#36215;&#21205;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="64" y="410"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="499">&#22793;&#26356;&#12434;&#21462;&#12426;&#28040;&#12377;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="488">&#32232;&#38598;&#12375;&#12383;&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#21453;&#26144;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="477">&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#32232;&#38598;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="466">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="455">&#27010;&#35201;</text><a xlink:href="../notebooks/030-&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#22793;&#26356;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="226" y="432">030:  &#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#22793;&#26356;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="64" y="595"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="697">&#22793;&#26356;&#12434;&#21462;&#12426;&#28040;&#12377;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="686">&#32232;&#38598;&#12375;&#12383;&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#21453;&#26144;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="675">&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#32232;&#38598;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="664">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="653">&#27010;&#35201;</text><a xlink:href="../notebooks/031-&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#22793;&#26356;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="226" y="611">031:  &#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#22793;&#26356;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="226" y="624">- php.ini</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="64" y="780"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="882">&#22793;&#26356;&#12434;&#21462;&#12426;&#28040;&#12377;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="871">&#32232;&#38598;&#12375;&#12383;&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#21453;&#26144;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="860">&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#32232;&#38598;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="849">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="838">&#27010;&#35201;</text><a xlink:href="../notebooks/032-&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#22793;&#26356;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="226" y="796">032:  &#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#22793;&#26356;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="226" y="809">- httpd.conf</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="358" y="410"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="512">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="501">&#26908;&#35388;&#29872;&#22659;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="490">&#26908;&#35388;&#29872;&#22659;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="479">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="468">&#27010;&#35201;</text><a xlink:href="../notebooks/121-&#26908;&#35388;&#29872;&#22659;&#12398;&#27083;&#31689;--&#12467;&#12531;&#12486;&#12490;&#12398;&#12475;&#12461;&#12517;&#12522;&#12486;&#12451;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="426">121:  &#26908;&#35388;&#29872;&#22659;&#12398;&#27083;&#31689;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="439">- &#12467;&#12531;&#12486;&#12490;&#12398;&#12475;&#12461;&#12517;&#12522;&#12486;&#12451;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="652" y="410"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="512">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="501">&#26908;&#35388;&#29872;&#22659;&#12434;&#21066;&#38500;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="490">&#26908;&#35388;&#29872;&#22659;&#12398;&#12467;&#12531;&#12486;&#12490;&#12434;&#20572;&#27490;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="479">&#12522;&#12496;&#12540;&#12473;&#12503;&#12525;&#12461;&#12471;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="468">&#27010;&#35201;</text><a xlink:href="../notebooks/191-&#26908;&#35388;&#29872;&#22659;&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="654" width="226" y="426">191:  &#26908;&#35388;&#29872;&#22659;&#12398;&#21066;&#38500; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="654" width="226" y="439">- &#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="358" y="595"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="719">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="708">&#21476;&#12356;&#36939;&#29992;&#29872;&#22659;&#12398;&#12467;&#12531;&#12486;&#12490;&#12434;&#20572;&#27490;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="697">&#12497;&#12483;&#12465;&#12540;&#12472;&#12364;&#26356;&#26032;&#12373;&#12428;&#12383;&#12371;&#12392;&#12398;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="686">&#26032;&#12375;&#12356;&#36939;&#29992;&#29872;&#22659;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="675">&#26908;&#35388;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="664">&#26032;&#12375;&#12356;&#36939;&#29992;&#29872;&#22659;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="653">&#27010;&#35201;</text><a xlink:href="../notebooks/122-&#36939;&#29992;&#29872;&#22659;&#12398;&#31227;&#34892;--&#12467;&#12531;&#12486;&#12490;&#12398;&#12475;&#12461;&#12517;&#12522;&#12486;&#12451;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="611">122:  &#36939;&#29992;&#29872;&#22659;&#12398;&#31227;&#34892;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="624">- &#12467;&#12531;&#12486;&#12490;&#12398;&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="652" y="595"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="708">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="697">&#20803;&#12398;&#36939;&#29992;&#29872;&#22659;&#12395;&#20999;&#12426;&#26367;&#12360;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="686">&#20803;&#12398;&#36939;&#29992;&#29872;&#22659;&#12398;&#12467;&#12531;&#12486;&#12490;&#12434;&#36215;&#21205;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="675">&#12513;&#12531;&#12486;&#12490;&#12531;&#12473;&#12514;&#12540;&#12489;&#12408;&#12398;&#20999;&#12426;&#26367;&#12360;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="664">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="653">&#27010;&#35201;</text><a xlink:href="../notebooks/192-&#20803;&#12398;&#36939;&#29992;&#29872;&#22659;&#12395;&#25147;&#12377;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="654" width="226" y="611">192:  &#20803;&#12398;&#36939;&#29992;&#29872;&#22659;&#12395;&#25147;&#12377; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="654" width="226" y="624">- &#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="358" y="780"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="860">&#21476;&#12356;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="849">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="838">&#27010;&#35201;</text><a xlink:href="../notebooks/193-&#21476;&#12356;&#29872;&#22659;&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="796">193:  &#21476;&#12356;&#29872;&#22659;&#12398;&#21066;&#38500; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="809">- &#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="358" y="965"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1067">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1056">&#26908;&#35388;&#29872;&#22659;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1045">&#26908;&#35388;&#29872;&#22659;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1034">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1023">&#27010;&#35201;</text><a xlink:href="../notebooks/141-&#26908;&#35388;&#29872;&#22659;&#12398;&#27083;&#31689;--Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="981">141:  &#26908;&#35388;&#29872;&#22659;&#12398;&#27083;&#31689;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="994">- Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="652" y="965"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1067">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1056">&#26908;&#35388;&#29872;&#22659;&#12434;&#21066;&#38500;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1045">&#26908;&#35388;&#29872;&#22659;&#12398;&#12467;&#12531;&#12486;&#12490;&#12434;&#20572;&#27490;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1034">&#12522;&#12496;&#12540;&#12473;&#12503;&#12525;&#12461;&#12471;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1023">&#27010;&#35201;</text><a xlink:href="../notebooks/191-&#26908;&#35388;&#29872;&#22659;&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="654" width="226" y="981">191:  &#26908;&#35388;&#29872;&#22659;&#12398;&#21066;&#38500; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="654" width="226" y="994">- Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="358" y="1150"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1263">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1252">&#21476;&#12356;&#36939;&#29992;&#29872;&#22659;&#12398;&#12467;&#12531;&#12486;&#12490;&#12434;&#20572;&#27490;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1241">&#26032;&#12375;&#12356;&#36939;&#29992;&#29872;&#22659;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1230">&#26908;&#35388;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1219">&#26032;&#12375;&#12356;&#36939;&#29992;&#29872;&#22659;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1208">&#27010;&#35201;</text><a xlink:href="../notebooks/142-&#36939;&#29992;&#29872;&#22659;&#12398;&#31227;&#34892;--Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="1166">142:  &#36939;&#29992;&#29872;&#22659;&#12398;&#31227;&#34892;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="1179">- Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="652" y="1150"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1263">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1252">&#20803;&#12398;&#36939;&#29992;&#29872;&#22659;&#12395;&#20999;&#12426;&#26367;&#12360;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1241">&#20803;&#12398;&#36939;&#29992;&#29872;&#22659;&#12398;&#12467;&#12531;&#12486;&#12490;&#12434;&#36215;&#21205;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1230">&#12513;&#12531;&#12486;&#12490;&#12531;&#12473;&#12514;&#12540;&#12489;&#12408;&#12398;&#20999;&#12426;&#26367;&#12360;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1219">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="654" width="226" y="1208">&#27010;&#35201;</text><a xlink:href="../notebooks/192-&#20803;&#12398;&#36939;&#29992;&#29872;&#22659;&#12395;&#25147;&#12377;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="654" width="226" y="1166">192:  &#20803;&#12398;&#36939;&#29992;&#29872;&#22659;&#12395;&#25147;&#12377; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="654" width="226" y="1179">- Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="358" y="1335"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1415">&#21476;&#12356;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1404">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1393">&#27010;&#35201;</text><a xlink:href="../notebooks/193-&#21476;&#12356;&#29872;&#22659;&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="1351">193:  &#21476;&#12356;&#29872;&#22659;&#12398;&#21066;&#38500; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="1364">- Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="358" y="1520"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1609">Moodle &#12434;&#21033;&#29992;&#12391;&#12365;&#12427;&#12371;&#12392;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1598">&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;&#29872;&#22659;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1587">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1576">&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="360" width="226" y="1565">&#27010;&#35201;</text><a xlink:href="../notebooks/155-&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;&#12398;&#26356;&#26032;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="360" width="226" y="1542">155:  &#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;&#12398;&#26356;&#26032;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="946" y="410"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="948" width="226" y="499">Moodle&#12398;Shibboleth&#12503;&#12521;&#12464;&#12452;&#12531;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="948" width="226" y="488">&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#32232;&#38598;&#12392;&#21453;&#26144;&#12434;&#34892;&#12358;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="948" width="226" y="477">Shibboleth&#12467;&#12531;&#12486;&#12490;&#12398;&#36861;&#21152;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="948" width="226" y="466">&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="948" width="226" y="455">&#27010;&#35201;</text><a xlink:href="../notebooks/220-Shibboleth&#35469;&#35388;&#35373;&#23450;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="948" width="226" y="432">220:  Shibboleth&#35469;&#35388;&#35373;&#23450;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="230" x="64" y="1705"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="1783">Ansible &#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#24460;&#22987;&#26411;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="1772">VC&#12487;&#12451;&#12473;&#12463;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="1761">VC&#12494;&#12540;&#12489;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="226" y="1750">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><a xlink:href="../notebooks/900-Moodle&#29872;&#22659;&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="226" y="1727">900:  Moodle&#29872;&#22659;&#12398;&#21066;&#38500;</text></a><path d="M 179 185 L 179 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="179,224 175,217 183,217 179,224" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 402" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="179,409 175,402 183,402 179,409" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 326 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 390 L 326 575" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 575 L 326 575" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 575 L 179 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="179,594 175,587 183,587 179,594" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 326 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 390 L 326 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 760 L 326 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 760 L 179 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="179,779 175,772 183,772 179,779" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 473 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 390 L 473 402" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,409 469,402 477,402 473,409" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 326 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 390 L 326 1500" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 1500 L 473 1500" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1500 L 473 1512" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1519 469,1512 477,1512 473,1519" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 326 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 390 L 326 945" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 945 L 473 945" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 945 L 473 957" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,964 469,957 477,957 473,964" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 1061 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1061 390 L 1061 402" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1061,409 1057,402 1065,402 1061,409" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 179 185 L 179 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="179,224 175,217 183,217 179,224" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 402" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="179,409 175,402 183,402 179,409" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 326 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 390 L 326 575" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 575 L 326 575" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 575 L 179 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="179,594 175,587 183,587 179,594" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 326 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 390 L 326 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 760 L 326 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 760 L 179 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="179,779 175,772 183,772 179,779" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 473 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 390 L 473 402" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,409 469,402 477,402 473,409" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 326 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 390 L 326 1500" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 1500 L 473 1500" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1500 L 473 1512" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1519 469,1512 477,1512 473,1519" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 326 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 390 L 326 945" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 326 945 L 473 945" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 945 L 473 957" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,964 469,957 477,957 473,964" stroke="rgb(0,0,0)"/>
+  <path d="M 179 370 L 179 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 179 390 L 1061 390" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1061 390 L 1061 402" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1061,409 1057,402 1065,402 1061,409" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 555 L 473 587" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,594 469,587 477,587 473,594" stroke="rgb(0,0,0)"/>
+  <path d="M 588 482 L 644 482" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,482 644,478 644,486 651,482" stroke="rgb(0,0,0)"/>
+  <path d="M 473 740 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 588 667 L 644 667" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,667 644,663 644,671 651,667" stroke="rgb(0,0,0)"/>
+  <path d="M 767 740 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 767 760" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 760 L 473 772" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,779 469,772 477,772 473,779" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1110 L 473 1142" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1149 469,1142 477,1142 473,1149" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1037 L 644 1037" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1037 644,1033 644,1041 651,1037" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1295 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <path d="M 588 1222 L 644 1222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="651,1222 644,1218 644,1226 651,1222" stroke="rgb(0,0,0)"/>
+  <path d="M 767 1295 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 767 1315" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 473 1315 L 473 1327" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="473,1334 469,1327 477,1327 473,1334" stroke="rgb(0,0,0)"/>
+  <rect fill="none" height="1645" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="1128" x="56" y="30"/>
+  <rect fill="none" height="350" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="246" x="56" y="30"/>
+  <rect fill="none" height="1275" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="1128" x="56" y="400"/>
+  <rect fill="none" height="535" stroke="rgb(243,152,0)" stroke-width="3" width="246" x="56" y="400"/>
+  <rect fill="none" height="1275" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="540" x="350" y="400"/>
+  <rect fill="none" height="535" stroke="rgb(243,152,0)" stroke-width="3" width="540" x="350" y="400"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="540" x="350" y="400"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="540" x="350" y="585"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="246" x="350" y="770"/>
+  <rect fill="none" height="535" stroke="rgb(243,152,0)" stroke-width="3" width="540" x="350" y="955"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="540" x="350" y="955"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="540" x="350" y="1140"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="246" x="350" y="1325"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="246" x="350" y="1510"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="246" x="938" y="400"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="99" x="179.5" y="406">&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#22793;&#26356;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="121" x="620.5" y="406">&#12497;&#12483;&#12465;&#12540;&#12472;&#12450;&#12483;&#12503;&#12487;&#12540;&#12488;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="135" x="620.5" y="960">Moodle&#12398;&#12496;&#12540;&#12472;&#12519;&#12531;&#12450;&#12483;&#12503;</text>
+</svg>

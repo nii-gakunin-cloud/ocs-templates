@@ -1,0 +1,58 @@
+#!/bin/bash
+
+set -x
+
+USER_NAME=$1
+ANSWER_LIST=$2
+WORK_DIR=$3
+
+# constants
+ROOT_DIR=/jupyter
+USER_DIR=$ROOT_DIR/users/$USER_NAME
+
+usage()
+{
+  cat <<EOF
+
+Usage:
+  ${0##*/} USER_NAME ANSWER_LIST COLLETION_WORK_DIR
+
+  Arguments:
+    USER_NAME : user name of the answer notebook to collect.
+    ANSWER_LIST : path of answer file or directory list. 
+    WORK_DIR : path of work directory of answer collection.
+EOF
+  exit 1
+}
+
+# check arguments
+[ "$#" -eq 3 ] || {
+  usage
+}
+
+# check user entry
+[ -z "$(ls -l "$ROOT_DIR/users" | egrep " $USER_NAME$")" ] && {
+  echo "user '$USER_NAME' does not exist"
+  usage
+}
+
+[ -e $WORK_DIR/$USER_NAME ] || {
+  mkdir -p $WORK_DIR/$USER_NAME
+}
+# collect answer
+for item in ${ANSWER_LIST[@]}
+do
+  cp -rp $USER_DIR/$item $WORK_DIR/$USER_NAME/$item
+done
+
+# remove unnecessary materials
+for item in $(find $WORK_DIR/$USER_NAME -name ".ipynb_checkpoints" -print)
+do
+  rm -rf $item
+done
+
+# convert notebooks to HTML file
+for item in $(find $WORK_DIR/$USER_NAME -name "*.ipynb" -print)
+do
+  jupyter nbconvert --template basic $item --stdout > ${item%.*}.html 
+done

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+MOODLE_OLD_VERSION=$1
+MOODLE_NEW_VERSION=$2
+BRANCH_NAME=my_moodle
+MOODLE_REPOSITORY='git://git.moodle.org/moodle.git'
+
+/usr/bin/php /var/www/html/admin/cli/maintenance.php --enable
+
+set +e
+cd /var/www/${MOODLE_OLD_VERSION}
+git add -A
+git commit -m 'before upgrading'
+set -e
+
+cd /var/www
+git clone -b ${MOODLE_NEW_VERSION} --reference /var/www/${MOODLE_OLD_VERSION} ${MOODLE_REPOSITORY} ${MOODLE_NEW_VERSION}
+cd ${MOODLE_NEW_VERSION}
+git repack -a
+rm .git/objects/info/alternates
+git remote add old file:///var/www/${MOODLE_OLD_VERSION}
+git fetch old
+git checkout -b ${BRANCH_NAME}
+set +e
+git cherry-pick ${MOODLE_OLD_VERSION}..old/${BRANCH_NAME}
+if [ $? != 0 ]; then
+  set -e
+  git cherry-pick old/${MOODLE_OLD_VERSION}..old/${BRANCH_NAME}
+fi
+set -e
+
+cp /var/www/html/config.php /var/www/${MOODLE_NEW_VERSION}
+
+rm /var/www/html
+ln -s /var/www/${MOODLE_NEW_VERSION} /var/www/html
+
+/usr/bin/php /var/www/html/admin/cli/upgrade.php --non-interactive
+/usr/bin/php /var/www/html/admin/cli/maintenance.php --disable
+
+yum -y update

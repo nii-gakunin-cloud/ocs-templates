@@ -1,0 +1,82 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+
+source ~/.hub-config
+
+usage()
+{
+  cat <<EOF
+
+Usage:
+  ${0##*/} IMAGE_NAME BACKUP_DIR
+
+  Arguments:
+    IMAGE_NAME : image file name of the jupyter notebook container which creates.
+    BACKUP_DIR : directory of backup which stores container image.
+EOF
+  exit 1
+}
+
+reportfailed()
+{
+    echo "Script failed...exiting. ($*)" 1>&2
+    echo
+    usage
+    exit 255
+}
+
+function image_upload()
+{
+    local imagefile="$1"
+    local node_info="$2"
+
+    ## Do tests that can be done quickly first, so user can fix simple problems faster:
+    [ "$imagefile" == ".tar" ] && reportfailed "The fourth parameter must be a file name to save the image into"
+    [ -f "$imagefile" ] || reportfailed "The imagefile ($imagefile) not found"
+    IFS=' '
+    set -- $node_info
+    thenode="$1"
+    thenode_ip="$2"
+    echo "Starting docker load for $thenode. Please wait for several minutes ..."
+    ## split the pipeline so we can get the pid of cat
+    exec 8< <(exec cat "$imagefile")
+    catpid="$!"
+    $SCRIPT_DIR/ssh-node $thenode_ip -q sudo docker load <&8 &
+    pid="$!"
+
+    while [ -d "/proc/$pid" ]; do
+	sleep 10
+    done
+    wait "$pid"
+    [ "$?" = "0" ] || reportfailed "docker load"
+    
+    echo "...finished docker load for $thenode..."
+    echo
+}
+
+
+imagename="${1%.tar}.tar"
+image_dir="$2"
+
+## Do tests that can be done quickly first, so user can fix simple problems faster:
+[ "$imagename" == ".tar" ] && reportfailed "The fourth parameter must be a file name to save the image into"
+imagefile="$image_dir/$imagename"
+[ -f "$imagefile" ] || reportfailed "The imagefile ($imagename) not found"
+
+# get repository name
+repository=$(tar -O -xvf "$imagefile" repositories | awk 'BEGIN{FS="\""}{print $2}') 
+
+# make a unique name based on the time
+for item in "${NODES[@]}"; do
+    image_upload "$imagefile" "$item"
+done
+
+echo "Set the new image which Docker Spawner uses ..." 
+$SCRIPT_DIR/ssh-node "$HUB_IP" -q sudo docker exec -i root_jupyterhub_1 bash << EOF
+sed -i "s,c.DockerSpawner.container_image = .*,c.DockerSpawner.container_image = '$repository'," /srv/jupyterhub_config/jupyterhub_config.py 
+EOF
+
+echo "Restarting JupyterHub configured to new image ..."
+$SCRPT_DIR/ssh-node $HUB_IP -q sudo docker restart root_jupyterhub_1 &
+echo "done."

@@ -1,0 +1,21 @@
+- file:
+    path: "{{certs_dir}}"
+    state: directory
+- blockinfile:
+    path: "{{certs_dir}}/auth-proxy.cer"
+    block: "{{auth_proxy_certificate}}"
+    create: yes
+    marker: ''
+    
+- blockinfile:
+    path: "{{certs_dir}}/auth-proxy.chained.cer"
+    block: "{{auth_proxy_chained_certificate}}"
+    create: yes
+    marker: ''
+    
+- blockinfile:
+    path: "{{certs_dir}}/auth-proxy.key"
+    block: "{{auth_proxy_key}}"
+    create: yes
+    marker: ''
+    

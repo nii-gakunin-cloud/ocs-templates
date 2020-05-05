@@ -1,0 +1,22 @@
+---
+- include: login-defs.yml
+
+- yum: name=epel-release
+
+- name: python
+  yum: name=python,python-pip,git,nmap-ncat state=latest
+
+- name: tornado
+  pip: name=tornado<6 state=latest
+
+- name: install restuser
+  git: repo=https://github.com/minrk/restuser.git dest=/srv/restuser
+
+- copy: src=restuser.service dest=/etc/systemd/system/restuser.service
+- command: systemctl daemon-reload
+
+- name: start restuser
+  service: name=restuser state=restarted enabled=yes
+
+- name: wait for restuser socket to exist
+  wait_for: "path=/var/run/restuser.sock"

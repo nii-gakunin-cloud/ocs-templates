@@ -1,0 +1,304 @@
+#!/bin/bash
+#set -x
+
+umask 0022
+shopt -s extglob
+
+ONE_DIRECTIONAL=1
+# one-directional mode
+
+BRIEF_OPT=
+IGNORE_D_REGEX='^(\.git|\.local|\.ipynb_checkpoints|\.ipython|\.jupyter)$'
+IGNORE_R_REGEX='^(\.bash_history)$'
+
+
+
+
+#
+# control functions
+#
+show_usage () {
+  echo    "Usage:" 1>&2
+  if [ ${ONE_DIRECTIONAL} -eq 1 ]; then
+    echo -e "\tnotebook-diff FILE-SRC FILE-DST" 1>&2
+    echo -e "\tnotebook-diff DIRECTORY-SRC DIRECTORY-DST" 1>&2
+  else
+    echo -e "\tnotebook-diff FILE1 FILE2" 1>&2
+    echo -e "\tnotebook-diff DIRECTORY1 DIRECTORY2" 1>&2
+  fi
+  exit 1
+}
+
+clean_up() {
+  cd
+  if [ ! -z "${TMP_WORK_DIR}" ]; then
+    if [ -d "${TMP_WORK_DIR}" ]; then
+      rm -rf "${TMP_WORK_DIR}"
+    fi
+  fi
+}
+
+error_exit() {
+  local IFS=' '
+  cat <<<"notebook-diff: ${*}" 1>&2
+  clean_up
+  exit 1
+}
+
+ensure_work_dir() {
+  if [ -z "${TMP_WORK_DIR}" ]; then
+    TMP_WORK_DIR="$(mktemp --tmpdir --directory notebook-diff-XXXXXXXXXXXX)"
+    if [ ! -d "${TMP_WORK_DIR}" ]; then
+      error_exit "failed to create temporary directory ${TMP_WORK_DIR}."
+    fi
+    mkdir -p "${TMP_WORK_DIR}/text"
+  fi
+}
+
+ensure_normalize_jq_filter() {
+  if [ -z "${NORMALIZE_JQ_FILTER}" ]; then
+    NORMALIZE_JQ_FILTER=$(cat <<'END_OF_JQ_FILTER'
+      [
+        .cells
+        | map(
+          {
+            "cell_type": .cell_type,
+            "cell_text": [
+              (
+                .source[]
+                  | rtrimstr( "\n" )
+                  | gsub( "^\\s+|\\s+$"; "" )
+                  | select( test( "^\\s*$" ) | not )
+              )
+            ]
+          }
+        )
+        | .[]
+        | select( 0 < ( .cell_text | length ) )
+      ]
+END_OF_JQ_FILTER
+    )
+  fi
+}
+
+
+
+
+#
+# diff functions
+#
+normalize_jupyter_notebook () {
+  local nb_file="${1}"
+  local nb_name="${2}"
+  local text_file="${TMP_WORK_DIR}/text/${nb_name}"
+
+  ensure_normalize_jq_filter
+  jq \
+     --sort-keys \
+     --monochrome-output \
+     --indent 1 \
+     "${NORMALIZE_JQ_FILTER}" \
+     <"${nb_file}" \
+     >"${text_file}" \
+     2>/dev/null
+  local es=$?
+
+  return ${es}
+}
+
+diff_jupyter_notebooks () {
+  local file_x="${1}"
+  local file_y="${2}"
+
+  ensure_work_dir
+
+  local text_file_x="$(basename "${file_x}")"
+  local text_file_y="$(basename "${file_y}")"
+  if [ "${text_file_x}" = "${text_file_y}" ]; then
+    text_file_x+="-1"
+    text_file_y+="-2"
+  fi
+
+  local normalize_error=0
+  normalize_jupyter_notebook "${file_x}" "${text_file_x}"
+  if [ $? -ne 0 ]; then
+    echo "WARNING: ${file_x}: failed to normalize notebook, treat as regular file."
+    normalize_error=1
+  fi
+  normalize_jupyter_notebook "${file_y}" "${text_file_y}"
+  if [ $? -ne 0 ]; then
+    echo "WARNING: ${file_y}: failed to normalize notebook, treat as regular file."
+    normalize_error=2
+  fi
+  if [ ${normalize_error} -ne 0 ]; then
+    diff ${BRIEF_OPT} "${file_x}" "${file_y}"
+    rm -f "${TMP_WORK_DIR}/text/${text_file_x}" "${TMP_WORK_DIR}/text/${text_file_y}"
+    return $?
+  fi
+
+  command pushd "${TMP_WORK_DIR}/text/" >/dev/null
+  diff ${BRIEF_OPT} "${text_file_x}" "${text_file_y}"
+  local es=$?
+  command popd >/dev/null
+
+  rm -f "${TMP_WORK_DIR}/text/${text_file_x}" "${TMP_WORK_DIR}/text/${text_file_y}"
+
+  return ${es}
+}
+
+diff_regular_files () {
+  local file_x="${1}"
+  local file_y="${2}"
+  local es=0
+
+  if [ ! -r "${file_x}" ]; then
+    cat <<<"notebook-diff: ${file_x}: Permission denied" 1>&2
+    es=2
+  fi
+  if [ ! -r "${file_y}" ]; then
+    cat <<<"notebook-diff: ${file_y}: Permission denied" 1>&2
+    es=2
+  fi
+  if [ ${es} -ne 0 ]; then
+    return ${es}
+  fi
+
+  if [ "${file_x: -6}" = '.ipynb' -o "${file_y: -6}" = '.ipynb' ]; then
+    diff_jupyter_notebooks "${file_x}" "${file_y}"
+    es=$?
+  else
+    diff ${BRIEF_OPT} "${file_x}" "${file_y}"
+    es=$?
+  fi
+  return ${es}
+}
+
+diff_directories () {
+  local dir_x="${1%%+(/)}"
+  local dir_y="${2%%+(/)}"
+  local level="${3-0}"
+  local differ=0
+
+  if [ ! -x "${dir_x}" ]; then
+    cat <<<"notebook-diff: ${dir_x}: Permission denied" 1>&2
+    differ=2
+  fi
+  if [ ! -x "${dir_y}" ]; then
+    cat <<<"notebook-diff: ${dir_y}: Permission denied" 1>&2
+    differ=2
+  fi
+  if [ ${differ} -ne 0 ]; then
+    return ${differ}
+  fi
+
+  ensure_work_dir
+  local list_x="${TMP_WORK_DIR}/entries.${level}.x.list"
+  local list_y="${TMP_WORK_DIR}/entries.${level}.y.list"
+
+  find "${dir_x}" -mindepth 1 -maxdepth 1 -not -type d -print0 | xargs -0 -I PATH basename PATH | grep -Ev "${IGNORE_R_REGEX}" | sort >"${list_x}"
+  if [ ${PIPESTATUS[0]} -ne 0 -o ${PIPESTATUS[1]} -ne 0 ]; then
+    differ=2
+  fi
+  find "${dir_y}" -mindepth 1 -maxdepth 1 -not -type d -print0 | xargs -0 -I PATH basename PATH | grep -Ev "${IGNORE_R_REGEX}" | sort >"${list_y}"
+  if [ ${PIPESTATUS[0]} -ne 0 -o ${PIPESTATUS[1]} -ne 0 ]; then
+    differ=2
+  fi
+  if [ ${ONE_DIRECTIONAL} -eq 1 ]; then
+    comm -23 "${list_x}" "${list_y}" | xargs -I PATH echo "Added: ${dir_x}/"PATH
+    if [ $(comm -23 "${list_x}" "${list_y}" | wc -l) -gt 0 ]; then
+      differ=1
+    fi
+  else
+    comm -23 "${list_x}" "${list_y}" | xargs -I PATH echo "Only in ${dir_x}/:" PATH
+    comm -13 "${list_x}" "${list_y}" | xargs -I PATH echo "Only in ${dir_y}/:" PATH
+    if [ $(comm -3 "${list_x}" "${list_y}" | wc -l) -gt 0 ]; then
+      differ=1
+    fi
+  fi
+  while read line; do
+    diff_regular_files "${dir_x}/${line}" "${dir_y}/${line}"
+    if [ $? -ne 0 ]; then
+      if [ ${ONE_DIRECTIONAL} -eq 1 ]; then
+        echo "Changed: ${dir_x}/${line}"
+      fi
+      differ=1
+    fi
+  done < <(comm -12 "${list_x}" "${list_y}")
+
+  find "${dir_x}" -mindepth 1 -maxdepth 1 -type d -print0 | xargs -0 -I PATH basename PATH | grep -Ev "${IGNORE_D_REGEX}" | sort >"${list_x}"
+  if [ ${PIPESTATUS[0]} -ne 0 -o ${PIPESTATUS[1]} -ne 0 ]; then
+    differ=2
+  fi
+  find "${dir_y}" -mindepth 1 -maxdepth 1 -type d -print0 | xargs -0 -I PATH basename PATH | grep -Ev "${IGNORE_D_REGEX}" | sort >"${list_y}"
+  if [ ${PIPESTATUS[0]} -ne 0 -o ${PIPESTATUS[1]} -ne 0 ]; then
+    differ=2
+  fi
+  if [ ${ONE_DIRECTIONAL} -eq 1 ]; then
+    comm -23 "${list_x}" "${list_y}" | xargs -I PATH echo "Added: ${dir_x}/"PATH/
+    if [ $(comm -23 "${list_x}" "${list_y}" | wc -l) -gt 0 ]; then
+      differ=1
+    fi
+  else
+    comm -23 "${list_x}" "${list_y}" | xargs -I PATH echo "Only in ${dir_x}/:" PATH/
+    comm -13 "${list_x}" "${list_y}" | xargs -I PATH echo "Only in ${dir_y}/:" PATH/
+    if [ $(comm -3 "${list_x}" "${list_y}" | wc -l) -gt 0 ]; then
+      differ=1
+    fi
+  fi
+  while read line; do
+    diff_directories "${dir_x}/${line}" "${dir_y}/${line}" $((${level} + 1))
+    if [ $? -ne 0 ]; then
+      if [ ${ONE_DIRECTIONAL} -eq 1 ]; then
+        echo "Changed: ${dir_x}/${line}/"
+      fi
+      differ=1
+    fi
+  done < <(comm -12 "${list_x}" "${list_y}")
+
+  rm -f "${list_x}" "${list_y}"
+  return ${differ}
+}
+
+
+
+
+#
+# main
+#
+if [ $# -ne 2 ]; then
+  show_usage
+fi
+PATH_X="${1}"
+PATH_Y="${2}"
+
+diff_main () {
+  local path_x="${1}"
+  local path_y="${2}"
+  if [ ! -e "${path_x}" ]; then
+    error_exit "${path_x}: No such file or directory"
+  elif [ ! -e "${path_y}" ]; then
+    error_exit "${path_y}: No such file or directory"
+  elif [ -d "${path_x}" -a -d "${path_y}" ]; then
+    BRIEF_OPT=-q
+    diff_directories "${path_x}" "${path_y}"
+    return $?
+  elif [ -d "${path_x}" ]; then
+    diff_main "${path_x%%+(/)}/$(basename "${path_y}")" "${path_y}"
+    return $?
+  elif [ -d "${path_y}" ]; then
+    diff_main "${path_x}" "${path_y%%+(/)}/$(basename "${path_x}")"
+    return $?
+  else
+    diff_regular_files "${path_x}" "${path_y}"
+    return $?
+  fi
+}
+
+diff_main "${PATH_X}" "${PATH_Y}"
+ES=$?
+
+
+
+
+clean_up
+exit ${ES}

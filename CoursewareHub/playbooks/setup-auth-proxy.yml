@@ -1,0 +1,3 @@
+- hosts: manager
+  roles:
+  - role: auth-proxy

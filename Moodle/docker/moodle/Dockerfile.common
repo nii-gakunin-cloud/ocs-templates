@@ -1,0 +1,24 @@
+FROM centos:7
+
+RUN yum -y install \
+  aspell \
+  git \
+  graphviz \
+  graphviz-gd \
+  httpd \
+  which \
+  patch
+
+RUN ln -sf /dev/stdout /var/log/httpd/access_log \
+  && ln -sf /dev/stderr /var/log/httpd/error_log
+
+COPY scripts /usr/local/bin/
+COPY patches /tmp/moodle.patches
+
+EXPOSE 80
+
+ENTRYPOINT ["/usr/local/bin/init"]
+
+RUN mkdir -p /usr/local/share \
+  && cd /usr/local/share \
+  && git clone https://github.com/moodle/moodle.git

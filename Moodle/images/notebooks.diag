@@ -1,0 +1,118 @@
+blockdiag {
+    node_width = 230;
+    node_height = 145;
+
+group {
+
+    orientation = portrait;
+    shape = line;
+    style = none;
+
+    group {
+        shape = line;
+        style = none;
+        "010" -> "020";
+    }
+
+    group {
+        shape = line;
+        style = none;
+
+        group {
+            label = "設定ファイルの変更"
+            shape = line;
+#            style = dashed;
+            orientation = portrait;
+            "030";
+            "031";
+            "032";
+        }
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+
+            group {
+                label = "パッケージアップデート"
+                shape = line;
+                orientation = portrait;
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "121";
+                    "191:パッケージアップデート";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "122";
+                    "192:パッケージアップデート";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "193:パッケージアップデート";
+                }
+                "121" -> "122" -> "193:パッケージアップデート";
+                "121" -> "191:パッケージアップデート";
+                "122" -> "192:パッケージアップデート";
+                "192:パッケージアップデート" -> "193:パッケージアップデート";
+            }
+
+            group {
+                label = "Moodleのバージョンアップ"
+                shape = line;
+                orientation = portrait;
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "141";
+                    "191:Moodleのバージョンアップ";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "142";
+                    "192:Moodleのバージョンアップ";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "193:Moodleのバージョンアップ";
+                }
+                "141" -> "142" -> "193:Moodleのバージョンアップ";
+                "141" -> "191:Moodleのバージョンアップ";
+                "142" -> "192:Moodleのバージョンアップ";
+                "192:Moodleのバージョンアップ" -> "193:Moodleのバージョンアップ";
+            }
+            group {
+                shape = line;
+                style = none;
+                "155";
+            }
+        }
+
+        group {
+            shape = line;
+            style = none;
+            "220";
+        }
+    }
+
+    "020" -> "030";
+    "020" -> "031";
+    "020" -> "032";
+    "020" -> "121";
+    "020" -> "155";
+    "020" -> "141";
+    "020" -> "220";
+}
+"900";
+}

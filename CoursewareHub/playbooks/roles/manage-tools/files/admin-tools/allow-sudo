@@ -1,0 +1,23 @@
+#!/bin/bash
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+
+source ~/.hub-config
+source $SCRIPT_DIR/functions
+
+servername="jupyter-$USER"
+node_info="$(find_node "$servername")" || exit
+IFS=' '
+set -- $node_info
+thenode=$1
+thenode_ip=$2
+
+$SCRIPT_DIR/ssh-node "$thenode_ip" -q sudo docker exec -i "$servername" bash <<EOF
+set -e
+if grep "$USER" /etc/sudoers 1>/dev/null; then
+   echo "Sudo already allowed"
+else
+   echo '$USER ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers
+   echo "Sudo is now allowed for $USER."
+fi
+EOF
+

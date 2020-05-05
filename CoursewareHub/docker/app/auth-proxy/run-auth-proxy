@@ -1,0 +1,1 @@
+sudo docker run -v /home/ubuntu/auth-proxy/php:/var/www/php -v /home/ubuntu/auth-proxy/nginx/certs:/etc/nginx/certs --link root_jpydb_1:root_jpydb_1 --privileged --name root_nginx_3 -p 443:443 -d auth-proxy:latest /sbin/init

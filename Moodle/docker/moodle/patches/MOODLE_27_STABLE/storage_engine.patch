@@ -1,0 +1,17 @@
+--- a/lib/dml/mysqli_native_moodle_database.php	2017-05-11 09:37:17.260401221 +0000
++++ b/lib/dml/mysqli_native_moodle_database.php	2017-05-11 09:42:21.527898381 +0000
+@@ -181,12 +181,12 @@
+         }
+ 
+         // get the default database engine
+-        $sql = "SELECT @@storage_engine";
++        $sql = "SELECT @@default_storage_engine";
+         $this->query_start($sql, NULL, SQL_QUERY_AUX);
+         $result = $this->mysqli->query($sql);
+         $this->query_end($result);
+         if ($rec = $result->fetch_assoc()) {
+-            $engine = $rec['@@storage_engine'];
++            $engine = $rec['@@default_storage_engine'];
+         }
+         $result->close();
+ 

@@ -1,0 +1,40 @@
+- file:
+    path: "{{auth_proxy_dir}}"
+    state: directory
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+  become: true
+- file:
+    path: "{{saml_dir}}"
+    state: directory
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+  become: true
+- shell: tr -cd 'a-z0-9' < /dev/urandom | dd bs=32 count=1 status=none
+  register: cron_key_text
+- set_fact:
+    cron_key: "{{cron_key_text.stdout}}"
+- template:
+    src: saml/module_cron.php
+    dest: "{{saml_dir}}/"
+- copy:
+    src: saml/authsources.php
+    dest: "{{saml_dir}}/"
+- copy:
+    src: supervisord.conf
+    dest: "{{auth_proxy_dir}}/"
+- template:
+    src: nginx.conf
+    dest: "{{auth_proxy_dir}}/"
+- template:
+    src: hub-const.php
+    dest: "{{auth_proxy_dir}}/"
+- template:
+    src: crontab
+    dest: "{{auth_proxy_dir}}/"
+    mode: 0600
+    owner: root
+    group: root
+  become: true
+- name: pull image
+  command: "docker pull {{auth_proxy_image}}"

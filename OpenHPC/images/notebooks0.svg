@@ -1,0 +1,124 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 886 1240">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2"/>
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>blockdiag {
+    node_width = 210;
+    node_height = 160;
+
+    group {
+        color = "#e6e6fa";
+        label = "&#29872;&#22659;&#27083;&#31689;";
+        orientation = portrait;
+        "010" -&gt; "020";
+
+        group {
+            orientation = portrait;
+            color = "#e6e6fa";
+            "030";
+            "031";
+        }
+        group {
+            orientation = portrait;
+            color = "#e6e6fa";
+            "051";
+            "052";
+        }
+        group {
+            orientation = portrait;
+            color = "#e6e6fa";
+            "061";
+            "062";
+        }
+        "020" -&gt; "030";
+        "020" -&gt; "031";
+        "020" -&gt; "051";
+        "020" -&gt; "052";
+        "020" -&gt; "061";
+        "020" -&gt; "062";
+    }
+
+    group {
+        label = "&#12472;&#12519;&#12502;&#23455;&#34892;";
+        color = "#9acd32";
+        orientation = portrait;
+        "120";
+        "141";
+        "142";
+    }
+    
+    group {
+        label = "&#30772;&#26820;";
+        color = "#d2b48c";
+        "920";
+    }
+}
+</desc>
+  <rect fill="rgb(230,230,250)" height="780" style="filter:url(#filter_blur)" width="774" x="56" y="30"/>
+  <rect fill="rgb(230,230,250)" height="380" style="filter:url(#filter_blur)" width="226" x="56" y="430"/>
+  <rect fill="rgb(230,230,250)" height="380" style="filter:url(#filter_blur)" width="226" x="330" y="430"/>
+  <rect fill="rgb(230,230,250)" height="380" style="filter:url(#filter_blur)" width="226" x="604" y="430"/>
+  <rect fill="rgb(154,205,50)" height="180" style="filter:url(#filter_blur)" width="774" x="56" y="830"/>
+  <rect fill="rgb(210,180,140)" height="180" style="filter:url(#filter_blur)" width="226" x="56" y="1030"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="67" y="46"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="67" y="246"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="67" y="446"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="67" y="646"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="341" y="446"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="341" y="646"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="615" y="446"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="615" y="646"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="67" y="846"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="341" y="846"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="615" y="846"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="210" x="67" y="1046"/>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="64" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="151">&#12481;&#12455;&#12483;&#12463;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="140">Slurm</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="129">IP&#12450;&#12489;&#12524;&#12473;&#12392;&#12507;&#12473;&#12488;&#21517;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="118">&#27083;&#31689;&#29872;&#22659;&#12395;&#21106;&#12426;&#24403;&#12390;&#12427;&#12522;&#12477;&#12540;&#12473;&#37327;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="107">VC&#12494;&#12540;&#12489;&#12395;&#20849;&#36890;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="96">VCP SDK</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="85">&#27010;&#35201;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="206" y="62">010: &#12497;&#12521;&#12513;&#12540;&#12479;&#35373;&#23450;</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="64" y="240"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="340">Slurm&#12398;&#29366;&#24907;&#12434;&#30906;&#35469;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="329">Ansible&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="318">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="307">VC&#12487;&#12451;&#12473;&#12463;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="296">&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="285">&#27083;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="206" y="262">020: OpenHPC&#12398;&#36215;&#21205;</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="64" y="440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="529">&#32232;&#38598;&#12375;&#12383;&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#21453;&#26144;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="518">&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#32232;&#38598;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="507">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="496">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="485">&#27010;&#35201;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="206" y="462">030: &#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#32232;&#38598;</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="64" y="640"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="729">&#32232;&#38598;&#12375;&#12383;&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#21453;&#26144;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="718">&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#32232;&#38598;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="707">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="696">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="685">&#27010;&#35201;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="206" y="662">031: &#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12398;&#32232;&#38598;(slurm.conf)</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="338" y="440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="340" width="206" y="496">&#12518;&#12540;&#12470;&#30331;&#37682;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="340" width="206" y="485">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="340" width="206" y="462">051: &#12518;&#12540;&#12470;&#12398;&#36861;&#21152;</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="338" y="640"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="340" width="206" y="696">&#12518;&#12540;&#12470;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="340" width="206" y="685">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="340" width="206" y="662">052: &#12518;&#12540;&#12470;&#12398;&#21066;&#38500;</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="612" y="440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="614" width="206" y="496">&#35373;&#23450;&#22793;&#26356;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="614" width="206" y="485">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="614" width="206" y="462">061: Singularity&#12398;&#12525;&#12540;&#12489;</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="612" y="640"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="614" width="206" y="696">&#35373;&#23450;&#22793;&#26356;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="614" width="206" y="685">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="614" width="206" y="662">062: Singularity&#12398;&#12450;&#12531;&#12525;&#12540;&#12489;</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="64" y="840"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="896">Singularity&#12398;&#23455;&#34892;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="885">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="206" y="862">120: Singularity&#12398;&#21033;&#29992;</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="338" y="840"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="340" width="206" y="907">HPL&#12398;&#23455;&#34892;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="340" width="206" y="896">&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="340" width="206" y="885">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="340" width="206" y="862">141: Linpack&#12505;&#12531;&#12481;&#12510;&#12540;&#12463;-HPL</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="612" y="840"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="614" width="206" y="920">HPL&#12398;&#23455;&#34892;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="614" width="206" y="909">&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="614" width="206" y="898">&#21069;&#25552;&#26465;&#20214;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="614" width="206" y="856">142: Linpack&#12505;&#12531;&#12481;&#12510;&#12540;&#12463;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="614" width="206" y="869">HPL(Intel MLK Benchmark)</text><rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="210" x="64" y="1040"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="1107">Ansible&#35373;&#23450;&#12398;&#12463;&#12522;&#12450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="1096">&#27083;&#31689;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="206" y="1085">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="206" y="1062">920: OpenHPC&#29872;&#22659;&#12398;&#21066;&#38500;</text><path d="M 169 200 L 169 232" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="169,239 165,232 173,232 169,239" stroke="rgb(0,0,0)"/>
+  <path d="M 169 400 L 169 432" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="169,439 165,432 173,432 169,439" stroke="rgb(0,0,0)"/>
+  <path d="M 169 400 L 169 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 169 420 L 306 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 306 420 L 306 620" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 169 620 L 306 620" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 169 620 L 169 632" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="169,639 165,632 173,632 169,639" stroke="rgb(0,0,0)"/>
+  <path d="M 169 400 L 169 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 169 420 L 443 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 443 420 L 443 432" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="443,439 439,432 447,432 443,439" stroke="rgb(0,0,0)"/>
+  <path d="M 169 400 L 169 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 169 420 L 306 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 306 420 L 306 620" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 306 620 L 443 620" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 443 620 L 443 632" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="443,639 439,632 447,632 443,639" stroke="rgb(0,0,0)"/>
+  <path d="M 169 400 L 169 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 169 420 L 717 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 717 420 L 717 432" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="717,439 713,432 721,432 717,439" stroke="rgb(0,0,0)"/>
+  <path d="M 169 400 L 169 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 169 420 L 580 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 580 420 L 580 620" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 580 620 L 717 620" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 717 620 L 717 632" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="717,639 713,632 721,632 717,639" stroke="rgb(0,0,0)"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="44" x="443.0" y="36">&#29872;&#22659;&#27083;&#31689;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="55" x="443.5" y="836">&#12472;&#12519;&#12502;&#23455;&#34892;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="22" x="169.0" y="1036">&#30772;&#26820;</text>
+</svg>

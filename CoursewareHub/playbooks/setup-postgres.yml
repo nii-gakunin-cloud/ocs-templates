@@ -1,0 +1,6 @@
+- become: true
+  hosts: all
+  roles:
+  - role: postgres/manager
+    when: "'manager' in group_names"
+  - postgres/common

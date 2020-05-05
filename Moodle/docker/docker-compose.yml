@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  base:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle:1.6-base
+    build: ./base
+  moodle-common:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle:common
+    build:
+      context: ./moodle
+      dockerfile: Dockerfile.common
+  moodle-72:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle:php72
+    build: ./moodle
+  moodle-73:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle:php73
+    build:
+      context: ./moodle
+      args:
+        PHP_VERSION: php73
+  shib:
+    image: harbor.vcloud.nii.ac.jp/vcp/shibboleth:sp-3.0.4
+    build: ./shibboleth
+  shib-moodle:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle:shibboleth-3.0.4
+    build: ./moodle-shibboleth

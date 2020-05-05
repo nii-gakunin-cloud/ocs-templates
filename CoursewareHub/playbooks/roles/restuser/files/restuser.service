@@ -1,0 +1,12 @@
+[Unit]
+Description=restuser
+After=network.target
+
+[Service]
+ExecStart=/bin/python restuser.py --socket=/var/run/restuser.sock --skeldir=/etc/skel --homedir=/jupyter/users/USERNAME
+ExecStop=/bin/kill -INT ${MAINPID}
+Restart=always
+WorkingDirectory=/srv/restuser/
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,2 @@
+- name: pull image
+  command: "docker pull {{postgres_image}}"

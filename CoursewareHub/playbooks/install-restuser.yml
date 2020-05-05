@@ -1,0 +1,4 @@
+- become: true
+  hosts: manager
+  roles:
+  - restuser

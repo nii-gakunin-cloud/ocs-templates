@@ -1,0 +1,51 @@
+blockdiag {
+    node_width = 210;
+    node_height = 160;
+
+    group {
+        color = "#e6e6fa";
+        label = "環境構築";
+        orientation = portrait;
+        "010" -> "020";
+
+        group {
+            orientation = portrait;
+            color = "#e6e6fa";
+            "030";
+            "031";
+        }
+        group {
+            orientation = portrait;
+            color = "#e6e6fa";
+            "051";
+            "052";
+        }
+        group {
+            orientation = portrait;
+            color = "#e6e6fa";
+            "061";
+            "062";
+        }
+        "020" -> "030";
+        "020" -> "031";
+        "020" -> "051";
+        "020" -> "052";
+        "020" -> "061";
+        "020" -> "062";
+    }
+
+    group {
+        label = "ジョブ実行";
+        color = "#9acd32";
+        orientation = portrait;
+        "120";
+        "141";
+        "142";
+    }
+    
+    group {
+        label = "破棄";
+        color = "#d2b48c";
+        "920";
+    }
+}

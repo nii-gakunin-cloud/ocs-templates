@@ -1,0 +1,8 @@
+postgres_image: "postgres:11"
+jupyterhub_image: "harbor.vcloud.nii.ac.jp/vcp/coursewarehub:coursewarehub"
+auth_proxy_image: "harbor.vcloud.nii.ac.jp/vcp/coursewarehub:auth-proxy"
+
+postgres_dir: /jupyter/psql
+certs_dir: "{{base_dir}}/certs"
+auth_proxy_dir: "{{base_dir}}/auth-proxy"
+saml_dir: "{{base_dir}}/auth-proxy/saml"

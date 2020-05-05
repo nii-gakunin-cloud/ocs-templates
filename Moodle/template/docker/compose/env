@@ -1,0 +1,3 @@
+MYSQL_DATABASE={{db_moodle_db}}
+MYSQL_USER={{db_moodle_db_user}}
+MYSQL_PASSWORD={{lookup('hashi_vault', 'secret=' + db_vault_path + ':password')}}

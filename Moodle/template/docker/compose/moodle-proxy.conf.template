@@ -1,0 +1,12 @@
+ServerName {{moodle_url | regex_replace('https?://([^/]+)/?', '\\1')}}
+ProxyRequests Off
+RewriteEngine On
+
+{% if update_project_tag is defined and clear_test_env is not defined %}
+ProxyPassReverse / http://moodletest-{{update_project_tag}}/
+RewriteCond expr "-R '{{update_test_client}}'"
+RewriteRule ^/(.*) http://moodletest-{{update_project_tag}}/$1 [P,L]
+{% endif %}
+
+ProxyPassReverse / http://moodle-{{project_tag}}/
+RewriteRule ^/(.*) http://moodle-{{project_tag}}/$1 [P,L]

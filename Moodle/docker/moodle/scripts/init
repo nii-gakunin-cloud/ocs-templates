@@ -1,0 +1,86 @@
+#!/bin/bash
+
+init_moodle() {
+    [ -d /var/www/html ] && rmdir /var/www/html
+    cd /var/www && \
+      git clone -b ${MOODLE_VERSION} /usr/local/share/moodle/ ${MOODLE_VERSION}
+    ln -s /var/www/${MOODLE_VERSION} /var/www/html
+    if [ -d /tmp/moodle.patches/${MOODLE_VERSION} ]; then
+      pushd /var/www/${MOODLE_VERSION}
+      patch -p1 < /tmp/moodle.patches/${MOODLE_VERSION}/*.patch
+      rm -rf /tmp/${MOODLE_VERSION}
+      git add -A
+      git commit -m 'apply my_moodle patch'
+      popd
+    fi
+    rm -rf /tmp/moodle.patches
+
+    php /var/www/html/admin/cli/install.php \
+        --lang=ja \
+        --non-interactive \
+        --wwwroot=${MOODLE_URL} \
+        --dataroot=${MOODLE_DATAROOT} \
+        --dbtype=${MOODLE_DBTYPE} \
+        --dbhost=${CNT_NAME_MYSQL} \
+        --dbpass=${MYSQL_PASSWORD} \
+        --dbname=${MYSQL_DATABASE} \
+        --dbuser=${MYSQL_USER} \
+        --fullname="${MOODLE_FULLNAME:-Example University Moodle Demo}" \
+        --shortname="${MOODLE_SHORTNAME:-demo moodle}" \
+        --adminuser=${MOODLE_ADMIN} \
+        --adminpass=${MOODLE_ADMIN_PASSWORD} \
+        --agree-license 1>&2
+
+    : ${MOODLE_REVERSEPROXY:=true}
+    : ${MOODLE_SSLPROXY:=false}
+    if [ ${MOODLE_REVERSEPROXY,,} != "true" ]; then
+      MOODLE_REVERSEPROXY=false
+    fi
+    if [ ${MOODLE_SSLPROXY,,} != "true" ]; then
+      MOODLE_SSLPROXY=false
+    fi
+    sed -i -e "s#require_once#\$CFG->reverseproxy = ${MOODLE_REVERSEPROXY};\n\$CFG->sslproxy = ${MOODLE_SSLPROXY};\n\$CFG->pathtodu = '/usr/bin/du';\n\$CFG->aspellpath = '/usr/bin/aspell';\n\$CFG->pathtodot = '/usr/bin/dot';\n\nrequire_once#" \
+        /var/www/html/config.php
+    chmod +r /var/www/html/config.php
+    
+    cd /var/www/html && git checkout -b my_moodle
+    
+    mkdir -p /var/data/tmp
+    cp /var/www/html/config.php /var/data/tmp
+}
+
+set_config() {
+    key="$1"
+    value="$2"
+    php_escaped_value="$(php -r 'var_export($argv[1]);' "$value")"
+    sed_escaped_value="$(echo "$php_escaped_value" | sed 's/[\/&]/\\&/g')"
+    sed -i "s/\$CFG->$key[ ]*=[ ]*.\+/\$CFG->$key = $sed_escaped_value;/" /var/www/html/config.php
+}
+
+update_config_php() {
+    cp /var/www/html/config.php /var/www/html/config.php.bak
+    set_config 'wwwroot' "${MOODLE_URL}"
+    set_config 'dataroot' "${MOODLE_DATAROOT}"
+    set_config 'dbhost' "${CNT_NAME_MYSQL}"
+    set_config 'dbname' "${MYSQL_DATABASE}"
+    set_config 'dbuser' "${MYSQL_USER}"
+    set_config 'dbpass' "${MYSQL_PASSWORD}"
+}
+
+git config --global user.name "Moodle Admin"
+git config --global user.email moodle@`hostname`
+
+if [ $# -gt 0 -a "X$1" = 'X--no-install' ]; then
+  rm -rf /var/run/httpd/*
+  exec /usr/sbin/httpd -DFOREGROUND
+fi
+
+if [ ! -d /var/www/html/.git ]; then
+    init_moodle
+else
+    update_config_php
+fi
+cat /var/www/html/config.php
+
+rm -rf /var/run/httpd/*
+exec /usr/sbin/httpd -DFOREGROUND

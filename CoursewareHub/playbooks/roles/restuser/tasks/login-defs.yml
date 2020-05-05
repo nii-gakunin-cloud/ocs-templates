@@ -1,0 +1,5 @@
+- lineinfile:
+    dest: /etc/login.defs
+    regexp: '^(UMASK\s+).+$'
+    line: '\g<1>022'
+    backrefs: yes
