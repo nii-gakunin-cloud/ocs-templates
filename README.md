@@ -21,6 +21,6 @@
 
 - [講義演習環境テンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/CoursewareHub)
 (VCP SDK v20.04対応、AWS、Azureで動作確認済み)<br>
-Jupyter Notebook(https://jupyter.org/)を用いた講義演習環境を構築します。
+[Jupyter Notebook](https://jupyter.org/)を用いた講義演習環境を構築します。
 講義演習環境の基盤ソフトウェアには、JupyterHubを講義演習用に国立情報学研究所で拡張した[CoursewareHub](https://github.com/NII-cloud-operation)を用いています。
 CoursewareHubでは、教材配布、課題の回答収集、操作履歴の収集等の機能が提供されています。
