@@ -303,8 +303,8 @@ def setup_nb_workdir(work_dir):
     work = Path(work_dir)
     if not work.exists():
         work.mkdir(parents=True, exist_ok=True)
-    for sub_dir in ['images', 'scripts']:
-        dst_dir = (work / sub_dir).resolve()
+    for sub_dir in ['notebooks/images', 'scripts']:
+        dst_dir = (work / Path(sub_dir).name).resolve()
         src_dir = Path(sub_dir).resolve()
         if src_dir.exists() and not dst_dir.exists():
             dst_dir.symlink_to(src_dir, target_is_directory=True)
