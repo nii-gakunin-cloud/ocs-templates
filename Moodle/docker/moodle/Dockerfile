@@ -2,10 +2,10 @@ FROM harbor.vcloud.nii.ac.jp/vcp/moodle:common
 
 ARG PHP_VERSION=php72u
 
-ADD https://centos7.iuscommunity.org/ius-release.rpm /tmp/
+ADD https://repo.ius.io/ius-release-el7.rpm /tmp/
 RUN yum -y install epel-release \
-  && yum -y localinstall /tmp/ius-release.rpm \
-  && rm /tmp/ius-release.rpm
+  && yum -y localinstall /tmp/ius-release-el7.rpm \
+  && rm /tmp/ius-release-el7.rpm
     
 RUN yum -y install \
   ${PHP_VERSION} \

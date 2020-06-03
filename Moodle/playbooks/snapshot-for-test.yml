@@ -1,0 +1,24 @@
+- hosts: all
+  vars:
+    lv_map:
+    - vg: moodle
+      lv: "{{project_tag}}_moodle"
+      snapshot: "{{update_project_tag}}_moodle_test"
+      encrypt: "{{moodle_volume_encrypt}}"
+      key_name: moodle_volume_key
+      vault_path: "{{moodle_vault_path}}"
+    - vg: moodle
+      lv: "{{project_tag}}_php"
+      snapshot: "{{update_project_tag}}_php_test"
+      encrypt: "{{moodle_volume_encrypt}}"
+      key_name: moodle_volume_key
+      vault_path: "{{moodle_vault_path}}"
+    - vg: db
+      lv: "{{project_tag}}_db"
+      snapshot: "{{update_project_tag}}_db_test"
+      encrypt: "{{db_volume_encrypt}}"
+      key_name: db_volume_key
+      vault_path: "{{db_vault_path}}"
+    key_dir: /run/moodle
+  roles:
+  - role: lvm/snapshot

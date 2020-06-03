@@ -1,0 +1,11 @@
+- hosts: all
+  vars:
+    key_dir: /run/moodle
+    key_name: moodle_volume_key
+    vault_path: "{{moodle_vault_path}}"
+    vg: moodle
+    vol_name: moodle
+  roles:
+  - role: cryptsetup
+    when:
+    - moodle_volume_encrypt

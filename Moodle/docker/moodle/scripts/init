@@ -2,6 +2,7 @@
 
 init_moodle() {
     [ -d /var/www/html ] && rmdir /var/www/html
+    cd /usr/local/share/moodle && git fetch -p
     cd /var/www && \
       git clone -b ${MOODLE_VERSION} /usr/local/share/moodle/ ${MOODLE_VERSION}
     ln -s /var/www/${MOODLE_VERSION} /var/www/html

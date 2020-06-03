@@ -30,6 +30,7 @@ anchor_map = {
     'moodle_disk_size': '#Moodleのディスクサイズ',
     'moodle_volume_data_size': '#Moodleのボリュームサイズ',
     'moodle_volume_php_size': '#Moodleのボリュームサイズ',
+    'moodle_volume_encrypt': '#Moodleボリュームの暗号化',
     'moodle_url': '#MoodleのURL',
     'moodle_vault_path': '#MoodleパラメータのVaultサーバへの保存',
     'db_image_name': '#データベースのコンテナイメージ',
@@ -37,6 +38,7 @@ anchor_map = {
     'db_moodle_db_user': '#データベースの接続ユーザ',
     'db_disk_size': '#データベースのディスクサイズ',
     'db_volume_size': '#データベースのボリュームサイズ',
+    'db_volume_encrypt': '#データベースボリュームの暗号化',
     'db_vault_path': '#データベースパラメータのVaultサーバへの保存',
     'rproxy_image_name': '#リバースプロキシのコンテナイメージ',
     'rproxy_tls_cert_path': '#サーバ証明書',
@@ -208,6 +210,13 @@ def check_parameter_moodle_volume_php_size(value, params, kwargs):
             frame=currentframe())
 
 
+def check_parameter_moodle_volume_encrypt(value, params, kwargs):
+    if type(value) is not bool:
+        raise MoodleParameterError(
+            f'moodle_volume_encryptには真偽値を指定してください:{value}',
+            frame=currentframe())
+
+
 def check_parameter_moodle_url(name, params, kwargs):
     pass
 
@@ -239,6 +248,13 @@ def check_parameter_db_volume_size(value, params, kwargs):
     if type(value) is not int or value <= 0:
         raise MoodleParameterError(
             f'db_volume_sizeには正の整数を指定してください:{value}',
+            frame=currentframe())
+
+
+def check_parameter_db_volume_encrypt(value, params, kwargs):
+    if type(value) is not bool:
+        raise MoodleParameterError(
+            f'db_volume_encryptには真偽値を指定してください:{value}',
             frame=currentframe())
 
 

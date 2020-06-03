@@ -1,0 +1,24 @@
+- mount:
+    fstype: tmpfs
+    path: "{{key_dir}}"
+    src: /dev/shm
+    state: mounted
+    opts: size=1m
+  become: yes
+- file:
+    path: "{{key_dir}}"
+    state: directory
+    mode: 0700
+  become: yes
+- shell: echo {{lookup('hashi_vault', 'secret=' + vault_path + ':' + key_name)}} > {{key_dir}}/{{key_name}}
+  become: yes
+- luks_device:
+    device: "/dev/mapper/{{vg}}-{{project_tag}}_{{vol_name}}"
+    state: opened
+    name: "{{vg}}-{{project_tag}}_{{vol_name}}-enc"
+    keyfile: "{{key_dir}}/{{key_name}}"
+  become: yes
+- mount:
+    path: "{{key_dir}}"
+    state: absent
+  become: yes

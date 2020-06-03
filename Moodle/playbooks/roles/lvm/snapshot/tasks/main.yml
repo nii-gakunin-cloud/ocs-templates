@@ -1,0 +1,75 @@
+- name: Take a snapshot.
+  lvol:
+    vg: "{{item.vg}}"
+    lv: "{{item.lv}}"
+    snapshot: "{{item.snapshot}}"
+    opts: -kn
+  loop: "{{lv_map}}"
+  become: yes
+- name: Activate the volume.
+  command: lvchange -ay {{item.vg}}/{{item.snapshot}}
+  loop: "{{lv_map}}"
+  become: yes
+- mount:
+    fstype: tmpfs
+    path: "{{key_dir}}"
+    src: /dev/shm
+    state: mounted
+    opts: size=1m
+  become: yes
+- file:
+    path: "{{key_dir}}"
+    state: directory
+    mode: 0700
+  become: yes
+- name: Download the encryption key.
+  shell: echo {{lookup('hashi_vault', 'secret=' + item.vault_path + ':' + item.key_name)}} > {{key_dir}}/{{item.key_name}}
+  loop: "{{lv_map}}"
+  when: item.encrypt
+  become: yes
+- name: Set up LUKS.
+  luks_device:
+    device: "/dev/mapper/{{item.vg}}-{{item.snapshot}}"
+    state: opened
+    name: "{{item.vg}}-{{item.snapshot}}-enc"
+    keyfile: "{{key_dir}}/{{item.key_name}}"
+  loop: "{{lv_map}}"
+  when: item.encrypt
+  become: yes
+- mount:
+    fstype: xfs
+    path: "{{key_dir}}/{{item.lv}}"
+    src: "/dev/mapper/{{item.vg}}-{{item.snapshot}}-enc"
+    state: mounted
+    opts: nouuid
+  loop: "{{lv_map}}"
+  when: item.encrypt
+  become: yes
+- mount:
+    fstype: xfs
+    path: "{{key_dir}}/{{item.lv}}"
+    src: "/dev/mapper/{{item.vg}}-{{item.snapshot}}"
+    state: mounted
+    opts: nouuid
+  loop: "{{lv_map}}"
+  when: not item.encrypt
+  become: yes
+- mount:
+    path: "{{key_dir}}/{{item.lv}}"
+    state: absent
+  loop: "{{lv_map}}"
+  become: yes
+- name: generate uuid
+  command: xfs_admin -U generate /dev/mapper/{{item.vg}}-{{item.snapshot}}-enc
+  loop: "{{lv_map}}"
+  when: item.encrypt
+  become: yes
+- name: generate uuid
+  command: xfs_admin -U generate /dev/mapper/{{item.vg}}-{{item.snapshot}}
+  loop: "{{lv_map}}"
+  when: not item.encrypt
+  become: yes
+- mount:
+    path: "{{key_dir}}"
+    state: absent
+  become: yes

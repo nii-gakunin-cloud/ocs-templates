@@ -72,7 +72,7 @@ RUN yum -y install \
       sudo \
   && yum clean all
 
-ARG FLUENTD_VERSION=0.12.33
+ARG FLUENTD_VERSION=0.12.43
 ARG FLUENT_PLUGIN_CADVISOR_VERSION=0.3.1
 RUN yum -y install \
       ruby-devel gcc gcc-c++ make \
@@ -102,6 +102,7 @@ RUN yum -y install \
       chrony \
       rsync \
       tree \
+      cryptsetup \
   && yum clean all \
   && rm -rf /var/cache/yum/* \
   && curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
