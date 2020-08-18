@@ -1,0 +1,62 @@
+version: '3.8'
+services:
+  db:
+    image: {{db_image_name}}
+    container_name: db
+{% if prepare is not defined %}
+    restart: always
+    volumes:
+      - /srv/moodle/db/data:/var/lib/mysql:rw
+      - /srv/moodle/db/conf:/etc/mysql
+      - /srv/moodle/db/sql:/docker-entrypoint-initdb.d
+      - /srv/moodle/db/misc/my.cnf:/root/.my.cnf
+      - /var/log/mysql:/var/log/mysql
+{% endif %}
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_DATABASE: {{db_moodle_db}}
+      MYSQL_USER: {{db_moodle_db_user}}
+      MYSQL_PASSWORD: "{{db_moodle_db_password}}"
+      MYSQL_ROOT_PASSWORD: "{{db_root_password}}"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --explicit_defaults_for_timestamp=true
+      - --log-error=/var/log/mysql/error.log
+  moodle:
+    image: {{moodle_image_name}}
+    container_name: moodle
+{% if prepare is not defined %}
+    restart: always
+    volumes:
+      - /srv/moodle/moodle/data/moodledata:/var/data/moodledata:rw
+      - /srv/moodle/moodle/data/php:/var/www/moodle:rw
+      - /srv/moodle/moodle/conf/php.ini:/etc/php.ini
+      - /srv/moodle/moodle/conf/php.d:/etc/php.d
+      - /srv/moodle/moodle/conf/httpd/conf:/etc/httpd/conf
+      - /srv/moodle/moodle/conf/httpd/conf.d:/etc/httpd/conf.d
+      - /srv/moodle/moodle/conf/httpd/conf.modules.d:/etc/httpd/conf.modules.d
+      - /srv/moodle/moodle/conf/ca-trust:/etc/pki/ca-trust/source/anchors
+      - /var/log/httpd:/var/log/httpd
+{% else %}
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+{% endif %}
+    ports:
+      - 80:80
+    environment:
+      TZ: Asia/Tokyo
+      MOODLE_URL: {{moodle_url}}
+      MOODLE_DATAROOT: /var/data/moodledata
+      MOODLE_ADMIN: {{moodle_admin_name}}
+      MOODLE_ADMIN_PASSWORD: "{{moodle_admin_password}}"
+      MOODLE_DBTYPE: {{db_type}}
+      DB_HOSTNAME: db
+      DB_DATABASE: {{db_moodle_db}}
+      DB_USER: {{db_moodle_db_user}}
+      DB_PASSWORD: "{{db_moodle_db_password}}"
+      MOODLE_REVERSEPROXY: "{{moodle_reverseproxy | lower}}"
+{% if prepare is not defined %}
+      WAIT_FOR: db:3306
+{% endif %}

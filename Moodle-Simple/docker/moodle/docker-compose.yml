@@ -1,0 +1,5 @@
+version: '3.8'
+services:
+  moodle:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:${MOODLE_VERSION}
+    build: ./moodle-simple

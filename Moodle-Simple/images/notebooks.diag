@@ -1,0 +1,125 @@
+blockdiag {
+    node_width = 230;
+    node_height = 145;
+
+    group {
+        orientation = portrait;
+        shape = line;
+        style = none;
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+            group {
+                orientation = portrait;
+                label = "ノード作成";
+                color = "#FFFFCC";
+                "011";
+                "012";
+                "013";
+            }
+
+            group {
+                orientation = portrait;
+                label = "リストア";
+                color = "#CC99CC";
+                "821";
+                "822";
+            }
+        }
+
+
+        "021";
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                group {
+                    label = "設定ファイル編集";
+                    color = "#CCFFCC";
+                    orientation = portrait;
+                    group {
+                        shape = line;
+                        style = none;
+                        orientation = portrait;
+                        "030";
+                        "031";
+                        "032";
+                    }
+                    group {
+                        shape = line;
+                        style = none;
+                        orientation = portrait;
+                        "040";
+                        "041";
+                        "051";
+                    }
+                    group {
+                        shape = line;
+                        style = none;
+                        orientation = portrait;
+                        "060";
+                        "061";
+                    }
+                }
+
+                group {
+                    label = "バックアップ";
+                    color = "#CC99CC";
+                    "811";
+                    "812";
+                }
+            }
+            group {
+                label = "認証設定";
+                color = "#FFCC66";
+                "211";
+            }
+        }
+    }
+
+    "011" -> "021";
+    "012" -> "021";
+    "013" -> "021";
+
+    "021" -> "030";
+    "021" -> "031";
+    "021" -> "032";
+
+    "021" -> "040";
+    "021" -> "041";
+    "021" -> "051";
+    "021" -> "060";
+    "021" -> "061";
+
+    "021" -> "211";
+
+    "021" -> "811";
+    "021" -> "812";
+
+    "821" -> "011" [dir = back];
+    "821" -> "012" [dir = back];
+    "013" -> "821";
+
+    "822" -> "011" [dir = back];
+    "822" -> "012" [dir = back];
+    "822" -> "013" [dir = back];
+
+#    "821" -> "811" [style = dashed, dir=back];
+#    "822" -> "812" [style = dashed, dir=back];
+
+    group {
+        orientation = portrait;
+        label = "ノード削除";
+        color = "#999999";
+        "911";
+        "912";
+        "913";
+    }
+}
