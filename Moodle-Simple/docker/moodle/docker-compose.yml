@@ -3,3 +3,6 @@ services:
   moodle:
     image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:${MOODLE_VERSION}
     build: ./moodle-simple
+  moodle-ssl:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:${MOODLE_VERSION}-ssl
+    build: ./moodle-ssl
