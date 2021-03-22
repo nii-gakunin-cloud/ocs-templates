@@ -1,0 +1,97 @@
+#
+# VC Controller
+#
+vcc:
+    host: VC Controller IP
+    name: VCC Name
+
+    # 以降省略可。ネットワーク接続方式により必要な場合のみ
+    # DNAT情報などを管理者に問い合わせる。
+    # insecure_request_warning: False
+    # vcc_port: VCP REST API port
+    # vault_port: vault servivce port
+    # private_ip: VC Controller private IP
+
+    # VcNodeなどの起動・終了待ち時間の調整
+    wait_timeout_sec:: 1000 # default 1000sec = 15minutes
+
+# spec_options:
+#     # http://docs.docker.jp/engine/userguide/networking/default_network/donfigure-dns.html
+#     dns:
+#         - 8.8.8.8
+#     dns_search: example.com
+#     add_host:
+#        - master:172.30.2.194
+#        - c1:172.30.2.101
+#        - c2:172.30.2.102
+#        - c3:172.30.2.103
+#        - c4:172.30.2.104
+#     options:
+#         - timeout:60
+#     hostname: mynode
+
+#
+# Amazon Web Services (AWS)
+#
+aws:
+    access_key: "vault://cubbyhole/aws/access_key"
+    secret_key: "vault://cubbyhole/aws/secret_key"
+    private_network: "default"
+
+#
+# VMware vSphere
+#
+vmware:
+    user: "vault://cubbyhole/vmware/user"
+    password: "vault://cubbyhole/vmware/password"
+    private_network: "default"
+
+#
+# Hokkaido University High Performance Intercloud Server Service
+#
+hokudai:
+    user_name: "vault://cubbyhole/hokudai/user"
+    password: "vault://cubbyhole/hokudai/password"
+    private_network: "default"
+
+#
+# SAKURA Cloud
+#
+sakura:
+    token: "vault://cubbyhole/sakura/token"
+    secret: "vault://cubbyhole/sakura/secret"
+    private_network: "default"
+
+#
+# Oracle Cloud Infrastructure
+#
+oracle:
+    user_ocid: "vault://cubbyhole/oracle/user_ocid"
+    fingerprint: "vault://cubbyhole/oracle/fingerprint"
+    private_key: "vault://cubbyhole/oracle/private_key"
+    private_network: "default"
+
+#
+# Microsoft Azure
+#
+azure:
+    subscription_id: "vault://cubbyhole/azure/subscription_id"
+    client_id: "vault://cubbyhole/azure/client_id"
+    client_secret: "vault://cubbyhole/azure/client_secret"
+    tenant_id: "vault://cubbyhole/azure/tenant_id"
+    private_network: "default"
+
+#
+# Google Cloud Platform
+#
+gcp:
+    credentials: "vault://cubbyhole/gcp/credentials"
+    private_network: "default"
+
+#
+# Chameleon Cloud
+#
+chameleon:
+    user_name: "vault://cubbyhole/chameleon/user_name"
+    password: "vault://cubbyhole/chameleon/password"
+    private_network: "default"

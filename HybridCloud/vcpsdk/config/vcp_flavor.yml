@@ -1,0 +1,204 @@
+#
+# VCP SDK cloud flavor
+#
+
+#
+# AWS
+#
+aws:
+    small:
+        instance_type: m4.large
+        volume_type: gp2
+        # AWS の最少AMIサイズは8G
+        volume_size: 8
+    medium:
+        instance_type: m4.xlarge
+        volume_type: gp2
+        volume_size: 40
+    large:
+        instance_type: m4.2xlarge
+        volume_type: gp2
+        volume_size: 100
+    gpu:
+        instance_type: g3.4xlarge
+        volume_type: gp2
+        volume_size: 40
+
+aws_disk:
+    small:
+        type: standard
+        size: 8
+    medium:
+        type: standard
+        size: 32
+    large:
+        type: standard
+        size: 128
+
+aws_spot:
+    small:
+        instance_type: m4.large
+        volume_type: standard
+        # AWS の最少AMIサイズは8G
+        volume_size: 8
+    medium:
+        instance_type: m4.xlarge
+        volume_type: standard
+        volume_size: 40
+    large:
+        instance_type: m4.2xlarge
+        volume_type: standard
+        volume_size: 100
+
+#
+# VMware
+#
+vmware:
+    small:
+        num_cpus: 1
+        memory: 1024
+        disk_size: 40
+    medium:
+        num_cpus: 2
+        memory: 2048
+        disk_size: 40
+    large:
+        num_cpus: 8
+        memory: 4096
+        disk_size: 100
+
+#
+# Hokudai
+#
+hokudai:
+    small:
+        flavor_name: '1core-6GB'
+        volume_size: 50 # minimum 50G
+    medium:
+        flavor_name: '2core-8G'
+        volume_size: 80
+    large:
+        flavor_name: '4core-16G'
+        volume_size: 100
+
+#
+# AIC
+#
+aic:
+    default:
+        flavor_name: cn0205
+
+abc:
+    default:
+        flavor_name: c20.m128.d1500
+
+#
+# sakura
+#
+sakura:
+    # MEMO:
+    # disk_plan: HDD 40G-4T, SSD 20G-4T MEMO: HDD only
+    # core: 1-36
+    # memory: 1-224G
+    small:
+        sakuracloud_disk_plan: ssd
+        sakuracloud_disk_size: 20
+        core: 1
+        memory: 1
+    medium:
+        sakuracloud_disk_plan: ssd
+        sakuracloud_disk_size: 80
+        core: 2
+        memory: 4
+    large:
+        sakuracloud_disk_plan: ssd
+        sakuracloud_disk_size: 200
+        core: 4
+        memory: 8
+
+sakura_disk:
+    small:
+        sakuracloud_disk_plan: ssd
+        sakuracloud_disk_size: 20
+    medium:
+        sakuracloud_disk_plan: ssd
+        sakuracloud_disk_size: 40
+    large:
+        sakuracloud_disk_plan: ssd
+        sakuracloud_disk_size: 250
+
+#
+# oracle
+#
+oracle:
+    small:
+        shape: VM.Standard.E2.1
+        boot_volume_size_in_gbs: 50
+    medium:
+        shape: VM.Standard.E2.2
+        boot_volume_size_in_gbs: 100
+    large:
+        shape: VM.Standard1.1sd
+        boot_volume_size_in_gbs: 250
+
+oracle_disk:
+    small:
+        size_in_gbs: 20
+    medium:
+        size_in_gbs: 40
+    large:
+        size_in_gbs: 250
+
+#
+# Azure
+#
+azure:
+    # https://docs.microsoft.com/ja-jp/azure/virtual-machines/windows/sizes-general
+    small:
+        vm_size: Standard_B1s
+        # Azure の最少30G。マシンイメージによっては40G推奨
+        disk_size_gb: 40
+        managed_disk_type: Standard_LRS
+    medium:
+        vm_size: Standard_D3_v2
+        disk_size_gb: 100
+        managed_disk_type: Standard_LRS
+    large:
+        vm_size: Standard_D4_v2
+        disk_size_gb: 100
+        managed_disk_type: Premium_LRS
+
+azure_disk:
+    small:
+        storage_account_type: Standard_LRS
+        disk_size_gb: 8
+    medium:
+        storage_account_type: Standard_LRS
+        disk_size_gb: 32
+    large:
+        storage_account_type: Standard_LRS
+        disk_size_gb: 128
+
+#
+# GCP
+#
+gcp:
+    small:
+        machine_type: f1-micro
+        disk_size_gb: 40
+        disk_type: pd-standard
+    medium:
+        machine_type: n1-standard-1
+        disk_size_gb: 100
+        disk_type: pd-ssd
+    large:
+        machine_type: n1-highcpu-2
+        disk_size_gb: 100
+        disk_type: pd-ssd
+
+#
+# onpremises
+#
+onpremises:
+    default:
+        flavor_name: dummy
