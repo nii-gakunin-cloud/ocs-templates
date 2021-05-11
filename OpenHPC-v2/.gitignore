@@ -1,0 +1,11 @@
+*.bak
+.ipynb_checkpoints
+*.pyc
+*.retry
+notebooks.svg
+.log
+.lc_wrapper_regex.txt
+/group_vars/*.yml
+/edit
+inventory.yml*
+ansible.cfg

@@ -22,7 +22,7 @@
 Shibboleth等のSSO連携や、長期利用のためのアップデート方法については、本構成を元に各機関の事情に合わせてカスタマイズしてご利用いただくことを想定しています。
 本テンプレートでは、VCPを利用せずにAWSまたはAzureに直接LMS環境を構築する手順も合わせて公開しています。
 
-- [HPCテンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenHPC)
+- [HPCテンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenHPC-v1)
 (VCP SDK v20.04対応 (AWS、Azureで動作確認済み))<br>
 [OpenHPC](https://openhpc.community/)で配布されているパッケージを利用して、クラウド上にHPC環境を構築します。Slurmを利用したジョブスケジューラやSingularityコンテナ利用環境の設定と、構築したHPC環境でのベンチマークプログラムの実行まで行うことができます。
 
