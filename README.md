@@ -35,3 +35,7 @@ Shibboleth等のSSO連携や、長期利用のためのアップデート方法�
 [Jupyter Notebook](https://jupyter.org/)を用いた講義演習環境を構築します。
 講義演習環境の基盤ソフトウェアには、JupyterHubを講義演習用に国立情報学研究所で拡張した[CoursewareHub](https://github.com/NII-cloud-operation)を用いています。
 CoursewareHubでは、教材配布、課題の回答収集、操作履歴の収集等の機能が提供されています。
+
+- [計算資源補完テンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/HybridCloud)
+(VCP SDK v20.04以降対応 (AWS、Azureで動作確認済み))<br>
+オンプレミスのバッチ型計算機システムの計算ノードが不足したとき、クラウド上にオンプレミスシステムと同様のソフトウェア構成を持つ計算ノードを立ち上げ、バッチシステムに組み込むクラウドバースト機能をVCPで実現するテンプレートです。Torque等クラウドに対応していないバッチシステムでも、簡単なプラグインを作成することでクラウドバーストを実現できます。なお、本テンプレートはipynb形式ではなく、Pythonならびにbashスクリプトで記述されています。
