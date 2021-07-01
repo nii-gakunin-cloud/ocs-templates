@@ -1,0 +1,128 @@
+version: '3.8'
+services:
+  postgres:
+    image: {{postgres_image}}
+    env_file:
+      - {{base_dir}}/.env-db
+    volumes:
+      - type: bind
+        source: {{postgres_dir}}/data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: {{postgres_dir}}/init
+        target: /docker-entrypoint-initdb.d
+    networks:
+      - courseware-backend
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+  jupyterhub:
+    image: {{jupyterhub_image}}
+    environment:
+      CONTAINER_IMAGE: niicloudoperation/jupyterhub-singleuser
+      BACKEND_NETWORK: courseware-backend
+      RESOURCE_ALLOCATION_FILE: /srv/jupyterhub/resource.yaml
+{% for key, value in jupyterhub_params.items() %}
+      {{key}}: "{{value}}"
+{% endfor %}
+    env_file:
+      - {{base_dir}}/.env-db
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: /var/run/restuser.sock
+        target: /var/run/restuser.sock
+      - type: bind
+        source: {{jupyterhub_dir}}/logo.png
+        target: /var/jupyterhub/logo.png
+      - type: bind
+        source: {{jupyterhub_dir}}/resource.yaml
+        target: /srv/jupyterhub/resource.yaml
+    networks:
+      - courseware-backend
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+  auth-proxy:
+{% if federation is defined %}
+    image: {{auth_proxy_fed_image}}
+{% else %}
+    image: {{auth_proxy_image}}
+{% endif %}
+    volumes:
+{% if federation is defined %}
+      - type: bind
+        source: /srv/cwh/metadata
+        target: /var/www/simplesamlphp/metadata/xml
+{% endif %}
+      - type: bind
+        source: {{certs_dir}}
+        target: /etc/nginx/certs
+      - type: bind
+        source: {{certs_dir}}
+        target: /var/www/simplesamlphp/cert
+{% if lti is defined and lti|length > 0 %}
+      - type: bind
+        source: {{auth_proxy_dir}}/lti/private.key
+        target: /var/www/lib/lti/private.key
+      - type: bind
+        source: {{auth_proxy_dir}}/lti/lti.json
+        target: /var/www/lib/lti/configs/lti.json
+{% endif %}
+    secrets:
+      - source: cron_secret
+        target: cron_secret
+        mode: 0400
+    environment:
+      MASTER_FQDN: {{master_fqdn}}
+{% if federation is defined %}
+      GAKUNIN_FEDERATION: {{federation}}
+{% if ds_fqdn is defined %}
+      DS_FQDN: {{ds_fqdn}}
+{% endif %}
+{% if cg_fqdn is defined %}
+      CG_FQDN: {{cg_fqdn}}
+{% endif %}
+{% else %}
+{% if auth_fqdn is defined %}
+      AUTH_FQDN: {{auth_fqdn}}
+{% else %}
+      AUTH_FQDN: ''
+{% endif %}
+{% endif %}
+{% if cg_groups is defined %}
+      CG_GROUPS: '{{cg_groups|map("tojson")|join(",")}}'
+{% else %}
+      CG_GROUPS: ''
+{% endif %}
+    env_file:
+      - {{base_dir}}/.env-db
+    ports:
+      - target: 443
+        published: 443
+        protocol: tcp
+    extra_hosts:
+      - "{{master_fqdn}}:127.0.0.2"
+    networks:
+      - courseware-backend
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager    
+networks:
+  courseware-backend:
+    driver: overlay
+    name: courseware-backend
+    ipam:
+      config:
+        - subnet: {{cousewarehub_backend}}
+secrets:
+  cron_secret:
+    file: {{auth_proxy_dir}}/cron.secret

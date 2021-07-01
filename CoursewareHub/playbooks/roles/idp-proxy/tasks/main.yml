@@ -1,0 +1,32 @@
+- name: pull image
+  command: "/usr/local/bin/docker pull {{idp_proxy_image}}"
+- name: idp-proxy directory
+  file:
+    path: "{{idp_proxy_dir}}"
+    state: directory
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+  become: true
+- name: metadata directory
+  file:
+    path: "{{idp_proxy_metadata_dir}}"
+    state: directory
+    owner: "{{nginx_uid}}"
+    group: "{{nginx_gid}}"
+- name: init metadata file
+  command:
+    cmd: curl -L -O "{{init_metadata_url}}"
+    chdir: "{{idp_proxy_metadata_dir}}"
+    creates: auth-proxies.xml
+- file:
+    path: "{{idp_proxy_metadata_dir}}/auth-proxies.xml"
+    owner: "{{nginx_uid}}"
+    group: "{{nginx_gid}}"
+- name: cron secret key
+  shell: 
+    cmd: echo -n "CRON_SECRET=" > .env-cron && tr -cd 'a-z0-9' < /dev/urandom | dd bs=32 count=1 status=none >> .env-cron
+    chdir: "{{idp_proxy_dir}}"
+    creates: .env-cron
+- file: 
+    path: "{{idp_proxy_dir}}/.env-cron"
+    mode: 0400

@@ -1,12 +1,19 @@
 - name: pull image
   command: "docker pull {{jupyterhub_image}}"
 - file:
-    path: "{{base_dir}}"
+    path: "{{jupyterhub_dir}}"
     state: directory
-    owner: "{{ansible_user}}"
-    group: "{{ansible_user}}"
-  become: true
 - name: deploy logo.png
   get_url:
     url: "{{logo_url}}"
-    dest: "{{base_dir}}/logo.png"
+    dest: "{{jupyterhub_dir}}/logo.png"
+  when: logo_file is not defined
+- name: deploy logo.png
+  copy:
+    src: "{{logo_file}}"
+    dest: "{{jupyterhub_dir}}/logo.png"
+  when: logo_file is defined
+- name: deploy resource.yaml
+  copy:
+    src: "{{rsc_yml}}"
+    dest: "{{jupyterhub_dir}}/resource.yaml"

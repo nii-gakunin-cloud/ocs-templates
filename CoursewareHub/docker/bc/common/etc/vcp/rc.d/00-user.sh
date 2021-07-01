@@ -19,7 +19,7 @@ setup_user() {
   groupadd -f -r docker
   useradd -m -s /bin/bash -U -G docker ${VCP_USER}
 
-  if [ -z "${SUDO_NOT_PERMITTED}" ]; then
+  if [[ -z "${SUDO_NOT_PERMITTED}" ]]; then
     echo "${VCP_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vcp
   fi
 

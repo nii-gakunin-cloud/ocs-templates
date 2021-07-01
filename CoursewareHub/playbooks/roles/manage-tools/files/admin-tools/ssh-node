@@ -1,6 +1,0 @@
-#!/bin/bash
-source ~/.hub-config
-
-node_ip=$1
-shift
-ssh -i ~/.ssh/ssh-hub -o "StrictHostKeyChecking=no" "ubuntu@${node_ip}" "$@"

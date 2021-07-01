@@ -1,0 +1,77 @@
+blockdiag {
+    node_width = 255;
+    node_height = 145;
+
+    group {
+         shape = line;
+         style = none;
+         orientation = portrait;
+
+        group {
+            label = "ノード作成";
+            color = "#B0C0D6";
+
+            "011";
+
+            group {
+                orientation = portrait;
+                shape = line;
+                style = none;
+                "021" -> "031"[style=dashed];
+            }
+        }
+
+
+        group {
+            label = "CoursewareHubの構築";
+            orientation = portrait;
+            color = "#D6B0D3";
+            "311" -> "321" -> "331";
+        }
+
+
+        "011" -> "321";
+        "021" -> "321";
+        "031" -> "321";
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+        group {
+            label = "LTI認証連携";
+            color = "#FFA07A";
+            "411";
+        }
+
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+            group {
+                label = "設定変更";
+                color = "#B7B0D6";
+                orientation = portrait;
+                "701";
+                "702";
+            }
+            group {
+                shape = line;
+                style = none;
+                "801";
+            }
+            group {
+                label = "ノード操作";
+                orientation = portrait;
+                color = "#D6C6AF";
+                "911";
+                "912";
+                "991";
+            }
+       }
+       }
+       "311" -> "801"[style=none];
+       "331" -> "411"[style=dotted];
+    }
+}

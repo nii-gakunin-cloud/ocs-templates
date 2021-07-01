@@ -1,0 +1,16 @@
+[ch-all:children]
+ch-master
+ch-nodes
+
+[ch-all:vars]
+ansible_user={{teacher_id}}
+
+[ch-master]
+{% for host in groups[target_hub] %}
+{{ hostvars[host]['inventory_hostname'] }}
+{% endfor %}
+
+[ch-nodes]
+{% for host in groups[target_nodes] %}
+{{ hostvars[host]['inventory_hostname'] }}
+{% endfor %}

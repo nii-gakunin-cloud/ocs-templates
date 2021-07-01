@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  auth-proxy:
+    image: ${REPOSITORY}vcp/coursewarehub:auth-proxy-${TAG}
+    build: ./auth-proxy
+  auth-proxy-fed:
+    image: ${REPOSITORY}vcp/coursewarehub:auth-proxy-fed-${TAG}
+    build: ./auth-proxy-fed
+  idp-proxy:
+    image: ${REPOSITORY}vcp/coursewarehub:idp-proxy-${TAG}
+    build: ./idp-proxy
+  nii-jupyterhub:
+    image: ${REPOSITORY}vcp/coursewarehub:jupyterhub-${TAG}
+    build: ./CoursewareHub-LC_platform/jupyterhub
+  nii-singleuser:
+    image: ${REPOSITORY}vcp/coursewarehub:singleuser-disable-run-through-${TAG}
+    build: ./singleuser

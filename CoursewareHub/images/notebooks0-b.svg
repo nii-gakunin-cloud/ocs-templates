@@ -1,0 +1,237 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1659 1560">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2"/>
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>blockdiag {
+    node_width = 255;
+    node_height = 150;
+
+    group {
+        label = "IdP-proxy&#12398;&#27083;&#31689;";
+        orientation = portrait;
+        color = "#B0D6C6";
+        "511";
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+            "521" -&gt; "531";
+        }
+        "511" -&gt; "521";
+        "521" -&gt; "541"[style=none];
+    }
+    "531" -&gt; "211"[style=dashed];
+    "221" -&gt; "541"[style=dashed];
+
+    group {
+         shape = line;
+         style = none;
+         orientation = portrait;
+
+        group {
+            label = "&#12494;&#12540;&#12489;&#20316;&#25104;";
+            color = "#B0C0D6";
+
+            "011";
+
+            group {
+                orientation = portrait;
+                shape = line;
+                style = none;
+                "021" -&gt; "031"[style=dashed];
+            }
+        }
+
+
+        group {
+            orientation = portrait;
+            color = "#D6B0D3";
+            "211" -&gt; "221";
+        }
+
+        "011" -&gt; "221";
+        "021" -&gt; "221";
+        "031" -&gt; "221";
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+        group {
+            label = "LTI&#35469;&#35388;&#36899;&#25658;";
+            color = "#FFA07A";
+            "411";
+        }
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+            group {
+                label = "&#35373;&#23450;&#22793;&#26356;";
+                color = "#B7B0D6";
+                orientation = portrait;
+                "701";
+                "702";
+            }
+            group {
+                shape = line;
+                style = none;
+                "801";
+            }
+            group {
+                label = "&#12494;&#12540;&#12489;&#25805;&#20316;";
+                orientation = portrait;
+                color = "#D6C6AF";
+                "911";
+                "912";
+                "991";
+                "591";
+            }
+       }
+       }
+       "211" -&gt; "801"[style=none];
+       "221" -&gt; "411"[style=dotted];
+    }
+}
+</desc>
+  <rect fill="rgb(176,214,198)" height="550" style="filter:url(#filter_blur)" width="590" x="56" y="30"/>
+  <rect fill="rgb(176,192,214)" height="170" style="filter:url(#filter_blur)" width="909" x="694" y="220"/>
+  <rect fill="rgb(214,176,211)" height="170" style="filter:url(#filter_blur)" width="590" x="694" y="410"/>
+  <rect fill="rgb(255,160,122)" height="170" style="filter:url(#filter_blur)" width="271" x="694" y="600"/>
+  <rect fill="rgb(183,176,214)" height="360" style="filter:url(#filter_blur)" width="271" x="694" y="790"/>
+  <rect fill="rgb(214,198,175)" height="740" style="filter:url(#filter_blur)" width="271" x="1332" y="790"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="46"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="236"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="386" y="236"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="426"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="236"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="1024" y="236"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="1343" y="236"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="426"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="1024" y="426"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="616"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="806"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="996"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="1024" y="806"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="1343" y="806"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="1343" y="996"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="1343" y="1186"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="1343" y="1376"/>
+  <rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="64" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="131">Ansible&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="120">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="109">VC&#12494;&#12540;&#12489;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="98">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/511-VC&#12494;&#12540;&#12489;&#20316;&#25104;-IdP-proxy.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="56">511: VC&#12494;&#12540;&#12489;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="69">- IdP-proxy</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="64" y="230"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="319">IdP-proxy&#12467;&#12531;&#12486;&#12490;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="308">IdP-proxy &#12467;&#12531;&#12486;&#12490;&#12398;&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="297">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="286">&#25805;&#20316;&#23550;&#35937;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="275">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/521-IdP-proxy&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="252">521: IdP-proxy&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="383" y="230"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="297">&#23398;&#35469;mAP&#12392;&#12398;&#36899;&#25658;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="286">&#23398;&#35469;&#12395;SP&#35373;&#32622;&#12398;&#30003;&#35531;&#12434;&#34892;&#12358;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="275">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/531-IdP-proxy&#12434;&#23398;&#35469;&#12408;&#30003;&#35531;&#12377;&#12427;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="252">531: IdP-proxy&#12434;&#23398;&#35469;&#12408;&#30003;&#35531;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="64" y="420"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="487">&#12513;&#12479;&#12487;&#12540;&#12479;&#12398;&#36861;&#21152;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="476">&#25805;&#20316;&#23550;&#35937;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="465">&#27010;&#35201;</text><a xlink:href="notebooks/541-IdP-proxy&#12408;auth-proxy&#12398;&#12513;&#12479;&#12487;&#12540;&#12479;&#12434;&#30331;&#37682;&#12377;&#12427;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="442">541: auth-proxy&#12398;&#12513;&#12479;&#12487;&#12540;&#12479;&#12434;&#30331;&#37682;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="702" y="230"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="343">Docker Swarm&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="332">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="321">VC&#12487;&#12451;&#12473;&#12463;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="310">VC&#12487;&#12451;&#12473;&#12463;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="299">VC&#12494;&#12540;&#12489;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="288">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/011-VC&#12494;&#12540;&#12489;&#20316;&#25104;-&#27083;&#25104;1.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="246">011: VC&#12494;&#12540;&#12489;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="259">- &#27083;&#25104;1</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="1021" y="230"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="343">Docker Swarm&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="332">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="321">VC&#12487;&#12451;&#12473;&#12463;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="310">VC&#12487;&#12451;&#12473;&#12463;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="299">VC&#12494;&#12540;&#12489;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="288">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/021-VC&#12494;&#12540;&#12489;&#20316;&#25104;-&#27083;&#25104;2.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1023" width="251" y="246">021: VC&#12494;&#12540;&#12489;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1023" width="251" y="259">- &#27083;&#25104;2</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="1340" y="230"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="332">Docker Swarm&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="321">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="310">NFS</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="299">VC&#12494;&#12540;&#12489;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="288">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/031-VC&#12494;&#12540;&#12489;&#20316;&#25104;-&#27083;&#25104;3.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1342" width="251" y="246">031: VC&#12494;&#12540;&#12489;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1342" width="251" y="259">- &#27083;&#25104;3</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="702" y="420"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="476">mAP&#12464;&#12523;&#12540;&#12503;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="465">&#27010;&#35201;</text><a xlink:href="notebooks/211-mAP&#12398;&#12464;&#12523;&#12540;&#12503;&#20316;&#25104;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="442">211: mAP&#12398;&#12464;&#12523;&#12540;&#12503;&#20316;&#25104;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="1021" y="420"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="566">CoursewareHub&#12395;&#12450;&#12463;&#12475;&#12473;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="555">&#12513;&#12479;&#12487;&#12540;&#12479;&#12398;&#26356;&#26032;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="544">SimpleSAMLphp&#12398;&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12434;&#26356;&#26032;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="533">&#12467;&#12531;&#12486;&#12531;&#12484;&#12398;&#37197;&#20633;&#12398;&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="522">&#31649;&#29702;&#32773;&#12398;&#36861;&#21152;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="511">&#12467;&#12531;&#12486;&#12490;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="500">CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="489">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="478">&#27010;&#35201;</text><a xlink:href="notebooks/221-CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1023" width="251" y="436">221: CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1023" width="251" y="449">- IdP-proxy&#12434;&#21033;&#29992;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="702" y="610"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="701">Moodle&#12391;LTI &#12522;&#12531;&#12463;&#12434;&#20316;&#25104;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="690">CoursewareHub&#12395;LTI&#35469;&#35388;&#36899;&#25658;&#35373;&#23450;&#12434;&#34892;&#12358;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="679">Moodle&#12391;&#22806;&#37096;&#12484;&#12540;&#12523;&#12398;&#35373;&#23450;&#12434;&#34892;&#12358;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="668">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/411-LTI&#35469;&#35388;&#36899;&#25658;&#12398;&#35373;&#23450;&#12434;&#34892;&#12358;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="626">411: LTI&#35469;&#35388;&#36899;&#25658;&#12398;&#35373;&#23450;&#12434;&#34892;&#12358; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="639">-  Moodle</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="702" y="800"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="878">&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;&#12398;&#22793;&#26356;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="867">&#29694;&#22312;&#12398;&#35373;&#23450;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="856">&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="845">UnitGroup&#21517;</text><a xlink:href="notebooks/701-sinleuser&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;&#12398;&#22793;&#26356;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="822">701:  single-user&#12398;&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;&#12434;&#22793;&#26356;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="702" y="990"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1090">CoursewareHub&#12395;&#12450;&#12463;&#12475;&#12473;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1079">&#12467;&#12531;&#12486;&#12531;&#12484;&#12398;&#37197;&#20633;&#12398;&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1068">&#31649;&#29702;&#32773;&#12398;&#36861;&#21152;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1057">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1046">UnitGroup&#21517;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1035">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/702-&#31649;&#29702;&#32773;&#12398;&#36861;&#21152;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="1012">702: &#31649;&#29702;&#32773;&#12398;&#36861;&#21152;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="1021" y="800"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="856">grafana&#12480;&#12483;&#12471;&#12517;&#12508;&#12540;&#12489;&#12398;&#30331;&#37682;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1023" width="251" y="845">&#27010;&#35201;</text><a xlink:href="notebooks/801-&#12522;&#12477;&#12540;&#12473;&#21487;&#35222;&#21270;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1023" width="251" y="822">801: &#12522;&#12477;&#12540;&#12473;&#21487;&#35222;&#21270;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="1340" y="800"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="856">&#12494;&#12540;&#12489;&#12398;&#20572;&#27490;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="845">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><a xlink:href="notebooks/911-&#12494;&#12540;&#12489;&#12398;&#20572;&#27490;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1342" width="251" y="822">911: &#12494;&#12540;&#12489;&#12398;&#20572;&#27490;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="1340" y="990"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1057">&#29366;&#24907;&#12398;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1046">&#12494;&#12540;&#12489;&#12398;&#20877;&#38283;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1035">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><a xlink:href="notebooks/912-&#12494;&#12540;&#12489;&#12398;&#20877;&#38283;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1342" width="251" y="1012">912: &#12494;&#12540;&#12489;&#12398;&#20877;&#38283;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="1340" y="1180"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1247">Ansible&#35373;&#23450;&#12398;&#12463;&#12522;&#12450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1236">&#27083;&#31689;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1225">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><a xlink:href="notebooks/991-CoursewareHub&#29872;&#22659;&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1342" width="251" y="1202">991: CoursewareHub&#29872;&#22659;&#12398;&#21066;&#38500;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="1340" y="1370"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1437">Ansible&#35373;&#23450;&#12398;&#12463;&#12522;&#12450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1426">&#27083;&#31689;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="1342" width="251" y="1415">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><a xlink:href="notebooks/591-IdP-proxy&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="1342" width="251" y="1392">591: IdP-proxy&#12398;&#21066;&#38500;</text></a><path d="M 191 190 L 191 222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="191,229 187,222 195,222 191,229" stroke="rgb(0,0,0)"/>
+  <path d="M 319 305 L 375 305" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="382,305 375,301 375,309 382,305" stroke="rgb(0,0,0)"/>
+  <path d="M 638 305 L 670 305" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 670 305 L 670 495" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 670 495 L 694 495" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="701,495 694,491 694,499 701,495" stroke="rgb(0,0,0)"/>
+  <path d="M 319 305 L 375 305" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="382,305 375,301 375,309 382,305" stroke="rgb(0,0,0)"/>
+  <path d="M 638 305 L 670 305" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 670 305 L 670 495" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 670 495 L 694 495" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="701,495 694,491 694,499 701,495" stroke="rgb(0,0,0)"/>
+  <path d="M 829 380 L 829 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 829 400 L 1148 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1276 305 L 1332 305" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="1339,305 1332,301 1332,309 1339,305" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 380 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1467 380 L 1467 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1467 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1276 305 L 1332 305" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="1339,305 1332,301 1332,309 1339,305" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 380 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1467 380 L 1467 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1467 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 957 495 L 1013 495" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1020,495 1013,491 1013,499 1020,495" stroke="rgb(0,0,0)"/>
+  <path d="M 1276 495 L 1292 495" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 1292 495 L 1292 405" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 191 405 L 666.0 405" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 666.0 405.0 A4.0,4.0 0 0 1 674.0 405.0" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 674.0 405 L 1144.0 405" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 1144.0 405.0 A4.0,4.0 0 0 1 1152.0 405.0" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 1152.0 405 L 1292 405" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 191 405 L 191 412" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="191,419 187,412 195,412 191,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 570 L 1148 590" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <path d="M 829 590 L 1148 590" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <path d="M 829 590 L 829 602" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <polygon fill="rgb(0,0,0)" points="829,609 825,602 833,602 829,609" stroke="rgb(0,0,0)"/>
+  <path d="M 829 380 L 829 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 829 400 L 1148 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1276 305 L 1332 305" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="1339,305 1332,301 1332,309 1339,305" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 380 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1467 380 L 1467 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1467 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1276 305 L 1332 305" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="1339,305 1332,301 1332,309 1339,305" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 380 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1467 380 L 1467 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1467 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 400 L 1148 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1148,419 1144,412 1152,412 1148,419" stroke="rgb(0,0,0)"/>
+  <path d="M 957 495 L 1013 495" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="1020,495 1013,491 1013,499 1020,495" stroke="rgb(0,0,0)"/>
+  <path d="M 1276 495 L 1292 495" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 1292 495 L 1292 405" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 191 405 L 666.0 405" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 666.0 405.0 A4.0,4.0 0 0 1 674.0 405.0" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 674.0 405 L 1144.0 405" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 1144.0 405.0 A4.0,4.0 0 0 1 1152.0 405.0" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 1152.0 405 L 1292 405" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <path d="M 191 405 L 191 412" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="191,419 187,412 195,412 191,419" stroke="rgb(0,0,0)"/>
+  <path d="M 1148 570 L 1148 590" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <path d="M 829 590 L 1148 590" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <path d="M 829 590 L 829 602" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <polygon fill="rgb(0,0,0)" points="829,609 825,602 833,602 829,609" stroke="rgb(0,0,0)"/>
+  <rect fill="none" height="170" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="590" x="56" y="220"/>
+  <rect fill="none" height="1310" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="909" x="694" y="220"/>
+  <rect fill="none" height="170" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="590" x="1013" y="220"/>
+  <rect fill="none" height="930" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="909" x="694" y="600"/>
+  <rect fill="none" height="740" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="909" x="694" y="790"/>
+  <rect fill="none" height="170" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="271" x="1013" y="790"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="87" x="351.5" y="36">IdP-proxy&#12398;&#27083;&#31689;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="55" x="1148.5" y="226">&#12494;&#12540;&#12489;&#20316;&#25104;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="62" x="830.0" y="606">LTI&#35469;&#35388;&#36899;&#25658;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="44" x="830.0" y="796">&#35373;&#23450;&#22793;&#26356;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="55" x="1467.5" y="796">&#12494;&#12540;&#12489;&#25805;&#20316;</text>
+</svg>

@@ -1,0 +1,6 @@
+POSTGRES_USER={{db_user}}
+POSTGRES_PASSWORD={{db_password}}
+POSTGRES_DB={{db_name}}
+POSTGRES_ENV_JPY_PSQL_USER={{db_user}}
+POSTGRES_ENV_JPY_PSQL_PASSWORD={{db_password}}
+POSTGRES_PORT_5432_TCP_ADDR=postgres

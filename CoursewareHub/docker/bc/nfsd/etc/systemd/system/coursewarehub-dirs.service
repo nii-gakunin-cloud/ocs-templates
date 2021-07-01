@@ -1,0 +1,13 @@
+[Unit]
+Description=Create CoursewareHub Directories
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "/bin/mkdir -p ${EXPORT_DIR}/${HUB_NAME}/jupyter ${EXPORT_DIR}/${HUB_NAME}/exchange ${EXPORT_DIR}/${HUB_NAME}/share /jupyter /exchange /share && chmod 777 ${EXPORT_DIR}/${HUB_NAME}/jupyter ${EXPORT_DIR}/${HUB_NAME}/exchange ${EXPORT_DIR}/${HUB_NAME}/share /jupyter /exchange /share"
+RemainAfterExit=yes
+EnvironmentFile=/etc/sysconfig/coursewarehub-dirs
+# After=srv.mount
+Before=exported.mount jupyter.mount
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+- copy:
+    src: "{{ simplesamlphp_config }}"
+    dest: "{{ store_path }}"
+    backup: yes
+- command:
+    cmd:  "/usr/local/bin/docker cp {{ store_path }} {{ container_id }}:/var/www/simplesamlphp/config/config.php"

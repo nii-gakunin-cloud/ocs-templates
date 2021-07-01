@@ -1,0 +1,6 @@
+- command:
+    cmd:  "/usr/local/bin/docker cp {{ container_id }}:/var/www/simplesamlphp/config/config.php {{ store_path }}"
+- fetch:
+    src: "{{ store_path }}"
+    dest: "{{ local_ssp_config }}"
+    flat: yes

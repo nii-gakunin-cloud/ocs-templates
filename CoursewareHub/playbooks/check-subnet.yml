@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+  - setup:
+      filter: 'ansible_all_ipv4_addresses'
+  - debug:
+      msg: "{{ item }}"
+    loop: "{{ ansible_facts.all_ipv4_addresses }}"
+    failed_when: item | ipaddr(cousewarehub_backend)

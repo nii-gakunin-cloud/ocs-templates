@@ -2,6 +2,12 @@
 
 ## 21.04.0-20210701
 
+### 新機能
+
+- 講義演習環境テンプレート: [NII-cloud-operation/CoursewareHub-LC_platform](https://github.com/NII-cloud-operation/CoursewareHub-LC_platform)の[#14](https://github.com/NII-cloud-operation/CoursewareHub-LC_platform/pull/14)以降のPull requestsにて追加された機能を取り込んだ。主要なものは以下の通り。
+    - 学認連携に基づく認証機能
+    - LMSとの認証連携機能
+
 ### 変更点
 
 - HPCテンプレート: OpenHPC を 2.3 にアップデートした

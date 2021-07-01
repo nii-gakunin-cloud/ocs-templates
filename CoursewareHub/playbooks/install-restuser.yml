@@ -1,4 +1,4 @@
-- become: true
-  hosts: manager
+- hosts: all
+  become: true
   roles:
-  - restuser
+  - role: restuser

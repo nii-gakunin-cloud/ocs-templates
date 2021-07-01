@@ -1,0 +1,6 @@
+- file:
+    path: "{{base_dir}}"
+    state: directory
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+  become: true

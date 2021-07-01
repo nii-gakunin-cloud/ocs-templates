@@ -3,23 +3,18 @@
 - file: path=/jupyter/admin/tools state=directory
 - file: path=/jupyter/admin/textbook state=directory
 - file: path=/jupyter/admin/info state=directory
-- file: path=/home/{{default_user}}/manage-tools state=directory
 
-- copy: src=admin-tools dest=/home/{{default_user}}/manage-tools/
-- copy: src=tools dest=/home/{{default_user}}/manage-tools/
-- copy: src=common dest=/home/{{default_user}}/manage-tools/
+- template:
+    src: CoursewareHubコンテンツの配備.ipynb
+    dest: "/jupyter/users/{{teacher_id}}/"
+    owner: "{{teacher_id}}"
+    group: users
+- file:
+    path: "/jupyter/users/{{teacher_id}}/.ssh"
+    owner: "{{teacher_id}}"
+    group: users
+    mode: 0700
 
-- shell: chdir=/home/{{default_user}}/ cp manage-tools/admin-tools/* /jupyter/admin/admin_tools/
-- shell: chdir=/home/{{default_user}}/ cp manage-tools/tools/* /jupyter/admin/tools/
-- shell: chdir=/home/{{default_user}}/ cp manage-tools/common/* /jupyter/admin/admin_tools/
-- shell: chdir=/home/{{default_user}}/ cp manage-tools/common/* /jupyter/admin/tools/
-
-- shell: chmod a+x /jupyter/admin/tools/notebook-diff /jupyter/admin/admin_tools/notebook-diff \
-         /jupyter/admin/admin_tools/collect-answer
-
-- shell: sed -ri -e "/docker service ps auth-proxy/s/auth-proxy/{{stack_name}}_auth-proxy/" *.ipynb
-  args:
-    chdir: /jupyter/admin/admin_tools
 
 - file: path=/jupyter/admin/textbook state=directory mode=0777
 - file: path=/jupyter/admin/info state=directory mode=0777

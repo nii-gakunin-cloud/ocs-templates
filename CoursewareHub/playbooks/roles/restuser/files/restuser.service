@@ -3,7 +3,7 @@ Description=restuser
 After=network.target
 
 [Service]
-ExecStart=/bin/python restuser.py --socket=/var/run/restuser.sock --skeldir=/etc/skel --homedir=/jupyter/users/USERNAME
+ExecStart=/usr/bin/python3 restuser.py --socket=/var/run/restuser.sock --skeldir=/etc/skel --homedir=/jupyter/users/USERNAME
 ExecStop=/bin/kill -INT ${MAINPID}
 Restart=always
 WorkingDirectory=/srv/restuser/

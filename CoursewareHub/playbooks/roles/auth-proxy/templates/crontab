@@ -1,2 +1,0 @@
-@reboot /bin/sleep 10 && /usr/bin/curl --silent --insecure "https://localhost/simplesaml/module.php/cron/cron.php?key={{cron_key}}&tag=daily"
-0 0 * * * /usr/bin/curl --silent --insecure "https://localhost/simplesaml/module.php/cron/cron.php?key={{cron_key}}&tag=daily"

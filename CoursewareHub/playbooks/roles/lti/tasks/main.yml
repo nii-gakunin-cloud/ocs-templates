@@ -1,0 +1,15 @@
+---
+- name: Create a directory for LTI.
+  file:
+    path: "{{auth_proxy_dir}}/lti"
+    state: directory
+- name: Generate LTI settings
+  template:
+    src: lti.json.j2
+    dest: "{{auth_proxy_dir}}/lti/lti.json"
+    backup: yes
+- name: Generate RSA key pair.
+  shell:
+    cmd: "openssl genrsa -out {{ lti_private_key_file }}"
+    chdir: "{{auth_proxy_dir}}/lti"
+    creates: "{{ lti_private_key_file }}"

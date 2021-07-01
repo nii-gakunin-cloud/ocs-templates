@@ -1,2 +1,14 @@
-stack_name: cwh
-base_dir: "/srv/{{stack_name}}"
+base_dir: "/srv/cwh"
+certs_dir: "{{base_dir}}/certs"
+auth_proxy_dir: "{{base_dir}}/auth-proxy"
+jupyterhub_dir: "{{base_dir}}/jupyterhub"
+saml_dir: "{{base_dir}}/auth-proxy/saml"
+idp_proxy_dir: "/srv/idp-proxy"
+idp_proxy_certs_dir: "{{idp_proxy_dir}}/certs"
+idp_proxy_metadata_dir: "{{idp_proxy_dir}}/metadata"
+postgres_dir: /jupyter/psql
+postgres_image: "postgres:11"
+jupyterhub_image: "harbor.vcloud.nii.ac.jp/vcp/coursewarehub:jupyterhub-20210701"
+auth_proxy_image: "harbor.vcloud.nii.ac.jp/vcp/coursewarehub:auth-proxy-20210701"
+auth_proxy_fed_image: "harbor.vcloud.nii.ac.jp/vcp/coursewarehub:auth-proxy-fed-20210701"
+idp_proxy_image: "harbor.vcloud.nii.ac.jp/vcp/coursewarehub:idp-proxy-20210701"

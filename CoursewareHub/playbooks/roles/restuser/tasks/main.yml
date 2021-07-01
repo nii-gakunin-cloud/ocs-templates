@@ -1,11 +1,6 @@
 ---
 - include: login-defs.yml
 
-- yum: name=epel-release
-
-- name: python
-  yum: name=python,python-pip,git,nmap-ncat state=latest
-
 - name: tornado
   pip: name=tornado<6 state=latest
 

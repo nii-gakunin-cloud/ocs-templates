@@ -6,3 +6,5 @@
 *.retry
 ansible.cfg
 hosts
+inventory.yml
+notebooks.svg

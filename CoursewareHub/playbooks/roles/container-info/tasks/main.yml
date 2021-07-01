@@ -1,0 +1,4 @@
+- command: "docker service ps -q -f desired-state=running {{ service }}"
+  register: sid
+- command: "docker inspect --format \"{% raw %}{{.Status.ContainerStatus.ContainerID}}{% endraw %}\" {{ sid.stdout }}"
+  register: container

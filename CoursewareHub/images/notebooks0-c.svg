@@ -1,0 +1,184 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1021 1150">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2"/>
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>blockdiag {
+    node_width = 255;
+    node_height = 145;
+
+    group {
+         shape = line;
+         style = none;
+         orientation = portrait;
+
+        group {
+            label = "&#12494;&#12540;&#12489;&#20316;&#25104;";
+            color = "#B0C0D6";
+
+            "011";
+
+            group {
+                orientation = portrait;
+                shape = line;
+                style = none;
+                "021" -&gt; "031"[style=dashed];
+            }
+        }
+
+
+        group {
+            label = "CoursewareHub&#12398;&#27083;&#31689;";
+            orientation = portrait;
+            color = "#D6B0D3";
+            "311" -&gt; "321" -&gt; "331";
+        }
+
+
+        "011" -&gt; "321";
+        "021" -&gt; "321";
+        "031" -&gt; "321";
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+        group {
+            label = "LTI&#35469;&#35388;&#36899;&#25658;";
+            color = "#FFA07A";
+            "411";
+        }
+
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+            group {
+                label = "&#35373;&#23450;&#22793;&#26356;";
+                color = "#B7B0D6";
+                orientation = portrait;
+                "701";
+                "702";
+            }
+            group {
+                shape = line;
+                style = none;
+                "801";
+            }
+            group {
+                label = "&#12494;&#12540;&#12489;&#25805;&#20316;";
+                orientation = portrait;
+                color = "#D6C6AF";
+                "911";
+                "912";
+                "991";
+            }
+       }
+       }
+       "311" -&gt; "801"[style=none];
+       "331" -&gt; "411"[style=dotted];
+    }
+}
+</desc>
+  <rect fill="rgb(176,192,214)" height="165" style="filter:url(#filter_blur)" width="909" x="56" y="30"/>
+  <rect fill="rgb(214,176,211)" height="165" style="filter:url(#filter_blur)" width="909" x="56" y="215"/>
+  <rect fill="rgb(255,160,122)" height="165" style="filter:url(#filter_blur)" width="271" x="56" y="400"/>
+  <rect fill="rgb(183,176,214)" height="350" style="filter:url(#filter_blur)" width="271" x="56" y="585"/>
+  <rect fill="rgb(214,198,175)" height="535" style="filter:url(#filter_blur)" width="271" x="694" y="585"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="46"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="386" y="46"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="46"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="231"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="386" y="231"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="231"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="416"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="601"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="786"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="386" y="601"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="601"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="786"/>
+  <rect fill="rgb(0,0,0)" height="145" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="705" y="971"/>
+  <rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="64" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="153">Docker Swarm&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="142">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="131">VC&#12487;&#12451;&#12473;&#12463;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="120">VC&#12487;&#12451;&#12473;&#12463;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="109">VC&#12494;&#12540;&#12489;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="98">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/011-VC&#12494;&#12540;&#12489;&#20316;&#25104;-&#27083;&#25104;1.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="56">011: VC&#12494;&#12540;&#12489;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="69">- &#27083;&#25104;1</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="383" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="153">Docker Swarm&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="142">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="131">VC&#12487;&#12451;&#12473;&#12463;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="120">VC&#12487;&#12451;&#12473;&#12463;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="109">VC&#12494;&#12540;&#12489;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="98">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/021-VC&#12494;&#12540;&#12489;&#20316;&#25104;-&#27083;&#25104;2.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="56">021: VC&#12494;&#12540;&#12489;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="69">- &#27083;&#25104;2</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="702" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="142">Docker Swarm&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="131">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="120">NFS</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="109">VC&#12494;&#12540;&#12489;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="98">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/031-VC&#12494;&#12540;&#12489;&#20316;&#25104;-&#27083;&#25104;3.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="56">031: VC&#12494;&#12540;&#12489;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="69">- &#27083;&#25104;3</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="64" y="225"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="294">mAP&#12464;&#12523;&#12540;&#12503;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="283">&#27010;&#35201;</text><a xlink:href="notebooks/311-mAP&#12398;&#12464;&#12523;&#12540;&#12503;&#20316;&#25104;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="241">311: mAP&#12398;&#12464;&#12523;&#12540;&#12503;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="254">- &#30452;&#25509;&#23398;&#35469;&#12501;&#12455;&#12487;&#12524;&#12540;&#12471;&#12519;&#12531;&#12434;&#21033;&#29992;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="383" y="225"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="360">CoursewareHub&#12395;&#12450;&#12463;&#12475;&#12473;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="349">SimpleSAMLphp&#12398;&#35373;&#23450;&#12501;&#12449;&#12452;&#12523;&#12434;&#26356;&#26032;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="338">&#12467;&#12531;&#12486;&#12531;&#12484;&#12398;&#37197;&#20633;&#12398;&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="327">&#31649;&#29702;&#32773;&#12398;&#36861;&#21152;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="316">&#12467;&#12531;&#12486;&#12490;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="305">CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="294">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="283">&#27010;&#35201;</text><a xlink:href="notebooks/321-CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="241">321: CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="254">- &#30452;&#25509;&#23398;&#35469;&#12501;&#12455;&#12487;&#12524;&#12540;&#12471;&#12519;&#12531;&#12434;&#21033;&#29992;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="702" y="225"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="316">CoursewareHub&#12395;&#23398;&#35469;IdP&#12398;&#12450;&#12459;&#12454;&#12531;&#12488;&#12391;&#12525;&#12464;&#12452;&#12531;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="305">&#23398;&#35469;mAP&#12392;&#12398;&#36899;&#25658;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="294">&#23398;&#35469;&#12395;SP&#35373;&#32622;&#12398;&#30003;&#35531;&#12434;&#34892;&#12358;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="283">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/331-CoursewareHub&#12398;&#30331;&#37682;&#12434;&#23398;&#35469;&#12408;&#30003;&#35531;&#12377;&#12427;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="241">331: CoursewareHub&#12398;&#30331;&#37682;&#12434;&#23398;&#35469;&#12408;&#30003;&#35531;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="254">- &#30452;&#25509;&#23398;&#35469;&#12501;&#12455;&#12487;&#12524;&#12540;&#12471;&#12519;&#12531;&#12434;&#21033;&#29992;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="64" y="410"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="501">Moodle&#12391;LTI &#12522;&#12531;&#12463;&#12434;&#20316;&#25104;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="490">CoursewareHub&#12395;LTI&#35469;&#35388;&#36899;&#25658;&#35373;&#23450;&#12434;&#34892;&#12358;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="479">Moodle&#12391;&#22806;&#37096;&#12484;&#12540;&#12523;&#12398;&#35373;&#23450;&#12434;&#34892;&#12358;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="468">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/411-LTI&#35469;&#35388;&#36899;&#25658;&#12398;&#35373;&#23450;&#12434;&#34892;&#12358;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="426">411: LTI&#35469;&#35388;&#36899;&#25658;&#12398;&#35373;&#23450;&#12434;&#34892;&#12358; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="439">-  Moodle</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="64" y="595"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="673">&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;&#12398;&#22793;&#26356;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="662">&#29694;&#22312;&#12398;&#35373;&#23450;&#12434;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="651">&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="640">UnitGroup&#21517;</text><a xlink:href="notebooks/701-sinleuser&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;&#12398;&#22793;&#26356;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="617">701:  single-user&#12398;&#12467;&#12531;&#12486;&#12490;&#12452;&#12513;&#12540;&#12472;&#12434;&#22793;&#26356;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="64" y="780"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="880">CoursewareHub&#12395;&#12450;&#12463;&#12475;&#12473;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="869">&#12467;&#12531;&#12486;&#12531;&#12484;&#12398;&#37197;&#20633;&#12398;&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="858">&#31649;&#29702;&#32773;&#12398;&#36861;&#21152;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="847">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="836">UnitGroup&#21517;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="825">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/702-&#31649;&#29702;&#32773;&#12398;&#36861;&#21152;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="802">702: &#31649;&#29702;&#32773;&#12398;&#36861;&#21152;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="383" y="595"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="651">grafana&#12480;&#12483;&#12471;&#12517;&#12508;&#12540;&#12489;&#12398;&#30331;&#37682;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="640">&#27010;&#35201;</text><a xlink:href="notebooks/801-&#12522;&#12477;&#12540;&#12473;&#21487;&#35222;&#21270;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="617">801: &#12522;&#12477;&#12540;&#12473;&#21487;&#35222;&#21270;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="702" y="595"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="651">&#12494;&#12540;&#12489;&#12398;&#20572;&#27490;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="640">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><a xlink:href="notebooks/911-&#12494;&#12540;&#12489;&#12398;&#20572;&#27490;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="617">911: &#12494;&#12540;&#12489;&#12398;&#20572;&#27490;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="702" y="780"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="847">&#29366;&#24907;&#12398;&#30906;&#35469;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="836">&#12494;&#12540;&#12489;&#12398;&#20877;&#38283;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="825">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><a xlink:href="notebooks/912-&#12494;&#12540;&#12489;&#12398;&#20877;&#38283;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="802">912: &#12494;&#12540;&#12489;&#12398;&#20877;&#38283;</text></a><rect fill="rgb(255,255,255)" height="145" stroke="rgb(0,0,0)" width="255" x="702" y="965"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1032">Ansible&#35373;&#23450;&#12398;&#12463;&#12522;&#12450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1021">&#27083;&#31689;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="704" width="251" y="1010">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><a xlink:href="notebooks/991-CoursewareHub&#29872;&#22659;&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="704" width="251" y="987">991: CoursewareHub&#29872;&#22659;&#12398;&#21066;&#38500;</text></a><path d="M 191 185 L 191 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 191 205 L 510 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 638 112 L 694 112" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="701,112 694,108 694,116 701,112" stroke="rgb(0,0,0)"/>
+  <path d="M 510 185 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 829 185 L 829 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 829 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 638 112 L 694 112" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="701,112 694,108 694,116 701,112" stroke="rgb(0,0,0)"/>
+  <path d="M 510 185 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 829 185 L 829 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 829 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 319 297 L 375 297" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="382,297 375,293 375,301 382,297" stroke="rgb(0,0,0)"/>
+  <path d="M 638 297 L 694 297" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="701,297 694,293 694,301 701,297" stroke="rgb(0,0,0)"/>
+  <path d="M 829 370 L 829 390" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <path d="M 191 390 L 829 390" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <path d="M 191 390 L 191 402" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <polygon fill="rgb(0,0,0)" points="191,409 187,402 195,402 191,409" stroke="rgb(0,0,0)"/>
+  <path d="M 191 185 L 191 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 191 205 L 510 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 638 112 L 694 112" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="701,112 694,108 694,116 701,112" stroke="rgb(0,0,0)"/>
+  <path d="M 510 185 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 829 185 L 829 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 829 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 638 112 L 694 112" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="4"/>
+  <polygon fill="rgb(0,0,0)" points="701,112 694,108 694,116 701,112" stroke="rgb(0,0,0)"/>
+  <path d="M 510 185 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 829 185 L 829 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 829 205" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 205 L 510 217" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,224 506,217 514,217 510,224" stroke="rgb(0,0,0)"/>
+  <path d="M 319 297 L 375 297" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="382,297 375,293 375,301 382,297" stroke="rgb(0,0,0)"/>
+  <path d="M 638 297 L 694 297" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="701,297 694,293 694,301 701,297" stroke="rgb(0,0,0)"/>
+  <path d="M 829 370 L 829 390" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <path d="M 191 390 L 829 390" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <path d="M 191 390 L 191 402" fill="none" stroke="rgb(0,0,0)" stroke-dasharray="2"/>
+  <polygon fill="rgb(0,0,0)" points="191,409 187,402 195,402 191,409" stroke="rgb(0,0,0)"/>
+  <rect fill="none" height="1090" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="909" x="56" y="30"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="590" x="375" y="30"/>
+  <rect fill="none" height="720" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="909" x="56" y="400"/>
+  <rect fill="none" height="535" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="909" x="56" y="585"/>
+  <rect fill="none" height="165" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="271" x="375" y="585"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="55" x="510.5" y="36">&#12494;&#12540;&#12489;&#20316;&#25104;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="111" x="510.5" y="221">CoursewareHub&#12398;&#27083;&#31689;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="62" x="192.0" y="406">LTI&#35469;&#35388;&#36899;&#25658;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="44" x="192.0" y="591">&#35373;&#23450;&#22793;&#26356;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="55" x="829.5" y="591">&#12494;&#12540;&#12489;&#25805;&#20316;</text>
+</svg>

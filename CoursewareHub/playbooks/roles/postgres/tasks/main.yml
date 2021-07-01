@@ -1,0 +1,26 @@
+---
+- name: postgres data directory
+  become: true
+  file:
+    path: "{{postgres_dir}}/data"
+    state: directory
+
+- name: postgres init files directory
+  become: true
+  file:
+    path: "{{postgres_dir}}/init"
+    state: directory
+
+- name: deploy init.sql
+  become: true
+  copy:
+    src: init.sql
+    dest: "{{postgres_dir}}/init/"
+
+- template:
+    src: env-db
+    dest: "{{base_dir}}/.env-db"
+    mode: 0400
+
+- name: pull image
+  command: "docker pull {{postgres_image}}"

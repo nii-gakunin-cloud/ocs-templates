@@ -1,0 +1,8 @@
+- hosts: all
+  roles:
+  - role: common
+  - role: simplesaml-config-fetch
+    vars:
+      container_id: idp-proxy
+      store_path: "{{ idp_proxy_dir }}/config.php"
+      local_ssp_config: "{{ simplesamlphp_config }}"

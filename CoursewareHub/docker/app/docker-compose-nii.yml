@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  nii-auth-proxy:
+    image: niicloudoperation/auth-proxy
+    build: ./CoursewareHub-LC_platform/auth-proxy
+  nii-auth-proxy-fed:
+    image: niicloudoperation/auth-proxy-fed
+    build:
+      context: ./CoursewareHub-LC_platform/auth-proxy-fed
+      args:
+        BASE_CONTAINER: niicloudoperation/auth-proxy
+        MASTER_FQDN: 'hub.example.org'
+  nii-idp-proxy:
+    image: niicloudoperation/idp-proxy
+    build: ./CoursewareHub-LC_idp-proxy

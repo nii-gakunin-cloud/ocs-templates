@@ -1,0 +1,11 @@
+- hosts: all
+  roles:
+  - role: common
+  - role: container-info
+    vars:
+      service: "{{ugroup_name}}_auth-proxy"
+  - role: simplesaml-config-fetch
+    vars:
+      container_id: "{{ container.stdout }}"
+      store_path: "{{ auth_proxy_dir }}/config.php"
+      local_ssp_config: "{{ simplesamlphp_config }}"

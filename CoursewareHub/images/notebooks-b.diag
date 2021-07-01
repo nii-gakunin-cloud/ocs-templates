@@ -1,0 +1,92 @@
+blockdiag {
+    node_width = 255;
+    node_height = 150;
+
+    group {
+        label = "IdP-proxyの構築";
+        orientation = portrait;
+        color = "#B0D6C6";
+        "511";
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+            "521" -> "531";
+        }
+        "511" -> "521";
+        "521" -> "541"[style=none];
+    }
+    "531" -> "211"[style=dashed];
+    "221" -> "541"[style=dashed];
+
+    group {
+         shape = line;
+         style = none;
+         orientation = portrait;
+
+        group {
+            label = "ノード作成";
+            color = "#B0C0D6";
+
+            "011";
+
+            group {
+                orientation = portrait;
+                shape = line;
+                style = none;
+                "021" -> "031"[style=dashed];
+            }
+        }
+
+
+        group {
+            orientation = portrait;
+            color = "#D6B0D3";
+            "211" -> "221";
+        }
+
+        "011" -> "221";
+        "021" -> "221";
+        "031" -> "221";
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+        group {
+            label = "LTI認証連携";
+            color = "#FFA07A";
+            "411";
+        }
+
+        group {
+            shape = line;
+            style = none;
+            orientation = portrait;
+            group {
+                label = "設定変更";
+                color = "#B7B0D6";
+                orientation = portrait;
+                "701";
+                "702";
+            }
+            group {
+                shape = line;
+                style = none;
+                "801";
+            }
+            group {
+                label = "ノード操作";
+                orientation = portrait;
+                color = "#D6C6AF";
+                "911";
+                "912";
+                "991";
+                "591";
+            }
+       }
+       }
+       "211" -> "801"[style=none];
+       "221" -> "411"[style=dotted];
+    }
+}

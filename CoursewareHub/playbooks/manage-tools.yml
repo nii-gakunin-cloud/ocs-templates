@@ -1,6 +1,6 @@
-- hosts: manager
+- hosts: all
   become: true
   roles:
-    - manage-tools
+  - role: manage-tools
   vars:
     default_user: "{{ansible_user}}"

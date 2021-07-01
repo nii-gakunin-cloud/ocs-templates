@@ -1,0 +1,27 @@
+- debug:
+    msg: "{{ hostvars[item]['inventory_hostname'] }}"
+  loop: "{{ groups[target_hub] }}"
+- debug:
+    msg: "{{ hostvars[item]['inventory_hostname'] }}"
+  loop: "{{ groups[target_nodes] }}"
+
+- file:
+    path: "{{ teacher_homedir }}/ansible"
+    state: directory
+    owner: "{{ teacher_id }}"
+    group: "{{ teacher_id }}"
+  become: yes
+- template:
+    src: inventory.j2
+    dest: "{{ teacher_homedir }}/ansible/inventory"
+    owner: "{{ teacher_id }}"
+    group: "{{ teacher_id }}"
+    backup: yes
+  become: yes
+- template:
+    src: ansible.cfg.j2
+    dest: "{{ teacher_homedir }}/.ansible.cfg"
+    owner: "{{ teacher_id }}"
+    group: "{{ teacher_id }}"
+    backup: yes
+  become: yes
