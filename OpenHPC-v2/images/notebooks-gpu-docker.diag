@@ -24,8 +24,8 @@ blockdiag {
         label = "ジョブ実行";
         color = "#9acd32";
         orientation = portrait;
-        "151"[style="dotted"];
-        "152"[style="dotted"];
+        "151";
+        "152";
     }
 
     "051" -> "151"[style="dotted",folded];

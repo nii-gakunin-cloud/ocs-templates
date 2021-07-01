@@ -44,7 +44,7 @@ VCディスク（クラウド上の仮想ディスク）もVCノードと同様�
 
 このテンプレートで構築するミドルウェア、OSのバージョンを示します。
 
-* [OpenHPC 2.1](https://github.com/openhpc/ohpc/releases/tag/v2.1.GA)
+* [OpenHPC 2.3](https://github.com/openhpc/ohpc/releases/tag/v2.3.GA)
 * CentOS 8.3
 
 ### 前提条件
