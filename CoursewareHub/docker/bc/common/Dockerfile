@@ -1,4 +1,4 @@
-FROM harbor.vcloud.nii.ac.jp/vcp/base:1.6.2-centos
+FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.0-centos7-x86_64
 
 RUN yum -y update \
   && yum clean all \
