@@ -235,10 +235,10 @@ def show_local_conf_diff(host, container, conf_path, version=None):
 
 def save_shibboleth_part(conf_path):
     with conf_path.open() as f:
-        data = yaml.load(f, Loader=yaml.Loader)
+        data = yaml.safe_load(f)
     params = {}
     if 'shibboleth' in data['services']:
-        params['shibboleth_container'] = yaml.dump(
+        params['shibboleth_container'] = yaml.safe_dump(
             data['services']['shibboleth'])
     vars_path = conf_path.parent / 'extra_vars.yml'
     with vars_path.open(mode='w') as f:
@@ -250,7 +250,7 @@ def init_shibboleth_part(conf_dir, hostname, volumes):
     shibboleth_volumes = ['/sys/fs/cgroup:/sys/fs/cgroup']
     shibboleth_volumes.extend(volumes)
     params = {
-        'shibboleth_container': yaml.dump({
+        'shibboleth_container': yaml.safe_dump({
             'image': 'harbor.vcloud.nii.ac.jp/vcp/moodle:shibboleth-3.0.4',
             'privileged': True,
             'ports': ['443:443'],

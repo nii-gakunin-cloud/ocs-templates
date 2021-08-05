@@ -1,24 +1,30 @@
 FROM centos:7
 
-RUN yum -y install \
-  aspell \
-  git \
-  graphviz \
-  graphviz-gd \
-  httpd \
-  which \
-  patch
+RUN yum -y update \
+ && yum -y install \
+      aspell \
+      git \
+      graphviz \
+      graphviz-gd \
+      httpd \
+      which \
+      patch \
+      nmap-ncat \
+ && yum clean all
+
+ARG WAIT_FOR_URL=https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+RUN curl -o /usr/local/bin/wait-for-it.sh ${WAIT_FOR_URL} \
+ && chmod a+x /usr/local/bin/wait-for-it.sh
 
 RUN ln -sf /dev/stdout /var/log/httpd/access_log \
   && ln -sf /dev/stderr /var/log/httpd/error_log
 
-COPY scripts /usr/local/bin/
-COPY patches /tmp/moodle.patches
-
 EXPOSE 80
 
-ENTRYPOINT ["/usr/local/bin/init"]
-
 RUN mkdir -p /usr/local/share \
-  && cd /usr/local/share \
-  && git clone https://github.com/moodle/moodle.git
+  && git clone https://github.com/moodle/moodle.git /usr/local/share/moodle
+
+COPY scripts /usr/local/bin/
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["/usr/local/bin/init"]

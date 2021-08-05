@@ -1,7 +1,7 @@
 from IPython.display import display, HTML
 from pathlib import Path
 import subprocess
-from ipaddress import IPv4Address, AddressValueError
+from ipaddress import IPv4Address, IPv4Network, AddressValueError
 from multiprocessing import Pool
 import requests
 import copy
@@ -25,7 +25,8 @@ anchor_map = {
     'ssh_public_key_path': '#SSH公開鍵認証の鍵ファイルの指定',
     'ssh_private_key_path': '#SSH公開鍵認証の鍵ファイルの指定',
     'moodle_version': '#Moodleのバージョン',
-    'moodle_admin_name': '#管理者ユーザ',
+    'moodle_admin_name': '#Moodleの管理者ユーザ',
+    'moodle_admin_password': '#Moodleの管理者パスワード',
     'moodle_image_name': '#Moodleのコンテナイメージ',
     'moodle_disk_size': '#Moodleのディスクサイズ',
     'moodle_volume_data_size': '#Moodleのボリュームサイズ',
@@ -146,10 +147,23 @@ def _check_ipv4_format(ipaddr, frame):
             f"正しいIPv4アドレスではありません: {ipaddr}", frame=frame)
 
 
+def _check_vpn_catalog(ipaddr, vcp, provider, frame):
+    catalog = vcp.get_vpn_catalog(provider)
+    if 'private_network_ipmask' not in catalog:
+        return
+    subnet = IPv4Network(catalog['private_network_ipmask'])
+    ip = IPv4Address(ipaddr)
+    if ip not in subnet:
+        raise MoodleParameterError(
+                f'範囲外のIPアドレスが指定されています: {ipaddr}; {subnet}',
+                frame=frame)
+
+
 def check_parameter_vc_moodle_ipaddress(value, params, kwargs):
+    provider = kwargs['vc_provider']
     _check_ipv4_format(value, currentframe())
-    if (kwargs['vc_provider'] != 'onpremisses' and
-            _ipaddress_reachable(value)[1]):
+    _check_vpn_catalog(value, params['vcp'], provider, currentframe())
+    if (provider != 'onpremises' and _ipaddress_reachable(value)[1]):
         raise MoodleParameterError(
             f"指定されたIPアドレスは既に他のノードで利用されています: {value}",
             frame=currentframe())
@@ -159,6 +173,12 @@ def check_parameter_moodle_admin_name(name, params, kwargs):
     if not re.match(r'[-\.@_a-z0-9]+$', name):
         raise MoodleParameterError(
             f"正しくないユーザ名です: {name}", frame=currentframe())
+
+
+def check_parameter_moodle_admin_password(password, params, kwargs):
+    if len(password) == 0 or password == 'admin':
+        raise MoodleParameterError(
+            "正しくないパスワードです", frame=currentframe())
 
 
 def check_parameter_moodle_version(version, params=None, kwargs=None):

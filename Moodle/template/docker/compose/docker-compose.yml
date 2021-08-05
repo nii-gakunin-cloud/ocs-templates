@@ -1,4 +1,4 @@
-version: '2.4'
+version: '3.7'
 services:
 {% if shibboleth_container is defined %}
   shibboleth:
@@ -8,10 +8,12 @@ services:
     container_name: proxy
     image: {{rproxy_image_name}}
     hostname: {{moodle_url | urlsplit('hostname')}}
+{% if prepare is not defined %}
     restart: always
     volumes:
       - /opt/moodle/proxy/conf:/usr/local/apache2/conf
       - /opt/moodle/cert:/usr/local/apache2/conf/cert:ro
+{% endif %}
     environment:
       TZ: Asia/Tokyo
 {% if shibboleth_container is not defined %}
@@ -21,12 +23,14 @@ services:
   db-{{project_tag}}:
     container_name: db-{{project_tag}}
     image: {{db_image_name}}
+{% if prepare is not defined %}
     restart: always
     volumes:
       - /opt/moodle/db-{{project_tag}}/data:/var/lib/mysql:rw
-      - /opt/moodle/db-{{project_tag}}/conf/mariadb.conf.d:/etc/mysql/mariadb.conf.d
+      - /opt/moodle/db-{{project_tag}}/conf/mysql:/etc/mysql
     env_file:
       - /opt/moodle/.env.db
+{% endif %}
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
       TZ: Asia/Tokyo
@@ -44,8 +48,23 @@ services:
     container_name: moodle-{{project_tag}}
     image: {{moodle_image_name}}
     restart: always
+{% if prepare is not defined %}
+    volumes:
+      - /opt/moodle/moodle-{{project_tag}}/data/moodledata:/var/data/moodledata:rw
+      - /opt/moodle/moodle-{{project_tag}}/data/php:/var/www:rw
+      - /opt/moodle/moodle-{{project_tag}}/conf/php.ini:/etc/php.ini
+      - /opt/moodle/moodle-{{project_tag}}/conf/php.d:/etc/php.d
+      - /opt/moodle/moodle-{{project_tag}}/conf/php-zts.d:/etc/php-zts.d
+      - /opt/moodle/moodle-{{project_tag}}/conf/httpd/conf:/etc/httpd/conf
+      - /opt/moodle/moodle-{{project_tag}}/conf/httpd/conf.d:/etc/httpd/conf.d
+      - /opt/moodle/moodle-{{project_tag}}/conf/httpd/conf.modules.d:/etc/httpd/conf.modules.d
     env_file:
       - /opt/moodle/.env.db
+{% else %}
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+{% endif %}
     environment:
       MOODLE_VERSION: {{moodle_version}}
       MOODLE_URL: {{moodle_url}}
@@ -57,18 +76,6 @@ services:
       MOODLE_DBLIBRARY: native
       CNT_NAME_MYSQL: db-{{project_tag}}
       TZ: Asia/Tokyo
-    volumes:
-      - /opt/moodle/moodle-{{project_tag}}/data/moodledata:/var/data/moodledata:rw
-      - /opt/moodle/moodle-{{project_tag}}/data/php:/var/www:rw
-      - /opt/moodle/moodle-{{project_tag}}/conf/php.ini:/etc/php.ini
-      - /opt/moodle/moodle-{{project_tag}}/conf/php.d:/etc/php.d
-      - /opt/moodle/moodle-{{project_tag}}/conf/php-zts.d:/etc/php-zts.d
-      - /opt/moodle/moodle-{{project_tag}}/conf/httpd/conf:/etc/httpd/conf
-      - /opt/moodle/moodle-{{project_tag}}/conf/httpd/conf.d:/etc/httpd/conf.d
-      - /opt/moodle/moodle-{{project_tag}}/conf/httpd/conf.modules.d:/etc/httpd/conf.modules.d
-    depends_on:
-      db-{{project_tag}}:
-        condition: service_healthy
 {% if update_project_tag is defined and clear_test_env is not defined %}
   dbtest-{{update_project_tag}}:
     container_name: dbtest-{{update_project_tag}}
@@ -80,7 +87,7 @@ services:
     restart: always
     volumes:
       - /opt/moodle/dbtest-{{update_project_tag}}/data:/var/lib/mysql:rw
-      - /opt/moodle/dbtest-{{update_project_tag}}/conf/mariadb.conf.d:/etc/mysql/mariadb.conf.d
+      - /opt/moodle/dbtest-{{update_project_tag}}/conf/mysql:/etc/mysql
     env_file:
       - /opt/moodle/.env.db
     environment:
@@ -130,7 +137,4 @@ services:
       - /opt/moodle/moodletest-{{update_project_tag}}/conf/httpd/conf:/etc/httpd/conf
       - /opt/moodle/moodletest-{{update_project_tag}}/conf/httpd/conf.d:/etc/httpd/conf.d
       - /opt/moodle/moodletest-{{update_project_tag}}/conf/httpd/conf.modules.d:/etc/httpd/conf.modules.d
-    depends_on:
-      dbtest-{{update_project_tag}}:
-        condition: service_healthy
 {% endif %}

@@ -1,7 +1,7 @@
 from IPython.display import display, HTML
 from pathlib import Path
 import subprocess
-from ipaddress import IPv4Address, AddressValueError
+from ipaddress import IPv4Address, IPv4Network, AddressValueError
 from multiprocessing import Pool
 import requests
 import copy
@@ -144,10 +144,23 @@ def _check_ipv4_format(ipaddr, frame):
             f"正しいIPv4アドレスではありません: {ipaddr}", frame=frame)
 
 
+def _check_vpn_catalog(ipaddr, vcp, provider, frame):
+    catalog = vcp.get_vpn_catalog(provider)
+    if 'private_network_ipmask' not in catalog:
+        return
+    subnet = IPv4Network(catalog['private_network_ipmask'])
+    ip = IPv4Address(ipaddr)
+    if ip not in subnet:
+        raise MoodleParameterError(
+                f'範囲外のIPアドレスが指定されています: {ipaddr}; {subnet}',
+                frame=frame)
+
+
 def check_parameter_vc_moodle_ipaddress(value, params, kwargs):
+    provider = kwargs['vc_provider']
     _check_ipv4_format(value, currentframe())
-    if (kwargs['vc_provider'] != 'onpremisses' and
-            _ipaddress_reachable(value)[1]):
+    _check_vpn_catalog(value, params['vcp'], provider, currentframe())
+    if (provider != 'onpremises' and _ipaddress_reachable(value)[1]):
         raise MoodleParameterError(
             f"指定されたIPアドレスは既に他のノードで利用されています: {value}",
             frame=currentframe())

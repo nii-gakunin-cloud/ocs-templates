@@ -2,8 +2,9 @@ FROM centos:7
 
 ENV container docker
 
-RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || [ $i == systemd-user-sessions.service ] || rm -f $i; done); \
-    (cd /lib/systemd/system/multi-user.target.wants/; for i in *; do [ $i == systemd-user-sessions.service ] || rm -f $i; done); \
+# hadolint ignore=DL3003,SC2086
+RUN (cd /lib/systemd/system/sysinit.target.wants/ && for i in *; do [ $i = systemd-tmpfiles-setup.service ] || [ $i = systemd-user-sessions.service ] || rm -f $i; done); \
+    (cd /lib/systemd/system/multi-user.target.wants/ && for i in *; do [ $i = systemd-user-sessions.service ] || rm -f $i; done); \
     rm -f /etc/systemd/system/*.wants/*;\
     rm -f /lib/systemd/system/local-fs.target.wants/*; \
     rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
@@ -13,8 +14,8 @@ RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == system
 
 CMD ["/usr/sbin/init"]
 
-RUN yum -y update \
- && yum -y install httpd mod_ssl \
+RUN yum -y install httpd mod_ssl \
+ && yum clean all \
  && systemctl enable httpd
 
 EXPOSE 443
@@ -22,6 +23,7 @@ EXPOSE 443
 ARG SHIBBOLETH_VERSION
 RUN curl 'https://shibboleth.net/cgi-bin/sp_repo.cgi?platform=CentOS_7' -o /etc/yum.repos.d/shibboleth.repo \
  && yum -y install shibboleth${SHIBBOLETH_VERSION} \
+ && yum clean all \
  && chmod a+x /etc/shibboleth/shibd-redhat \
  && systemctl enable shibd
 RUN /sbin/chkconfig network off

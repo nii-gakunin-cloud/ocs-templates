@@ -1,5 +1,7 @@
 ARG SHIBBOLETH_SP_VERSION=3.0.4
-FROM harbor.vcloud.nii.ac.jp/vcp/shibboleth:sp-${SHIBBOLETH_SP_VERSION}
+ARG BASE_IMAGE=harbor.vcloud.nii.ac.jp/vcp/shibboleth:sp-${SHIBBOLETH_SP_VERSION}
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE
 
 COPY conf.d/*.conf /etc/httpd/conf.d/
 COPY conf.d/shib.conf.append /tmp/

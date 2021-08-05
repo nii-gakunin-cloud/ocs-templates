@@ -254,7 +254,7 @@ def setup_blockdiag():
 
 def check_blockdiag():
     try:
-        run('which blockdiag', shell=True, check=True)
+        run('blockdiag -h', shell=True, check=True)
         return True
     except CalledProcessError:
         return False
@@ -262,13 +262,13 @@ def check_blockdiag():
 
 def install_blockdiag():
     run('pip install -q --user blockdiag', shell=True)
-    if not check_blockdiag():
-        install_blockdiag()
     paths = os.environ['PATH'].split(':')
-    local_bin = str(Path('~/.local/bin'))
+    local_bin = str(Path('~/.local/bin').expanduser())
     if local_bin not in paths:
         paths.append(local_bin)
         os.environ['PATH'] = ':'.join(paths)
+    if not check_blockdiag():
+        install_blockdiag()
 
 
 def setup_lxml():

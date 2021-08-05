@@ -1,22 +1,22 @@
 FROM centos:7
 
-RUN yum -y install \
-  aspell \
-  graphviz \
-  graphviz-gd \
-  ghostscript \
-  httpd \
-  which \
-  patch \
+RUN yum -y update \
+ && yum -y install \
+      aspell \
+      graphviz \
+      graphviz-gd \
+      ghostscript \
+      httpd \
+      which \
+      patch \
  && yum clean all
 
 RUN ln -sf /dev/stdout /var/log/httpd/access_log \
   && ln -sf /dev/stderr /var/log/httpd/error_log
 
+ARG REMI_URL=http://ftp.riken.jp/Linux/remi/enterprise/remi-release-7.rpm
 RUN yum -y install epel-release \
- && yum -y install \
-      https://repo.ius.io/ius-release-el7.rpm \
-      https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+ && yum -y install ${REMI_URL} \
  && yum clean all
 
 ARG WAIT_FOR_URL=https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
@@ -24,21 +24,20 @@ RUN curl -o /usr/local/bin/wait-for-it.sh ${WAIT_FOR_URL} \
  && chmod a+x /usr/local/bin/wait-for-it.sh
     
 ARG PHP_VERSION
-RUN yum -y install \
-  ${PHP_VERSION} \
-  ${PHP_VERSION}-cli \
-  ${PHP_VERSION}-gd \
-  ${PHP_VERSION}-intl \
-  ${PHP_VERSION}-mbstring \
-  ${PHP_VERSION}-mysqlnd \
-  ${PHP_VERSION}-opcache \
-  ${PHP_VERSION}-pecl-zip \
-  ${PHP_VERSION}-soap \
-  ${PHP_VERSION}-xml \
-  ${PHP_VERSION}-xmlrpc \
-  ${PHP_VERSION}-json \
-  ${PHP_VERSION}-ldap \
-  mod_${PHP_VERSION} \
+RUN yum -y install --enablerepo=remi-${PHP_VERSION} \
+  php \
+  php-cli \
+  php-gd \
+  php-intl \
+  php-mbstring \
+  php-mysqlnd \
+  php-opcache \
+  php-pecl-zip \
+  php-soap \
+  php-xml \
+  php-xmlrpc \
+  php-json \
+  php-ldap \
  && yum clean all
 
 COPY etc/php-opcache.ini /tmp

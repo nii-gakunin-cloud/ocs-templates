@@ -1,25 +1,28 @@
-FROM harbor.vcloud.nii.ac.jp/vcp/moodle:common
+ARG BASE_IMAGE=harbor.vcloud.nii.ac.jp/vcp/moodle:common
+# hadolint ignore=DL3006
+FROM $BASE_IMAGE
 
-ARG PHP_VERSION=php72u
-
-ADD https://repo.ius.io/ius-release-el7.rpm /tmp/
+ARG REMI_URL=http://ftp.riken.jp/Linux/remi/enterprise/remi-release-7.rpm
 RUN yum -y install epel-release \
-  && yum -y localinstall /tmp/ius-release-el7.rpm \
-  && rm /tmp/ius-release-el7.rpm
+ && yum -y install  ${REMI_URL} \
+ && yum clean all
     
-RUN yum -y install \
-  ${PHP_VERSION} \
-  ${PHP_VERSION}-cli \
-  ${PHP_VERSION}-gd \
-  ${PHP_VERSION}-intl \
-  ${PHP_VERSION}-mbstring \
-  ${PHP_VERSION}-mysqlnd \
-  ${PHP_VERSION}-opcache \
-  ${PHP_VERSION}-soap \
-  ${PHP_VERSION}-xml \
-  ${PHP_VERSION}-xmlrpc \
-  ${PHP_VERSION}-json \
-  mod_${PHP_VERSION}
+ARG PHP_VERSION
+RUN yum -y install --enablerepo=remi-${PHP_VERSION} \
+  php \
+  php-cli \
+  php-gd \
+  php-intl \
+  php-mbstring \
+  php-mysqlnd \
+  php-opcache \
+  php-pecl-zip \
+  php-soap \
+  php-xml \
+  php-xmlrpc \
+  php-json \
+  php-ldap \
+ && yum clean all
 
 COPY etc/php-opcache.ini /tmp
 RUN cat /tmp/php-opcache.ini >> /etc/php.ini \

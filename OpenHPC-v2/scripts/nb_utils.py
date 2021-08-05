@@ -254,7 +254,7 @@ def setup_blockdiag():
 
 def check_blockdiag():
     try:
-        run('which blockdiag', shell=True, check=True)
+        run('blockdiag -h', shell=True, check=True)
         return True
     except CalledProcessError:
         return False

@@ -2,7 +2,14 @@ version: '3.8'
 services:
   moodle:
     image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:${MOODLE_VERSION}
-    build: ./moodle-simple
+    build:
+      context: ./moodle-simple
+      args:
+        MOODLE_VERSION: ${MOODLE_VERSION}
+        PHP_VERSION: ${PHP_VERSION}
   moodle-ssl:
     image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:${MOODLE_VERSION}-ssl
-    build: ./moodle-ssl
+    build:
+      context: ./moodle-ssl
+      args:
+        MOODLE_VERSION: ${MOODLE_VERSION}

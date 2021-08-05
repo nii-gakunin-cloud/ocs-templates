@@ -10,3 +10,7 @@ RewriteRule ^/(.*) http://moodletest-{{update_project_tag}}/$1 [P,L]
 
 ProxyPassReverse / http://moodle-{{project_tag}}/
 RewriteRule ^/(.*) http://moodle-{{project_tag}}/$1 [P,L]
+
+<IfModule remoteip_module>
+RemoteIPHeader X-Forwarded-For
+</IfModule>
