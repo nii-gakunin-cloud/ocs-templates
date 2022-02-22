@@ -1,6 +1,6 @@
 {
-{% for it in lti %}
-  "{{ it.platform_id }}": {
+{% for key, it in lti.items() %}
+  "{{ key }}": {
     "client_id": "{{ it.client_id }}",
     "auth_login_url": "{{ it.auth_login_url }}",
     "auth_token_url": "{{ it.auth_token_url }}",
