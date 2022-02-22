@@ -1,6 +1,6 @@
 FROM harbor.vcloud.nii.ac.jp/vcp/base:1.6.2 AS vcp-base
 
-FROM centos:8
+FROM rockylinux:8.5
 
 ENV container docker
 
@@ -34,7 +34,7 @@ RUN yum -y install \
   && yum clean all \
   && rm -rf /var/cache/dnf/*
 
-ARG CADVISOR_VERSION=v0.37.5
+ARG CADVISOR_VERSION=v0.38.8
 RUN curl -L -o /usr/local/bin/cadvisor https://github.com/google/cadvisor/releases/download/${CADVISOR_VERSION}/cadvisor \
   && chmod +x /usr/local/bin/cadvisor
 
@@ -54,14 +54,18 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 WORKDIR /
 
 # Enable OpenHPC repository for local use
-RUN yum -y install http://repos.openhpc.community/OpenHPC/2/CentOS_8/x86_64/ohpc-release-2-1.el8.x86_64.rpm \
+RUN yum -y install http://repos.openhpc.community/OpenHPC/2/EL_8/x86_64/ohpc-release-2-1.el8.x86_64.rpm \
  && yum -y install dnf-plugins-core \
  && yum config-manager --set-enabled powertools \
  && yum clean all \
  && rm -rf /var/cache/dnf/*
 
-RUN dnf -y reinstall langpacks-en \
- && dnf -y install langpacks-ja \
+RUN dnf -y install \
+      langpacks-en \
+      langpacks-ja \
+      redhat-lsb-core \
+      procps-ng \
+      iproute \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 

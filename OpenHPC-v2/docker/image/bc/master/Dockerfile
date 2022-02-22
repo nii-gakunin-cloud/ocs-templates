@@ -108,6 +108,11 @@ RUN systemctl enable munge \
  && systemctl enable slurmctld
 
 # ----------------------------
+RUN dnf -y install \
+  libjpeg-turbo-devel \
+  python36-devel
+
+# ----------------------------
 RUN systemctl disable NetworkManager-wait-online \
  && systemctl enable nfs-server \
  && systemctl mask emergency.service \
