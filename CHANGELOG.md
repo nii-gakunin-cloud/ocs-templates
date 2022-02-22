@@ -1,5 +1,17 @@
 # 変更履歴
 
+## 21.04.0-20220222
+
+### 変更点
+
+- HPCテンプレート: OpenHPC を 2.4 にアップデートした
+- 講義演習環境テンプレート: [NII-cloud-operation/CoursewareHub-LC_manage-tools](https://github.com/NII-cloud-operation/CoursewareHub-LC_manage-tools/pull/3) の変更に対応した
+
+### 障害修正
+
+- 講義演習環境テンプレート: データベースのパスワードに記号が含まれていると起動に失敗する件に対応した
+- 講義演習環境テンプレート: LTI連携に関するパラメータの保存方法を修正した
+
 ## 21.04.0-20210805
 
 ### 変更点
