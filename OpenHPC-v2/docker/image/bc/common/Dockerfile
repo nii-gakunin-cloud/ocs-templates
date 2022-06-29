@@ -1,4 +1,4 @@
-FROM harbor.vcloud.nii.ac.jp/vcp/base:1.6.2 AS vcp-base
+FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-alpine3.13-x86_64 AS vcp-base
 
 FROM rockylinux:8.5
 
@@ -34,7 +34,7 @@ RUN yum -y install \
   && yum clean all \
   && rm -rf /var/cache/dnf/*
 
-ARG CADVISOR_VERSION=v0.38.8
+ARG CADVISOR_VERSION=v0.39.3
 RUN curl -L -o /usr/local/bin/cadvisor https://github.com/google/cadvisor/releases/download/${CADVISOR_VERSION}/cadvisor \
   && chmod +x /usr/local/bin/cadvisor
 
