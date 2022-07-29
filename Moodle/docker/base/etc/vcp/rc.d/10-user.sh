@@ -16,7 +16,7 @@ setup_ssh_public_key() {
 }
 
 setup_user() {
-  if [ -f /var/lib/vcp/.50-user ]; then
+  if [ -f /var/lib/vcp/.10-user ]; then
     return
   fi
   groupadd -f -r docker
@@ -28,7 +28,7 @@ setup_user() {
 
   setup_ssh_public_key
   mkdir -p /var/lib/vcp
-  touch /var/lib/vcp/.50-user
+  touch /var/lib/vcp/.10-user
 }
 
 setup_user

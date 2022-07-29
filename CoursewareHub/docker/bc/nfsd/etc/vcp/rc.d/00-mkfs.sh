@@ -7,14 +7,19 @@
 
 if [[ -n "$NFS_MKFS" ]]; then
 
-NFS_DEV=$(lsblk -P -s -d | sed -r -n -e '/MOUNTPOINT=""/s/NAME="([^"]+)".*/\1/p' | head -1)
+NFS_DEV=$(lsblk -P -s -d | egrep -e 'MOUNTPOINTS?=""' | sed -r -n -e '/TYPE="disk"/s/NAME="([^"]+)".*/\1/p' | head -1)
+retry=0
+while [[ -z "$NFS_DEV" ]]; do
+  sleep 10
+  retry=$((retry + 1))
+  NFS_DEV=$(lsblk -P -s -d | egrep -e 'MOUNTPOINTS?=""' | sed -r -n -e '/TYPE="disk"/s/NAME="([^"]+)".*/\1/p' | head -1)
+  if [[ $retry -gt $MAX_RETRY ]]; then
+    echo "cannot find block device" >&2
+    exit 1
+  fi
+done
 
-if [[ -z "$NFS_DEV" ]]; then
-  echo "cannot find block device" >&2
-  exit 1
-fi
 NFS_DEV="/dev/${NFS_DEV}"
-
 retry=0
 until [[ -b ${NFS_DEV} ]]; do
   echo "wait ${NFS_DEV}"

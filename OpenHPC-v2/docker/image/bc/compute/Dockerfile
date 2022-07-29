@@ -1,9 +1,5 @@
 ARG TAG
 ARG REGISTRY
-
-FROM golang:1.16-buster AS builder 
-RUN go get github.com/mindprince/nvidia_gpu_prometheus_exporter
-
 FROM $REGISTRY/vcp/openhpc:common-$TAG
 
 # ------------------------------------------------------------
@@ -49,13 +45,10 @@ RUN dnf -y install nhc-ohpc \
 # VCP customize
 COPY etc /etc/
 # hadolint ignore=DL3041
-RUN systemctl disable NetworkManager-wait-online \
+RUN systemctl disable NetworkManager-wait-online chronyd \
  && systemctl enable mount-nfs munge slurmd \
  && systemctl mask emergency.service \
  && systemctl mask emergency.target \
  && dnf -y install hostname squashfs-tools \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
-
-COPY --from=builder /go/bin/nvidia_gpu_prometheus_exporter /usr/local/bin/
-RUN systemctl enable nvidia_exporter

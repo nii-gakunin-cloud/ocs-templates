@@ -179,7 +179,7 @@ def upload_conf_file(src, host, container, conf_path,
 
 
 def restart_container(host, container):
-    cmd = f'chdir={MOODLE_DIR} docker-compose restart {container}'
+    cmd = f'chdir={MOODLE_DIR} docker compose restart {container}'
     logger.info(f'Restart container {container}')
     subprocess.check_call(['ansible', host, '-a', cmd])
 
@@ -297,7 +297,7 @@ def upload_docker_compose(host, local_path, apply=True):
     _upload_host_conf(host, local_path, remote_path)
     if not apply:
         return
-    ansible_arg = f'chdir={MOODLE_DIR} docker-compose up -d --remove-orphans'
+    ansible_arg = f'chdir={MOODLE_DIR} docker compose up -d --remove-orphans'
     args = ['ansible', host, '-a', ansible_arg]
     logger.info('Apply the changes in docker-compose.yml.')
     subprocess.run(args=args, check=True)

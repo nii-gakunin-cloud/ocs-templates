@@ -1,0 +1,14 @@
+[Unit]
+Description=Fluentd daemon
+After=network.service
+
+[Service]
+EnvironmentFile=/etc/sysconfig/fluentd
+LimitNOFILE=65536
+ExecStart=/usr/local/bin/fluentd -c /etc/fluentd/fluent.conf
+ExecStop=/bin/kill -INT ${MAINPID}
+ExecReload=/bin/kill -HUP ${MAINPID}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

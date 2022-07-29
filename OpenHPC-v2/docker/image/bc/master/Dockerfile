@@ -109,11 +109,13 @@ RUN systemctl enable munge \
 
 # ----------------------------
 RUN dnf -y install \
-  libjpeg-turbo-devel \
-  python36-devel
+      libjpeg-turbo-devel \
+      python36-devel \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/*
 
 # ----------------------------
-RUN systemctl disable NetworkManager-wait-online \
+RUN systemctl disable NetworkManager-wait-online chronyd \
  && systemctl enable nfs-server \
  && systemctl mask emergency.service \
  && systemctl mask emergency.target

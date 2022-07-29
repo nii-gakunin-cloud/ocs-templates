@@ -1,7 +1,6 @@
-version: '3.8'
 services:
   base:
-    image: harbor.vcloud.nii.ac.jp/vcp/moodle:1.8.0-base
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle:1.8.1-base
     build: ./base
   moodle-common:
     image: harbor.vcloud.nii.ac.jp/vcp/moodle:common

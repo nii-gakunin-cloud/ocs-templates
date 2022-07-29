@@ -12,4 +12,3 @@ EnvironmentFile=/etc/sysconfig/serf
 
 [Install]
 WantedBy=multi-user.target
-

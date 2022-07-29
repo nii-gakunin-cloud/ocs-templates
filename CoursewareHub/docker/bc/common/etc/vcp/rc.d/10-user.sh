@@ -16,14 +16,20 @@ setup_ssh_public_key() {
 }
 
 setup_user() {
+  if [ -f /var/lib/vcp/.10-user ]; then
+    return
+  fi
   groupadd -f -r docker
   useradd -m -s /bin/bash -U -G docker ${VCP_USER}
 
-  if [[ -z "${SUDO_NOT_PERMITTED}" ]]; then
+  if [ -z "${SUDO_NOT_PERMITTED}" ]; then
     echo "${VCP_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vcp
   fi
 
   setup_ssh_public_key
+  mkdir -p /var/lib/vcp
+  touch /var/lib/vcp/.10-user
 }
 
 setup_user
+

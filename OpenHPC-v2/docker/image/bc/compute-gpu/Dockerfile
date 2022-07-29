@@ -1,5 +1,9 @@
 ARG TAG
 ARG REGISTRY
+
+FROM golang:1.17-buster AS builder
+RUN go get github.com/mindprince/nvidia_gpu_prometheus_exporter
+
 FROM $REGISTRY/vcp/openhpc:compute-$TAG
 
 # hadolint ignore=DL3041
@@ -9,3 +13,7 @@ RUN dnf config-manager --add-repo \
  && dnf -y module install nvidia-driver:465-dkms \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
+
+COPY etc /etc/
+COPY --from=builder /go/bin/nvidia_gpu_prometheus_exporter /usr/local/bin/
+RUN systemctl enable nvidia_exporter
