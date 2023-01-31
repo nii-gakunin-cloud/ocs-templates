@@ -1,0 +1,66 @@
+#!/bin/bash
+
+: ${SERVER_NAME:?"The host name of the configuration server is not set to SERVER_NAME."}
+: ${PATH_CERT:=/etc/pki/tls/certs/server.crt}
+: ${PATH_KEY:=/etc/pki/tls/private/server.key}
+: ${PATH_SHIB_CERT:=/etc/shibboleth/cert/server.crt}
+: ${PATH_SHIB_KEY:=/etc/shibboleth/cert/server.key}
+: ${PATH_METADATA_SIGNER:=/etc/shibboleth/cert/gakunin-signer.cer}
+
+setup_certs () {
+  if [[ ! -f $PATH_CERT ]]; then
+    echo "No certificate file exists." 1>&2
+    exit 1
+  fi
+  if [[ ! -f $PATH_KEY ]]; then
+    echo "No private key file exists." 1>&2
+    exit 1
+  fi
+  if [[ -n "$GAKUNIN_METADATA" && ! -f $PATH_METADATA_SIGNER ]]; then
+    echo "Metadata signing certificate does not exist." 1>&2
+    exit 1
+  fi
+
+  mkdir -p /etc/shibboleth/cert
+  if [[ ! -f $PATH_SHIB_CERT ]]; then
+    sep="-----END CERTIFICATE-----"
+    awk -v sep="$sep" -v RS="$sep\n*" -v output="$PATH_SHIB_CERT" 'NR==1{print $0 sep > output}' $PATH_CERT
+  fi
+  if [[ ! -f $PATH_SHIB_KEY ]]; then
+    cp $PATH_KEY $PATH_SHIB_KEY
+  fi
+
+  chown apache:apache $PATH_CERT $PATH_KEY
+  chown shibd:shibd $PATH_SHIB_CERT $PATH_SHIB_KEY
+  chmod 644 $PATH_CERT $PATH_SHIB_CERT
+  chmod 400 $PATH_KEY $PATH_SHIB_KEY
+  if [[ -f $PATH_METADATA_SIGNER ]]; then
+    chown shibd:shibd $PATH_METADATA_SIGNER
+  fi
+}
+
+setup_ssl_conf () {
+  sed -i -r -e "/ServerName/s|^#?\s*ServerName.+|ServerName ${SERVER_NAME}:443|" \
+    -e "/SSLCertificateFile/s|^#?\s*SSLCertificateFile.+|SSLCertificateFile ${PATH_CERT}|" \
+    -e "/SSLCertificateKeyFile/s|^#?\s*SSLCertificateKeyFile.+|SSLCertificateKeyFile ${PATH_KEY}|" \
+    /etc/httpd/conf.d/ssl.conf
+}
+
+setup_shibboleth2_xml () {
+  /usr/local/bin/setup-shibboleth2.py -o /etc/shibboleth/shibboleth2.xml
+}
+
+setup_shibd () {
+  setup_shibboleth2_xml
+  chown shibd:shibd /var/log/shibboleth
+  chmod 750 /var/log/shibboleth
+}
+
+setup () {
+  setup_certs
+  setup_ssl_conf
+  setup_shibd
+}
+
+setup
+exec /usr/bin/supervisord -n -c /etc/supervisord.conf -u root

@@ -1,0 +1,42 @@
+- command: mkdir -p "{{ certs_dir }}"
+- copy:
+    src: "{{ moodle_cert_path }}"
+    dest: "{{ certs_dir }}/{{ cert_file }}"
+    owner: "48"
+    group: "48"
+  become: true
+  no_log: true
+- copy:
+    src: "{{ moodle_private_key_path }}"
+    dest: "{{ certs_dir }}/{{ key_file }}"
+    owner: "48"
+    group: "48"
+    mode: "0400"
+  become: true
+  no_log: true
+- file:
+    path: "{{ shibboleth_dir }}"
+    owner: root
+    group: root
+    state: directory
+  become: true
+- file:
+    path: "{{ shibboleth_certs_dir }}"
+    owner: "{{ uid_shibd }}"
+    group: "{{ gid_shibd }}"
+    state: directory
+  become: true
+- get_url:
+    url: "{{ url_gakunin_signer }}"
+    dest: "{{ shibboleth_certs_dir }}/{{ signer_file }}"
+    owner: "{{ uid_shibd }}"
+    group: "{{ gid_shibd }}"
+  become: true
+  when: url_gakunin_signer is defined
+- copy:
+    src: "{{ path_gakunin_signer }}"
+    dest: "{{ shibboleth_certs_dir }}/{{ signer_file }}"
+    owner: "{{ uid_shibd }}"
+    group: "{{ gid_shibd }}"
+  become: true
+  when: path_gakunin_signer is defined

@@ -1,0 +1,15 @@
+module(load="imfile")
+
+ruleset(name="moodle") {
+    action(type="omfwd" Target="{{ syslog_server }}" Port="{{ syslog_port }}" Protocol="{{ syslog_protocol }}")
+}
+
+{% for cfg in rsyslog_configs %}
+input(
+    type="imfile"
+    ruleset="moodle"
+{% for key, value in cfg.items() %}
+    {{ key }}="{{ value }}"
+{% endfor %}
+)
+{% endfor %}

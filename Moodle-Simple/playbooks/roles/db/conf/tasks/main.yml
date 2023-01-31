@@ -1,0 +1,44 @@
+- file:
+    path: /srv/moodle/setup
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- template:
+    src: docker-compose-setup-db.yml.j2
+    dest: /srv/moodle/setup/docker-compose-setup-db.yml
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-db.yml pull
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-db.yml up -d
+- file:
+    path: /srv/moodle/db
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- stat:
+    path: /srv/moodle/db/conf
+  register: db_conf
+- shell:
+    chdir: /srv/moodle
+    cmd: mv db/conf db/conf.$(date "+%Y%m%d%H%M%S")
+  become: true
+  when: db_conf.stat.exists
+- shell:
+    chdir: /srv/moodle
+    cmd: docker container cp -a setup-db:/etc/mysql db/conf || true
+  become: true
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-db.yml down
+- file:
+    path: /srv/moodle/db/data
+    state: directory
+    owner: "999"
+    group: "999"
+  become: true
+- file:
+    path: /srv/moodle/db/misc
+    state: directory
+  become: true

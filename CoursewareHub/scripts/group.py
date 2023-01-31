@@ -185,7 +185,6 @@ def setup_ansible_cfg(inventory_path=Path('inventory.yml'), backup='.bak'):
         cfg['defaults'] = {}
 
     cfg['defaults']['inventory'] = str(inventory_path.resolve())
-    cfg['defaults']['command_warnings'] = 'False'
     cfg['defaults']['gathering'] = 'explicit'
 
     with cfg_path.open(mode='w') as f:

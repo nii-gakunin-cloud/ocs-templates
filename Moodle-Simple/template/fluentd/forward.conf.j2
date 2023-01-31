@@ -1,0 +1,11 @@
+{% if fluentd_server is defined %}
+<store>
+    @type forward
+    <server>
+        host "{{ fluentd_server }}"
+{% if fluentd_port is defined %}
+        port {{ fluentd_port }}
+{% endif %}
+    </server>
+</store>
+{% endif %}

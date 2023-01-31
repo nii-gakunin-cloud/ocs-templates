@@ -1,6 +1,6 @@
 blockdiag {
     node_width = 230;
-    node_height = 145;
+    node_height = 155;
 
     group {
         orientation = portrait;
@@ -41,7 +41,7 @@ blockdiag {
                 style = none;
                 orientation = portrait;
                 group {
-                    label = "設定ファイル編集";
+                    label = "設定変更";
                     color = "#CCFFCC";
                     orientation = portrait;
                     group {
@@ -58,14 +58,22 @@ blockdiag {
                         orientation = portrait;
                         "040";
                         "041";
-                        "051";
                     }
                     group {
                         shape = line;
                         style = none;
                         orientation = portrait;
-                        "060";
+                        "051";
+                        "052";
+                        "071";
+                    }
+                    group {
+                        shape = line;
+                        style = none;
+                        orientation = portrait;
                         "061";
+                        "062";
+                        "072";
                     }
                 }
 
@@ -79,7 +87,9 @@ blockdiag {
             group {
                 label = "認証設定";
                 color = "#FFCC66";
+                orientation = portrait;
                 "211";
+                "221";
             }
         }
     }
@@ -92,13 +102,17 @@ blockdiag {
     "021" -> "031";
     "021" -> "032";
 
+    "021" -> "051";
+    "021" -> "052";
+    "021" -> "061";
+    "021" -> "062";
+    "021" -> "071";
+    "021" -> "072";
     "021" -> "040";
     "021" -> "041";
-    "021" -> "051";
-    "021" -> "060";
-    "021" -> "061";
 
     "021" -> "211";
+    "021" -> "221";
 
     "021" -> "811";
     "021" -> "812";

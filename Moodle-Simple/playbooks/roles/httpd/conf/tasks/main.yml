@@ -1,0 +1,31 @@
+- file:
+    path: /srv/moodle/setup
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- template:
+    src: docker-compose-setup-ssl.yml.j2
+    dest: /srv/moodle/setup/docker-compose-setup-ssl.yml
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-ssl.yml pull
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-ssl.yml up -d
+- file:
+    path: /srv/moodle/httpd
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- file:
+    path: /srv/moodle/httpd/conf
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- shell:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-httpd:/etc/httpd httpd/conf || true
+  become: true
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-ssl.yml down

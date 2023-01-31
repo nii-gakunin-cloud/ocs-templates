@@ -1,0 +1,35 @@
+#!/bin/bash
+
+: ${SERVER_NAME:?"The host name of the configuration server is not set to SERVER_NAME."}
+: ${PATH_CERT:=/etc/pki/tls/certs/server.crt}
+: ${PATH_KEY:=/etc/pki/tls/private/server.key}
+
+setup_certs () {
+  if [[ ! -f $PATH_CERT ]]; then
+    echo "No certificate file exists." 1>&2
+    exit 1
+  fi
+  if [[ ! -f $PATH_KEY ]]; then
+    echo "No private key file exists." 1>&2
+    exit 1
+  fi
+
+  chown apache:apache $PATH_CERT $PATH_KEY
+  chmod 644 $PATH_CERT
+  chmod 400 $PATH_KEY
+}
+
+setup_ssl_conf () {
+  sed -i -r -e "/ServerName/s|^#?\s*ServerName.+|ServerName ${SERVER_NAME}:443|" \
+    -e "/SSLCertificateFile/s|^#?\s*SSLCertificateFile.+|SSLCertificateFile ${PATH_CERT}|" \
+    -e "/SSLCertificateKeyFile/s|^#?\s*SSLCertificateKeyFile.+|SSLCertificateKeyFile ${PATH_KEY}|" \
+    /etc/httpd/conf.d/ssl.conf
+}
+
+setup () {
+  setup_certs
+  setup_ssl_conf
+}
+
+setup
+exec /usr/sbin/httpd -DFOREGROUND

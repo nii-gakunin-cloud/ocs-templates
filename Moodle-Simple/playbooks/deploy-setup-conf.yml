@@ -1,0 +1,4 @@
+- hosts: all
+  roles:
+  - role: db/conf
+  - role: moodle/conf

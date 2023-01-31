@@ -1,0 +1,8 @@
+certs_dir: /srv/moodle/shibboleth/conf/httpd/certs
+cert_file: server.crt
+key_file: server.key
+shibboleth_dir: /srv/moodle/shibboleth/conf/shibboleth
+shibboleth_certs_dir: /srv/moodle/shibboleth/conf/shibboleth/cert
+signer_file: gakunin-signer.cer
+uid_shibd: "998"
+gid_shibd: "996"

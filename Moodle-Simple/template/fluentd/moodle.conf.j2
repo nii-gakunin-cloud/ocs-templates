@@ -1,0 +1,16 @@
+{% for cfg in fluentd_configs %}
+<source>
+    @type tail
+{% for key, value in cfg.items() %}
+{% if key != "parse" %}
+    {{ key }} "{{ value }}"
+{% else %}
+    <parse>
+{% for pkey, pvalue in value.items() %}
+        {{ pkey }} "{{ pvalue }}"
+{% endfor %}
+    </parse>
+{% endif %}
+{% endfor %}
+</source>
+{% endfor %}

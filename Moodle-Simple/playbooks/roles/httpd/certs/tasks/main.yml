@@ -1,0 +1,16 @@
+- command: mkdir -p "{{ certs_dir }}"
+- copy:
+    src: "{{ moodle_cert_path }}"
+    dest: "{{ certs_dir }}/{{ cert_file }}"
+    owner: "48"
+    group: "48"
+  become: true
+  no_log: true
+- copy:
+    src: "{{ moodle_private_key_path }}"
+    dest: "{{ certs_dir }}/{{ key_file }}"
+    owner: "48"
+    group: "48"
+    mode: "0400"
+  become: true
+  no_log: true

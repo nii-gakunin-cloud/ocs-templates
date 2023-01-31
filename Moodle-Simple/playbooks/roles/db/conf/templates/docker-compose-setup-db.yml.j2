@@ -1,0 +1,29 @@
+services:
+  setup-db:
+    image: {{db_image_name}}
+    container_name: setup-db
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_DATABASE_FILE: /run/secrets/DB_DATABASE
+      MYSQL_USER_FILE: /run/secrets/DB_USER
+      MYSQL_PASSWORD_FILE: /run/secrets/DB_PASSWORD
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/DB_ROOT_PASSWORD
+    secrets:
+      - DB_DATABASE
+      - DB_USER
+      - DB_PASSWORD
+      - DB_ROOT_PASSWORD
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --explicit_defaults_for_timestamp=true
+      - --log-error=/var/log/mysql/error.log
+secrets:
+  DB_DATABASE:
+    file: /srv/moodle/secrets/DB_DATABASE
+  DB_USER:
+    file: /srv/moodle/secrets/DB_USER
+  DB_PASSWORD:
+    file: /srv/moodle/secrets/DB_PASSWORD
+  DB_ROOT_PASSWORD:
+    file: /srv/moodle/secrets/DB_ROOT_PASSWORD

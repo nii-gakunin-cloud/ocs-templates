@@ -1,62 +1,62 @@
-from IPython.display import display, HTML
-from pathlib import Path
-import subprocess
-from ipaddress import IPv4Address, IPv4Network, AddressValueError
-from multiprocessing import Pool
-import requests
-import copy
 import re
-import requests
-from requests.exceptions import RequestException
-from logging import getLogger
+import subprocess
 import time
-from inspect import currentframe, getframeinfo
 from collections import OrderedDict
+from inspect import currentframe, getframeinfo
+from ipaddress import AddressValueError, IPv4Address, IPv4Network
+from logging import getLogger
+from pathlib import Path
+from urllib.parse import urlparse
+
+import requests
 import yaml
+from IPython.display import HTML, display
+from requests.exceptions import RequestException
 
 logger = getLogger(__name__)
 
 
 anchor_map = {
-    'ugroup_name': '#UnitGroup名の指定',
-    'vc_provider': '#クラウドプロバイダの指定',
-    'vc_flavor': '#VCノードに割り当てるリソース量の指定',
-    'vc_moodle_ipaddress': '#IPアドレスの指定',
-    'ssh_public_key_path': '#SSH公開鍵認証の鍵ファイルの指定',
-    'ssh_private_key_path': '#SSH公開鍵認証の鍵ファイルの指定',
-    'moodle_version': '#Moodleのバージョン',
-    'moodle_admin_name': '#管理者ユーザ',
-    'moodle_image_name': '#Moodleのコンテナイメージ',
-    'moodle_disk_size': '#Moodleのディスクサイズ',
-    'moodle_volume_data_size': '#Moodleのボリュームサイズ',
-    'moodle_volume_php_size': '#Moodleのボリュームサイズ',
-    'moodle_url': '#MoodleのURL',
-    'moodle_vault_path': '#MoodleパラメータのVaultサーバへの保存',
-    'db_image_name': '#データベースのコンテナイメージ',
-    'db_moodle_db': '#データベース名',
-    'db_moodle_db_user': '#データベースの接続ユーザ',
-    'db_disk_size': '#データベースのディスクサイズ',
-    'db_volume_size': '#データベースのボリュームサイズ',
-    'db_vault_path': '#データベースパラメータのVaultサーバへの保存',
-    'rproxy_image_name': '#リバースプロキシのコンテナイメージ',
-    'rproxy_tls_cert_path': '#サーバ証明書',
-    'rproxy_tls_key_path': '#サーバ証明書',
+    "ugroup_name": "#UnitGroup名の指定",
+    "vc_provider": "#クラウドプロバイダの指定",
+    "vc_flavor": "#VCノードに割り当てるリソース量の指定",
+    "vc_moodle_ipaddress": "#IPアドレスの指定",
+    "ssh_public_key_path": "#SSH公開鍵認証の鍵ファイルの指定",
+    "ssh_private_key_path": "#SSH公開鍵認証の鍵ファイルの指定",
+    "moodle_version": "#Moodleのバージョン",
+    "moodle_admin_name": "#管理者ユーザ",
+    "moodle_image_name": "#Moodleのコンテナイメージ",
+    "moodle_disk_size": "#Moodleのディスクサイズ",
+    "moodle_volume_data_size": "#Moodleのボリュームサイズ",
+    "moodle_volume_php_size": "#Moodleのボリュームサイズ",
+    "moodle_url": "#MoodleのURL",
+    "moodle_vault_path": "#MoodleパラメータのVaultサーバへの保存",
+    "db_image_name": "#データベースのコンテナイメージ",
+    "db_moodle_db": "#データベース名",
+    "db_moodle_db_user": "#データベースの接続ユーザ",
+    "db_disk_size": "#データベースのディスクサイズ",
+    "db_volume_size": "#データベースのボリュームサイズ",
+    "db_vault_path": "#データベースパラメータのVaultサーバへの保存",
+    "rproxy_image_name": "#リバースプロキシのコンテナイメージ",
+    "rproxy_tls_cert_path": "#サーバ証明書",
+    "rproxy_tls_key_path": "#サーバ証明書",
 }
 
 
 def check_parameters(*targets, params={}, nb_vars={}):
-    kwargs = dict([(x, nb_vars[x]) for x in targets if x in nb_vars])
+    kwargs = dict([(x, nb_vars[x]) for x in targets if x in nb_vars])  # noqa: F841
     for target in targets:
         try:
             if target not in nb_vars:
-                raise MoodleParameterError(
-                        f'{target}が設定されていません。',
-                        target=target)
-            eval(f'check_parameter_{target}(nb_vars[target], params, kwargs)')
+                raise MoodleParameterError(f"{target}が設定されていません。", target=target)
+            eval(f"check_parameter_{target}(nb_vars[target], params, kwargs)")
         except MoodleParameterError as ex:
-            display(HTML(
-                f'<p>{" ".join(ex.args)}</p><a href="{ex.link}">' +
-                'リンク先</a>に戻って再度設定を行ってください。'))
+            display(
+                HTML(
+                    f'<p>{" ".join(ex.args)}</p><a href="{ex.link}">'
+                    + "リンク先</a>に戻って再度設定を行ってください。"
+                )
+            )
             raise ex
 
 
@@ -69,66 +69,64 @@ class MoodleParameterError(RuntimeError):
             self.link = anchor_map[target]
         elif frame is not None:
             fname = getframeinfo(frame)[2]
-            target = '_'.join(fname.split('_')[2:])
+            target = "_".join(fname.split("_")[2:])
             if target in anchor_map:
                 self.link = anchor_map[target]
 
 
 def check_parameter_ugroup_name(name, params, kwargs):
-    ug = params['vcp'].get_ugroup(name)
+    ug = params["vcp"].get_ugroup(name)
     if ug is not None:
         raise MoodleParameterError(
-            f"既に使用しているUnitGroup名です: {name}",
-            frame=currentframe())
-    if not re.match(r'(?a)[a-zA-Z]\w*$', name):
-        raise MoodleParameterError(
-            f"正しくないUnitGroup名です: {name}",
-            frame=currentframe())
+            f"既に使用しているUnitGroup名です: {name}", frame=currentframe()
+        )
+    if not re.match(r"(?a)[a-zA-Z]\w*$", name):
+        raise MoodleParameterError(f"正しくないUnitGroup名です: {name}", frame=currentframe())
 
 
 def check_parameter_vc_provider(provider, params, kwargs):
     try:
-        params['vcp'].df_flavors(provider)
+        params["vcp"].df_flavors(provider)
     except Exception:
         raise MoodleParameterError(
-            f"VCPがサポートしていないプロバイダです: {provider}",
-            frame=currentframe())
+            f"VCPがサポートしていないプロバイダです: {provider}", frame=currentframe()
+        )
 
 
 def check_parameter_ssh_public_key_path(path, params, kwargs):
     if not Path(path).expanduser().is_file():
-        raise MoodleParameterError(
-            f"指定されたパスにファイルが存在しません: {path}",
-            frame=currentframe())
+        raise MoodleParameterError(f"指定されたパスにファイルが存在しません: {path}", frame=currentframe())
 
 
 def check_parameter_ssh_private_key_path(path, params, kwargs):
     private_key_path = Path(path).expanduser()
     if not private_key_path.is_file():
-        raise MoodleParameterError(
-            f"指定されたパスにファイルが存在しません: {path}",
-            frame=currentframe())
+        raise MoodleParameterError(f"指定されたパスにファイルが存在しません: {path}", frame=currentframe())
     ret = subprocess.run(
         ["ssh-keygen", "-y", "-f", str(private_key_path)],
-        capture_output=True, check=True)
-    generated_public_key = ret.stdout.decode('UTF-8').split()
-    public_key_path = Path(kwargs['ssh_public_key_path']).expanduser()
+        capture_output=True,
+        check=True,
+    )
+    generated_public_key = ret.stdout.decode("UTF-8").split()
+    public_key_path = Path(kwargs["ssh_public_key_path"]).expanduser()
     with public_key_path.open() as f:
         public_key = f.read().split()
-    if not (generated_public_key[0] == public_key[0] and
-            generated_public_key[1] == public_key[1]):
+    if not (
+        generated_public_key[0] == public_key[0]
+        and generated_public_key[1] == public_key[1]
+    ):
         raise MoodleParameterError(
-            f"指定された秘密鍵は公開鍵とペアではありません: {path}",
-            frame=currentframe())
+            f"指定された秘密鍵は公開鍵とペアではありません: {path}", frame=currentframe()
+        )
 
 
 def check_parameter_vc_flavor(flavor, params, kwargs):
     try:
-        spec = params['vcp'].get_spec(kwargs['vc_provider'], flavor)
-    except Exception as ex:
+        params["vcp"].get_spec(kwargs["vc_provider"], flavor)
+    except Exception:
         raise MoodleParameterError(
-            f"定義されていないflavorが指定されました: {flavor}",
-            frame=currentframe())
+            f"定義されていないflavorが指定されました: {flavor}", frame=currentframe()
+        )
 
 
 def _ipaddress_reachable(ipaddr):
@@ -138,62 +136,56 @@ def _ipaddress_reachable(ipaddr):
 
 def _check_ipv4_format(ipaddr, frame):
     try:
-        ip = IPv4Address(ipaddr)
+        IPv4Address(ipaddr)
     except AddressValueError:
-        raise MoodleParameterError(
-            f"正しいIPv4アドレスではありません: {ipaddr}", frame=frame)
+        raise MoodleParameterError(f"正しいIPv4アドレスではありません: {ipaddr}", frame=frame)
 
 
 def _check_vpn_catalog(ipaddr, vcp, provider, frame):
     catalog = vcp.get_vpn_catalog(provider)
-    if 'private_network_ipmask' not in catalog:
+    if "private_network_ipmask" not in catalog:
         return
-    subnet = IPv4Network(catalog['private_network_ipmask'])
+    subnet = IPv4Network(catalog["private_network_ipmask"])
     ip = IPv4Address(ipaddr)
     if ip not in subnet:
         raise MoodleParameterError(
-                f'範囲外のIPアドレスが指定されています: {ipaddr}; {subnet}',
-                frame=frame)
+            f"範囲外のIPアドレスが指定されています: {ipaddr}; {subnet}", frame=frame
+        )
 
 
 def check_parameter_vc_moodle_ipaddress(value, params, kwargs):
-    provider = kwargs['vc_provider']
+    provider = kwargs["vc_provider"]
     _check_ipv4_format(value, currentframe())
-    _check_vpn_catalog(value, params['vcp'], provider, currentframe())
-    if (provider != 'onpremises' and _ipaddress_reachable(value)[1]):
+    _check_vpn_catalog(value, params["vcp"], provider, currentframe())
+    if provider != "onpremises" and _ipaddress_reachable(value)[1]:
         raise MoodleParameterError(
-            f"指定されたIPアドレスは既に他のノードで利用されています: {value}",
-            frame=currentframe())
+            f"指定されたIPアドレスは既に他のノードで利用されています: {value}", frame=currentframe()
+        )
 
 
 def check_parameter_moodle_admin_name(name, params, kwargs):
-    if not re.match(r'[-\.@_a-z0-9]+$', name):
-        raise MoodleParameterError(
-            f"正しくないユーザ名です: {name}", frame=currentframe())
+    if not re.match(r"[-\.@_a-z0-9]+$", name):
+        raise MoodleParameterError(f"正しくないユーザ名です: {name}", frame=currentframe())
 
 
 def check_parameter_moodle_version(version, params=None, kwargs=None):
     try:
-        r = requests.get(
-                'https://api.github.com/repos/moodle/moodle/git/refs/tags')
+        r = requests.get("https://api.github.com/repos/moodle/moodle/git/refs/tags")
     except RequestException:
-        logger.warning(
-            'GitHubからMoodleの情報取得に失敗しました。' +
-            'moodle_versionのチェックをスキップします。')
+        logger.warning("GitHubからMoodleの情報取得に失敗しました。" + "moodle_versionのチェックをスキップします。")
         return
     if not r.ok:
         logger.warning(
-            f'GitHubからMoodleの情報取得に失敗しました({r.reason})。' +
-            'moodle_versionのチェックをスキップします。')
+            f"GitHubからMoodleの情報取得に失敗しました({r.reason})。" + "moodle_versionのチェックをスキップします。"
+        )
         return
-    if version not in [x['ref'].split('/')[-1] for x in r.json()]:
+    if version not in [x["ref"].split("/")[-1] for x in r.json()]:
         eparams = {}
         try:
-            eparams['frame'] = currentframe()
+            eparams["frame"] = currentframe()
         except Exception:
             pass
-        raise MoodleParameterError(
-                f'Moodleに存在しないバージョンです:{version}', **eparams)
+        raise MoodleParameterError(f"Moodleに存在しないバージョンです:{version}", **eparams)
 
 
 def check_parameter_moodle_image_name(image, params, kwargs):
@@ -203,26 +195,30 @@ def check_parameter_moodle_image_name(image, params, kwargs):
 def check_parameter_moodle_disk_size(value, params, kwargs):
     if type(value) is not int or value <= 0:
         raise MoodleParameterError(
-            f'moodle_disk_sizeには正の整数を指定してください:{value}',
-            frame=currentframe())
+            f"moodle_disk_sizeには正の整数を指定してください:{value}", frame=currentframe()
+        )
 
 
 def check_parameter_moodle_volume_data_size(value, params, kwargs):
     if type(value) is not int or value <= 0:
         raise MoodleParameterError(
-            f'moodle_volume_data_sizeには正の整数を指定してください:{value}',
-            frame=currentframe())
+            f"moodle_volume_data_sizeには正の整数を指定してください:{value}", frame=currentframe()
+        )
 
 
 def check_parameter_moodle_volume_php_size(value, params, kwargs):
     if type(value) is not int or value <= 0:
         raise MoodleParameterError(
-            f'moodle_volume_php_sizeには正の整数を指定してください:{value}',
-            frame=currentframe())
+            f"moodle_volume_php_sizeには正の整数を指定してください:{value}", frame=currentframe()
+        )
 
 
-def check_parameter_moodle_url(name, params, kwargs):
-    pass
+def check_parameter_moodle_url(value, params, kwargs):
+    res = urlparse(value)
+    if res.scheme not in ["http", "https"]:
+        raise MoodleParameterError(
+            f'スキーム名には"http"または"https"を指定してください:{value}', frame=currentframe()
+        )
 
 
 def check_parameter_moodle_vault_path(name, params, kwargs):
@@ -244,15 +240,15 @@ def check_parameter_db_moodle_db_user(value, params, kwargs):
 def check_parameter_db_disk_size(value, params, kwargs):
     if type(value) is not int or value <= 0:
         raise MoodleParameterError(
-            f'db_disk_sizeには正の整数を指定してください:{value}',
-            frame=currentframe())
+            f"db_disk_sizeには正の整数を指定してください:{value}", frame=currentframe()
+        )
 
 
 def check_parameter_db_volume_size(value, params, kwargs):
     if type(value) is not int or value <= 0:
         raise MoodleParameterError(
-            f'db_volume_sizeには正の整数を指定してください:{value}',
-            frame=currentframe())
+            f"db_volume_sizeには正の整数を指定してください:{value}", frame=currentframe()
+        )
 
 
 def check_parameter_db_vault_path(value, params, kwargs):
@@ -266,17 +262,13 @@ def check_parameter_rproxy_image_name(value, params, kwargs):
 def check_parameter_rproxy_tls_cert_path(path, params, kwargs):
     cert_path = Path(path).resolve()
     if not cert_path.is_file():
-        raise MoodleParameterError(
-            f"指定されたパスにファイルが存在しません: {path}",
-            frame=currentframe())
+        raise MoodleParameterError(f"指定されたパスにファイルが存在しません: {path}", frame=currentframe())
 
 
 def check_parameter_rproxy_tls_key_path(path, params, kwargs):
     cert_path = Path(path).resolve()
     if not cert_path.is_file():
-        raise MoodleParameterError(
-            f"指定されたパスにファイルが存在しません: {path}",
-            frame=currentframe())
+        raise MoodleParameterError(f"指定されたパスにファイルが存在しません: {path}", frame=currentframe())
 
 
 def retry_exec(func, interval=10, retry_max=60, err=RuntimeError, redo=None):
@@ -295,7 +287,35 @@ def retry_exec(func, interval=10, retry_max=60, err=RuntimeError, redo=None):
 def setup_yaml_od():
     tag = yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG
     yaml.add_constructor(
-        tag, lambda loader, node: OrderedDict(loader.construct_pairs(node)))
+        tag, lambda loader, node: OrderedDict(loader.construct_pairs(node))
+    )
     yaml.add_representer(
-        OrderedDict, lambda dumper, instance: dumper.represent_mapping(
-            tag, instance.items()))
+        OrderedDict,
+        lambda dumper, instance: dumper.represent_mapping(tag, instance.items()),
+    )
+
+
+def check_version(version):
+    vers = [int(x) for x in version.split(".")]
+    if len(vers) < 2:
+        return False
+    if len(vers) == 2:
+        if vers[0] > 3:
+            return True
+        elif vers[0] == 3 and (vers[1] == 9 or vers[1] == 11):
+            return True
+        else:
+            return False
+    if vers[0] == 4:
+        if (vers[1] == 0 and vers[2] >= 2) or vers[1] >= 1:
+            return True
+        else:
+            return False
+    elif vers[0] == 3:
+        if vers[1] == 9:
+            return vers[2] >= 15
+        elif vers[1] == 11:
+            return vers[2] >= 8
+        else:
+            return False
+    return False

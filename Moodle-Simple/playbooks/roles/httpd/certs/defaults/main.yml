@@ -1,0 +1,3 @@
+certs_dir: /srv/moodle/httpd/conf/httpd/certs
+cert_file: server.crt
+key_file: server.key

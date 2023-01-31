@@ -1,0 +1,88 @@
+- file:
+    path: /srv/moodle/setup
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- template:
+    src: docker-compose-setup-moodle.yml.j2
+    dest: /srv/moodle/setup/docker-compose-setup-moodle.yml
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-moodle.yml pull
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-moodle.yml up -d
+- file:
+    path: /srv/moodle/moodle
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- command: date "+%Y%m%d%H%M%S"
+  register: date_time
+- stat:
+    path: /srv/moodle/moodle/conf
+  register: moodle_conf
+- shell:
+    chdir: /srv/moodle
+    cmd: mv moodle/conf moodle/conf.{{ date_time.stdout }}
+  become: true
+  when: moodle_conf.stat.exists
+- stat:
+    path: /srv/moodle/moodle/data/php
+  register: moodle_php
+- shell:
+    chdir: /srv/moodle
+    cmd: mv moodle/data/php moodle/data/php.{{ date_time.stdout }}
+  become: true
+  when: moodle_php.stat.exists
+- file:
+    path: /srv/moodle/moodle/conf
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- file:
+    path: /srv/moodle/moodle/data
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- file:
+    path: /srv/moodle/moodle/data/moodledata
+    state: directory
+  become: true
+- shell:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-moodle:/etc/httpd moodle/conf || true
+  become: true
+- command:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-moodle:/etc/php-fpm.conf moodle/conf
+  become: true
+- shell:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-moodle:/etc/php-fpm.d moodle/conf || true
+  become: true
+- command:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-moodle:/etc/php.ini moodle/conf
+  become: true
+- shell:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-moodle:/etc/php.d moodle/conf || true
+  become: true
+- command:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-moodle:/var/www/moodle moodle/data/php
+  become: true
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-moodle.yml down
+- stat:
+    path: "/srv/moodle/moodle/data/php.{{ date_time.stdout }}/config.php"
+  register: config_php
+- copy:
+    src: "/srv/moodle/moodle/data/php.{{ date_time.stdout }}/config.php"
+    dest: /srv/moodle/moodle/data/php/config.php
+    remote_src: yes
+  when: config_php.stat.exists
+  become: true
+

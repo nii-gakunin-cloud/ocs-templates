@@ -1,0 +1,14 @@
+services:
+  moodle:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:${MOODLE_VERSION}
+    build:
+      context: ./moodle
+      args:
+        MOODLE_VERSION: ${MOODLE_VERSION}
+        PHP_VERSION: ${PHP_VERSION}
+  ssl:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:ssl
+    build: ./ssl
+  shibboleth:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:shibboleth
+    build: ./shibboleth

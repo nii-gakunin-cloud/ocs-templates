@@ -1,0 +1,211 @@
+services:
+  db:
+    image: {{db_image_name}}
+    container_name: db
+    restart: always
+    volumes:
+      - /srv/moodle/db/data:/var/lib/mysql:rw
+      - /srv/moodle/db/conf:/etc/mysql
+      - /srv/moodle/db/sql:/docker-entrypoint-initdb.d
+      - /srv/moodle/db/misc/my.cnf:/root/.my.cnf
+      - /var/log/mysql:/var/log/mysql
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_DATABASE_FILE: /run/secrets/DB_DATABASE
+      MYSQL_USER_FILE: /run/secrets/DB_USER
+      MYSQL_PASSWORD_FILE: /run/secrets/DB_PASSWORD
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/DB_ROOT_PASSWORD
+    secrets:
+      - DB_DATABASE
+      - DB_USER
+      - DB_PASSWORD
+      - DB_ROOT_PASSWORD
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --explicit_defaults_for_timestamp=true
+      - --log-error=/var/log/mysql/error.log
+{% if logging_driver is defined %}
+    logging:
+      driver: {{ logging_driver }}
+{% if logging_tags["db"] is defined or logging_driver == "syslog" or (logging_options is defined and logging_options | length > 0) %}
+      options:
+{% if logging_driver == "syslog" %}
+        syslog-address: "{{ syslog_protocol }}://{{ syslog_server }}:{{ syslog_port }}"
+{% endif %}
+{% if logging_tags["db"] is defined %}
+        tag: "{{ logging_tags['db'] }}"
+{% endif %}
+{% for key, value in logging_options.items() %}
+        {{ key }}: "{{ value }}"
+{% endfor %}
+{% endif %}
+{% endif %}
+  moodle:
+    image: {{moodle_image_name}}
+    container_name: moodle
+{% if httpd is not defined %}
+    hostname: {{server_name}}
+{% endif %}
+    restart: always
+    volumes:
+      - /srv/moodle/moodle/data/moodledata:/var/data/moodledata:rw
+      - /srv/moodle/moodle/data/php:/var/www/moodle:rw
+      - /srv/moodle/moodle/conf/php.ini:/etc/php.ini
+      - /srv/moodle/moodle/conf/php.d:/etc/php.d
+      - /srv/moodle/moodle/conf/ca-trust:/etc/pki/ca-trust/source/anchors
+{% if httpd is defined %}
+      - /run/php-fpm:/run/php-fpm
+{% else %}
+      - /srv/moodle/moodle/conf/httpd/conf:/etc/httpd/conf
+      - /srv/moodle/moodle/conf/httpd/conf.d:/etc/httpd/conf.d
+      - /srv/moodle/moodle/conf/httpd/conf.modules.d:/etc/httpd/conf.modules.d
+      - /var/log/httpd:/var/log/httpd
+    ports:
+      - 80:80
+{% endif %}
+    environment:
+      TZ: Asia/Tokyo
+      MOODLE_URL: {{moodle_url}}
+      MOODLE_DBTYPE: {{db_type}}
+      MOODLE_DATAROOT: /var/data/moodledata
+      DB_HOSTNAME: db
+      WAIT_FOR: db:3306
+{% if httpd is defined %}
+      ENABLE_HTTPD: "false"
+{% endif %}
+    secrets:
+      - MOODLE_ADMIN
+      - MOODLE_ADMIN_PASSWORD
+      - DB_DATABASE
+      - DB_USER
+      - DB_PASSWORD
+{% if moodle_extra_hosts is defined %}
+    extra_hosts:
+{% for key, value in moodle_extra_hosts.items() %}
+      - "{{key}}:{{value}}"
+{% endfor %}
+{% endif %}
+{% if moodle_dns is defined %}
+    dns:
+{% for dns in moodle_dns %}
+      - {{ dns }}
+{% endfor %}
+{% endif %}
+{% if logging_driver is defined %}
+    logging:
+      driver: {{ logging_driver }}
+{% if logging_tags["moodle"] is defined or logging_driver == "syslog" or (logging_options is defined and logging_options | length > 0) %}
+      options:
+{% if logging_driver == "syslog" %}
+        syslog-address: "{{ syslog_protocol }}://{{ syslog_server }}:{{ syslog_port }}"
+{% endif %}
+{% if logging_tags["moodle"] is defined %}
+        tag: "{{ logging_tags['moodle'] }}"
+{% endif %}
+{% for key, value in logging_options.items() %}
+        {{ key }}: "{{ value }}"
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if httpd is defined %}
+{% if httpd == "httpd" %}
+  httpd:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:ssl
+    restart: always
+    container_name: httpd
+    hostname: {{ server_name }}
+    volumes:
+      - /run/php-fpm:/run/php-fpm
+      - /srv/moodle/moodle/data/php:/var/www/moodle:rw
+      - /srv/moodle/httpd/conf/httpd/certs/server.crt:/etc/pki/tls/certs/server.crt
+      - /srv/moodle/httpd/conf/httpd/certs/server.key:/etc/pki/tls/private/server.key
+      - /srv/moodle/httpd/conf/httpd/conf:/etc/httpd/conf
+      - /srv/moodle/httpd/conf/httpd/conf.d:/etc/httpd/conf.d
+      - /srv/moodle/httpd/conf/httpd/conf.modules.d:/etc/httpd/conf.modules.d
+      - /var/log/httpd:/var/log/httpd
+    environment:
+      SERVER_NAME: {{ server_name }}
+    ports:
+      - 443:443
+{% if logging_driver is defined %}
+    logging:
+      driver: {{ logging_driver }}
+{% if logging_tags["httpd"] is defined or logging_driver == "syslog" or (logging_options is defined and logging_options | length > 0) %}
+      options:
+{% if logging_driver == "syslog" %}
+        syslog-address: "{{ syslog_protocol }}://{{ syslog_server }}:{{ syslog_port }}"
+{% endif %}
+{% if logging_tags["httpd"] is defined %}
+        tag: "{{ logging_tags['httpd'] }}"
+{% endif %}
+{% for key, value in logging_options.items() %}
+        {{ key }}: "{{ value }}"
+{% endfor %}
+{% endif %}
+{% endif %}
+{% elif httpd == "shibboleth" %}
+  shibboleth:
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:shibboleth
+    restart: on-failure:5
+    container_name: shibboleth
+    hostname: {{ server_name }}
+    volumes:
+      - /run/php-fpm:/run/php-fpm
+      - /srv/moodle/moodle/data/php:/var/www/moodle:rw
+      - /srv/moodle/shibboleth/conf/httpd/certs/server.crt:/etc/pki/tls/certs/server.crt
+      - /srv/moodle/shibboleth/conf/httpd/certs/server.key:/etc/pki/tls/private/server.key
+      - /srv/moodle/shibboleth/conf/httpd/conf:/etc/httpd/conf
+      - /srv/moodle/shibboleth/conf/httpd/conf.d:/etc/httpd/conf.d
+      - /srv/moodle/shibboleth/conf/httpd/conf.modules.d:/etc/httpd/conf.modules.d
+      - /srv/moodle/shibboleth/conf/shibboleth:/etc/shibboleth
+      - /var/log/httpd:/var/log/httpd
+      - /var/log/shibboleth:/var/log/shibboleth
+    environment:
+      SERVER_NAME: {{ server_name }}
+{% if url_gakunin_ds is defined %}
+      GAKUNIN_DS: "{{ url_gakunin_ds }}"
+{% endif %}
+{% if url_gakunin_metadata is defined %}
+      GAKUNIN_METADATA: "{{ url_gakunin_metadata }}"
+{% endif %}
+{% if idp_entity_id is defined %}
+      IDP_ENTITY_ID: "{{ idp_entity_id }}"
+{% endif %}
+{% if idp_metadata is defined %}
+      IDP_METADATA: "/etc/shibboleth/metadata/{{ idp_metadata | basename }}"
+{% endif %}
+    ports:
+      - 443:443
+{% if logging_driver is defined %}
+    logging:
+      driver: {{ logging_driver }}
+{% if logging_tags["shibboleth"] is defined or logging_driver == "syslog" or (logging_options is defined and logging_options | length > 0) %}
+      options:
+{% if logging_driver == "syslog" %}
+        syslog-address: "{{ syslog_protocol }}://{{ syslog_server }}:{{ syslog_port }}"
+{% endif %}
+{% if logging_tags["shibboleth"] is defined %}
+        tag: "{{ logging_tags['shibboleth'] }}"
+{% endif %}
+{% for key, value in logging_options.items() %}
+        {{ key }}: "{{ value }}"
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+
+secrets:
+  DB_DATABASE:
+    file: /srv/moodle/secrets/DB_DATABASE
+  DB_USER:
+    file: /srv/moodle/secrets/DB_USER
+  DB_PASSWORD:
+    file: /srv/moodle/secrets/DB_PASSWORD
+  DB_ROOT_PASSWORD:
+    file: /srv/moodle/secrets/DB_ROOT_PASSWORD
+  MOODLE_ADMIN:
+    file: /srv/moodle/secrets/MOODLE_ADMIN
+  MOODLE_ADMIN_PASSWORD:
+    file: /srv/moodle/secrets/MOODLE_ADMIN_PASSWORD

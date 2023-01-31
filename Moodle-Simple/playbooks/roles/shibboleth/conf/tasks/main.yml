@@ -1,0 +1,50 @@
+- file:
+    path: /srv/moodle/setup
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- template:
+    src: docker-compose-setup-shibboleth.yml.j2
+    dest: /srv/moodle/setup/docker-compose-setup-shibboleth.yml
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-shibboleth.yml pull
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-shibboleth.yml up -d
+- file:
+    path: /srv/moodle/shibboleth
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- file:
+    path: /srv/moodle/shibboleth/conf
+    state: directory
+    owner: "{{ansible_ssh_user}}"
+  become: true
+- command:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-shibboleth:/etc/shibboleth shibboleth/conf
+  become: true
+- shell:
+    chdir: /srv/moodle
+    cmd: docker cp -a setup-shibboleth:/etc/httpd shibboleth/conf || true
+  become: true
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose -f setup/docker-compose-setup-shibboleth.yml down
+- file:
+    path: /srv/moodle/shibboleth/conf/shibboleth/metadata
+    state: directory
+    owner: root
+    group: root
+  become: true
+  when: idp_metadata is defined
+- copy:
+    src: "{{ idp_metadata }}"
+    dest: /srv/moodle/shibboleth/conf/shibboleth/metadata
+    owner: root
+    group: root
+    backup: yes
+  become: true
+  when: idp_metadata is defined
