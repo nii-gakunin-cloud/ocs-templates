@@ -44,6 +44,7 @@ RUN dnf -y install nhc-ohpc \
 
 # VCP customize
 COPY etc /etc/
+
 # hadolint ignore=DL3041
 RUN systemctl disable NetworkManager-wait-online chronyd \
  && systemctl enable mount-nfs munge slurmd \

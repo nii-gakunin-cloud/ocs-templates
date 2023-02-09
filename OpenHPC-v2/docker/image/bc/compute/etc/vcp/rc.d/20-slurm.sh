@@ -16,7 +16,7 @@ setup_service() {
 
 setup_control_machine() {
   if [ -n "$MASTER_HOSTNAME" ]; then
-    sed -i -r -e "/ControlMachine/s/^ControlMachine=.+/ControlMachine=${MASTER_HOSTNAME}/" /etc/slurm/slurm.conf
+    sed -i -r -e "/SlurmctldHost/s/^SlurmctldHost=.+/SlurmctldHost=${MASTER_HOSTNAME}/" /etc/slurm/slurm.conf
   fi
 }
 
@@ -27,7 +27,10 @@ setup_slurm_conf() {
   fi
 
   cp /etc/slurm/slurm.conf.ohpc /etc/slurm/slurm.conf
+  sed -i -e '1,/TaskPlugin=/s/^TaskPlugin=/#TaskPlugin=/' /etc/slurm/slurm.conf
+  sed -i -e '1,/JobCompType=/s/^JobCompType=/#JobCompType=/' /etc/slurm/slurm.conf
   chown slurm:slurm /etc/slurm/slurm.conf
+  cp /etc/slurm/cgroup.conf.example /etc/slurm/cgroup.conf
 
   if [ -n "$SLURM_NODE_PARAMS" ]; then
     for param in ${SLURM_NODE_PARAMS//,/ }; do

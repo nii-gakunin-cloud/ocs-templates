@@ -18,7 +18,7 @@ setup_service() {
 
 setup_control_machine() {
   if [ -n "$MASTER_HOSTNAME" ]; then
-    sed -i -r -e "/ControlMachine/s/^ControlMachine=.+/ControlMachine=${MASTER_HOSTNAME}/" /etc/slurm/slurm.conf
+    sed -i -r -e "/SlurmctldHost/s/^SlurmctldHost=.+/SlurmctldHost=${MASTER_HOSTNAME}/" /etc/slurm/slurm.conf
   fi
 }
 

@@ -15,8 +15,9 @@ RUN dnf -y install ohpc-base \
 RUN dnf -y install ohpc-slurm-server \
  && dnf clean all \
  && rm -rf /var/cache/dnf/* \
- && cp /etc/slurm/slurm.conf.ohpc /etc/slurm/slurm.conf
-#RUN perl -pi -e "s/ControlMachine=\S+/ControlMachine=${sms_name}/" /etc/slurm/slurm.conf
+ && cp /etc/slurm/slurm.conf.ohpc /etc/slurm/slurm.conf \
+ && cp /etc/slurm/cgroup.conf.example /etc/slurm/cgroup.conf
+#RUN perl -pi -e "s/SlurmctldHost=\S+/SlurmctldHost=${sms_name}/" /etc/slurm/slurm.conf
 
 # -----------------------------------------
 # Additional customizations (Section 3.8.4)
@@ -53,28 +54,28 @@ RUN dnf -y install \
 # -------------------------------
 # Install Compilers (Section 4.2)
 # -------------------------------
-RUN dnf -y install gnu9-compilers-ohpc \
+RUN dnf -y install gnu12-compilers-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # --------------------------------
 # Install MPI Stacks (Section 4.3)
 # --------------------------------
-RUN dnf -y install openmpi4-gnu9-ohpc mpich-ofi-gnu9-ohpc \
+RUN dnf -y install openmpi4-gnu12-ohpc mpich-ofi-gnu12-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------
 # Install Performance Tools (Section 4.4)
 # ---------------------------------------
-RUN dnf -y install ohpc-gnu9-perf-tools \
+RUN dnf -y install ohpc-gnu12-perf-tools \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------
 # Setup default development environment (Section 4.5)
 # ---------------------------------------
-RUN dnf -y install lmod-defaults-gnu9-openmpi4-ohpc \
+RUN dnf -y install lmod-defaults-gnu12-openmpi4-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
@@ -82,24 +83,18 @@ RUN dnf -y install lmod-defaults-gnu9-openmpi4-ohpc \
 # Install 3rd Party Libraries and Tools (Section 4.6)
 # ---------------------------------------------------
 RUN dnf -y install \
-      ohpc-gnu9-serial-libs \
-      ohpc-gnu9-io-libs \
-      ohpc-gnu9-python-libs \
-      ohpc-gnu9-runtimes \
+      ohpc-gnu12-serial-libs \
+      ohpc-gnu12-io-libs \
+      ohpc-gnu12-python-libs \
+      ohpc-gnu12-runtimes \
+      singularity-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 RUN dnf -y install \
-      ohpc-gnu9-mpich-parallel-libs \
-      ohpc-gnu9-openmpi4-parallel-libs \
+      ohpc-gnu12-mpich-parallel-libs \
+      ohpc-gnu12-openmpi4-parallel-libs \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
-
-# -----------------------------------------------------------------------------------
-# Install Optional Development Tools for use with Intel Parallel Studio (Section 4.7)
-# -----------------------------------------------------------------------------------
-#RUN yum -y install intel-compilers-devel-ohpc intel-mpi-devel-ohpc
-#RUN yum -y install mvapich2-psm2-intel-ohpc
-#RUN yum -y install ohpc-intel-serial-libs ohpc-intel-geopm ohpc-intel-io-libs ohpc-intel-perf-tools ohpc-intel-python-libs ohpc-intel-runtimes ohpc-intel-mpich-parallel-libs ohpc-intel-mvapich2-parallel-libs ohpc-intel-openmpi3-parallel-libs ohpc-intel-impi-parallel-libs
 
 # ------------------------------------
 # Resource Manager Startup (Section 5)
@@ -108,11 +103,11 @@ RUN systemctl enable munge \
  && systemctl enable slurmctld
 
 # ----------------------------
-RUN dnf -y install \
-      libjpeg-turbo-devel \
-      python36-devel \
- && dnf clean all \
- && rm -rf /var/cache/dnf/*
+#RUN dnf -y install \
+#      libjpeg-turbo-devel \
+#      python36-devel \
+# && dnf clean all \
+# && rm -rf /var/cache/dnf/*
 
 # ----------------------------
 RUN systemctl disable NetworkManager-wait-online chronyd \
@@ -121,3 +116,6 @@ RUN systemctl disable NetworkManager-wait-online chronyd \
  && systemctl mask emergency.target
 
 COPY etc /etc/
+
+RUN sed -i -e '1,/TaskPlugin=/s/^TaskPlugin=/#TaskPlugin=/' /etc/slurm/slurm.conf \
+ && sed -i -e '1,/JobCompType=/s/^JobCompType=/#JobCompType=/' /etc/slurm/slurm.conf
