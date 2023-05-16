@@ -42,7 +42,6 @@ blockdiag {
     group {
         shape = line;
         style = none;
-        orientation = portrait;
         group {
             label = "設定変更";
             color = "#B7B0D6";
@@ -58,10 +57,35 @@ blockdiag {
         group {
             label = "ノード操作";
             color = "#D6C6AF";
-            orientation = portrait;
-            "911";
-            "912";
-            "991";
+
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                group {
+                    shape = line;
+                    style = none;
+                    "911" -> "912"[style=dashed];
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "921";
+                    "922";
+                }
+                "991";
+            }
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "931";
+                "932";
+                "933";
+                "931" -> "933"[style=dashed];
+                "932" -> "933"[style=dashed];
+            }
         }
     }
 }

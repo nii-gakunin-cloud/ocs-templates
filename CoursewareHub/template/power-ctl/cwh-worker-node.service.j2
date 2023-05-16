@@ -1,0 +1,10 @@
+[Unit]
+Description=Update worker node power status of CoursewareHub
+
+[Service]
+ExecStart={{path_docker_cli}} compose up
+WorkingDirectory={{power_ctl_dir}}
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target
