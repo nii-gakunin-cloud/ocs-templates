@@ -1,0 +1,218 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 916 1640">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2"/>
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>blockdiag {
+    node_width = 220;
+    node_height = 160;
+
+    group {
+        color = "#e6e6fa";
+        label = "&#29872;&#22659;&#27083;&#31689;";
+        group {
+            shape = line;
+            style = none;
+            "010" -&gt; "020";
+        }
+
+        group {
+            shape = line;
+            style = none;
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "031";
+                "032";
+            }
+            group {
+                orientation = portrait;
+                shape = line;
+                style = none;
+                "051";
+                "061";
+                "071";
+            }
+        }
+        "020" -&gt; "031"[folded];
+        "020" -&gt; "032"[folded];
+        "020" -&gt; "051"[folded];
+        "020" -&gt; "061"[folded];
+        "020" -&gt; "071"[folded];
+    }
+
+    group {
+        label = "&#12472;&#12519;&#12502;&#23455;&#34892;";
+        color = "#9acd32";
+        group {
+            shape = line;
+            style = none;
+            "121";
+        }
+        group {
+            orientation = portrait;
+            shape = line;
+            style = none;
+            "140";
+            "141";
+            "142";
+        }
+        group {
+            orientation = portrait;
+            shape = line;
+            style = none;
+            "151";
+            "152";
+        }
+    }
+    
+    group {
+        label = "&#35373;&#23450;&#22793;&#26356;";
+        color = "#a6a5c4";
+        orientation = portrait;
+        "030";
+        "052";
+        "062";
+    }
+    group {
+        shape = line;
+        style = none;
+        orientation = portrait;
+        group {
+            label = "&#20572;&#27490;&#12289;&#20877;&#38283;";
+            color = "#dcd3b2";
+            "911";
+            "912";
+        }
+        group {
+            label = "&#30772;&#26820;";
+            color = "#6a5d21";
+            "920";
+        }
+    }
+}
+</desc>
+  <rect fill="rgb(230,230,250)" height="580" style="filter:url(#filter_blur)" width="804" x="56" y="30"/>
+  <rect fill="rgb(154,205,50)" height="580" style="filter:url(#filter_blur)" width="804" x="56" y="630"/>
+  <rect fill="rgb(166,165,196)" height="180" style="filter:url(#filter_blur)" width="804" x="56" y="1230"/>
+  <rect fill="rgb(220,211,178)" height="180" style="filter:url(#filter_blur)" width="520" x="56" y="1430"/>
+  <rect fill="rgb(106,93,33)" height="180" style="filter:url(#filter_blur)" width="236" x="624" y="1430"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="67" y="46"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="351" y="46"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="67" y="246"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="351" y="246"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="67" y="446"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="351" y="446"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="635" y="446"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="67" y="646"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="67" y="846"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="351" y="846"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="635" y="846"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="67" y="1046"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="351" y="1046"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="67" y="1246"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="351" y="1246"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="635" y="1246"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="67" y="1446"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="351" y="1446"/>
+  <rect fill="rgb(0,0,0)" height="160" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="220" x="635" y="1446"/>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="64" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="174.0" y="125">010</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="348" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="458.0" y="125">020</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="64" y="240"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="174.0" y="325">031</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="348" y="240"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="458.0" y="325">032</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="64" y="440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="174.0" y="525">051</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="348" y="440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="458.0" y="525">061</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="632" y="440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="742.0" y="525">071</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="64" y="640"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="174.0" y="725">121</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="64" y="840"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="174.0" y="925">140</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="348" y="840"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="458.0" y="925">141</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="632" y="840"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="742.0" y="925">142</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="64" y="1040"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="174.0" y="1125">151</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="348" y="1040"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="458.0" y="1125">152</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="64" y="1240"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="174.0" y="1325">030</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="348" y="1240"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="458.0" y="1325">052</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="632" y="1240"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="742.0" y="1325">062</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="64" y="1440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="174.0" y="1525">911</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="348" y="1440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="458.0" y="1525">912</text>
+  <rect fill="rgb(255,255,255)" height="160" stroke="rgb(0,0,0)" width="220" x="632" y="1440"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="18" x="742.0" y="1525">920</text>
+  <path d="M 284 120 L 340 120" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="347,120 340,116 340,124 347,120" stroke="rgb(0,0,0)"/>
+  <path d="M 458 200 L 458 220" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 174 220 L 458 220" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 174 220 L 174 232" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="174,239 170,232 178,232 174,239" stroke="rgb(0,0,0)"/>
+  <path d="M 458 200 L 458 232" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="458,239 454,232 462,232 458,239" stroke="rgb(0,0,0)"/>
+  <path d="M 568 120 L 600 120" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 600 120 L 600 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 174 420 L 600 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 174 420 L 174 432" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="174,439 170,432 178,432 174,439" stroke="rgb(0,0,0)"/>
+  <path d="M 568 120 L 600 120" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 600 120 L 600 425" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 458 425 L 600 425" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 458 425 L 458 432" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="458,439 454,432 462,432 458,439" stroke="rgb(0,0,0)"/>
+  <path d="M 568 120 L 600 120" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 600 120 L 600 520" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 600 520 L 624 520" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="631,520 624,516 624,524 631,520" stroke="rgb(0,0,0)"/>
+  <path d="M 284 120 L 340 120" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="347,120 340,116 340,124 347,120" stroke="rgb(0,0,0)"/>
+  <path d="M 458 200 L 458 220" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 174 220 L 458 220" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 174 220 L 174 232" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="174,239 170,232 178,232 174,239" stroke="rgb(0,0,0)"/>
+  <path d="M 458 200 L 458 232" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="458,239 454,232 462,232 458,239" stroke="rgb(0,0,0)"/>
+  <path d="M 568 120 L 600 120" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 600 120 L 600 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 174 420 L 600 420" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 174 420 L 174 432" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="174,439 170,432 178,432 174,439" stroke="rgb(0,0,0)"/>
+  <path d="M 568 120 L 600 120" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 600 120 L 600 425" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 458 425 L 600 425" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 458 425 L 458 432" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="458,439 454,432 462,432 458,439" stroke="rgb(0,0,0)"/>
+  <path d="M 568 120 L 600 120" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 600 120 L 600 520" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 600 520 L 624 520" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="631,520 624,516 624,524 631,520" stroke="rgb(0,0,0)"/>
+  <rect fill="none" height="180" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="520" x="56" y="30"/>
+  <rect fill="none" height="380" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="804" x="56" y="230"/>
+  <rect fill="none" height="180" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="520" x="56" y="230"/>
+  <rect fill="none" height="180" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="804" x="56" y="430"/>
+  <rect fill="none" height="180" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="236" x="56" y="630"/>
+  <rect fill="none" height="180" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="804" x="56" y="830"/>
+  <rect fill="none" height="180" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="520" x="56" y="1030"/>
+  <rect fill="none" height="180" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="804" x="56" y="1430"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="44" x="458.0" y="36">&#29872;&#22659;&#27083;&#31689;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="55" x="458.5" y="636">&#12472;&#12519;&#12502;&#23455;&#34892;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="44" x="458.0" y="1236">&#35373;&#23450;&#22793;&#26356;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="55" x="316.5" y="1436">&#20572;&#27490;&#12289;&#20877;&#38283;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="22" x="742.0" y="1436">&#30772;&#26820;</text>
+</svg>

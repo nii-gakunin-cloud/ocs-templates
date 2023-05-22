@@ -1,0 +1,13 @@
+#!/bin/bash
+        
+#SBATCH -J tensorflow-mnist-docker         # create a short name for your job
+#SBATCH -o tensorflow-mnist-docker.%j.out  # Name of stdout output file (%j expands to jobId)
+#SBATCH -N 1                               # Total number of nodes requested
+#SBATCH -n 1                               # Total number of across all nodes
+#SBATCH --gres=gpu:1                       # number of gpus per node
+#SBATCH -t 00:10:00                        # Run time (hh:mm:ss)
+
+docker run -td --gpus all -v /home/__xUSERx__:/home/__xUSERx__ --rm --ipc=host --net=host --name tensorflow-__xUSERx__ tensorflow-__xUSERx__
+docker exec -t -u __xUSERx__ -w $HOME/__xWORK_DIRx__ tensorflow-__xUSERx__ python3 download_mnist.py
+docker exec -t -u __xUSERx__ -w $HOME/__xWORK_DIRx__ tensorflow-__xUSERx__ python3 mnist_training2.py
+docker stop tensorflow-__xUSERx__

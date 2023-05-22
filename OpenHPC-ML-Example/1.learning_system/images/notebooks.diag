@@ -1,0 +1,89 @@
+blockdiag {
+    node_width = 220;
+    node_height = 160;
+
+    group {
+        color = "#e6e6fa";
+        label = "環境構築";
+        group {
+            shape = line;
+            style = none;
+            "010" -> "020";
+        }
+
+        group {
+            shape = line;
+            style = none;
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "031";
+                "032";
+            }
+            group {
+                orientation = portrait;
+                shape = line;
+                style = none;
+                "051";
+                "061";
+                "071";
+            }
+        }
+        "020" -> "031"[folded];
+        "020" -> "032"[folded];
+        "020" -> "051"[folded];
+        "020" -> "061"[folded];
+        "020" -> "071"[folded];
+    }
+
+    group {
+        label = "ジョブ実行";
+        color = "#9acd32";
+        group {
+            shape = line;
+            style = none;
+            "121";
+        }
+        group {
+            orientation = portrait;
+            shape = line;
+            style = none;
+            "140";
+            "141";
+            "142";
+        }
+        group {
+            orientation = portrait;
+            shape = line;
+            style = none;
+            "151";
+            "152";
+        }
+    }
+    
+    group {
+        label = "設定変更";
+        color = "#a6a5c4";
+        orientation = portrait;
+        "030";
+        "052";
+        "062";
+    }
+    group {
+        shape = line;
+        style = none;
+        orientation = portrait;
+        group {
+            label = "停止、再開";
+            color = "#dcd3b2";
+            "911";
+            "912";
+        }
+        group {
+            label = "破棄";
+            color = "#6a5d21";
+            "920";
+        }
+    }
+}

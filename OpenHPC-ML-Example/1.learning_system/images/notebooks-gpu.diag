@@ -1,0 +1,31 @@
+blockdiag {
+    node_width = 220;
+    node_height = 160;
+
+    group {
+        color = "#e6e6fa";
+        label = "環境構築";
+        "010" -> "020" -> "032" -> "061" -> "051";
+
+        group {
+            shape = line;
+            style = none;
+            "010" -> "020";
+        }
+        group {
+            shape = line;
+            style = none;
+            "032" -> "061" -> "051";
+        }
+        "020" -> "032"[folded];
+    }
+
+    group {
+        label = "ジョブ実行";
+        color = "#9acd32";
+        "140" -> "141"[style="dotted"];
+        "140" -> "142"[style="dotted"];
+    }
+
+    "051" -> "140"[style="dotted",folded];
+}
