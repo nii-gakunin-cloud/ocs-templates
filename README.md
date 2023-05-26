@@ -40,11 +40,11 @@ CoursewareHubでは、教材配布、課題の回答収集、操作履歴の収�
 (VCP SDK v20.04以降対応 (AWS、Azureで動作確認済み))<br>
 オンプレミスのバッチ型計算機システムの計算ノードが不足したとき、クラウド上にオンプレミスシステムと同様のソフトウェア構成を持つ計算ノードを立ち上げ、バッチシステムに組み込むクラウドバースト機能をVCPで実現するテンプレートです。Torque等クラウドに対応していないバッチシステムでも、簡単なプラグインを作成することでクラウドバーストを実現できます。なお、本テンプレートはipynb形式ではなく、Pythonならびにbashスクリプトで記述されています。
 
-- 「手書き文字認識システム構築テンプレート」(https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenHPC-ML-Example)
+- [手書き文字認識システム構築テンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenHPC-ML-Example)
 (VCP SDK v21.04対応 (AWS、Azureで動作確認済み))<br>
 Open HPC v2テンプレートをベースにGPU ベースの学習システム（Tensorflowを使用）の構築とCPUベースの認識システム（独自仕様）の構築を行い、フロントエンドとしてJupyterNotebook上に手書き数字認識システムを動作させる。
 
-- 「軽量Python実習環境構築テンプレート」(https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/TheLittlestJupyterHub)
+- [軽量Python実習環境構築テンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/TheLittlestJupyterHub)
 (VCP SDK v21.04対応 (AWS、Azure、mdxで動作確認済み))<br>
 Pythonによるプログラムの共同開発や講義演習などを行うのに適したJupyterHubの中で小規模グループ用である「The Littlest JupyterHub」の環境構築をおこなう。
 
