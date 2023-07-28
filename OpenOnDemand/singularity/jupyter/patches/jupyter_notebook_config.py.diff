@@ -1,0 +1,29 @@
+diff --git a/conf/jupyter_notebook_config.py b/conf/jupyter_notebook_config.py
+index 9485ca3..7e23cb1 100644
+--- a/conf/jupyter_notebook_config.py
++++ b/conf/jupyter_notebook_config.py
+@@ -4,7 +4,7 @@ c.NotebookApp.allow_remote_access = True
+ c.MultiKernelManager.kernel_manager_class = 'lc_wrapper.LCWrapperKernelManager'
+ c.KernelManager.shutdown_wait_time = 10.0
+ c.FileContentsManager.delete_to_trash = False
+-c.NotebookApp.quit_button = False
++#c.NotebookApp.quit_button = False
+ c.NotebookApp.kernel_spec_manager_class = 'lc_wrapper.LCWrapperKernelSpecManager'
+ 
+ if 'PASSWORD' in os.environ:
+@@ -12,6 +12,15 @@ if 'PASSWORD' in os.environ:
+     c.NotebookApp.password = passwd(os.environ['PASSWORD'])
+     del os.environ['PASSWORD']
+ 
++c.NotebookApp.base_url = '/node/{}/{}/'.format(os.environ['host'], os.environ['port'])
++c.NotebookApp.port = int(os.environ['port'])
++c.NotebookApp.port_retries = 0
++c.NotebookApp.open_browser = False
++c.NotebookApp.allow_origin = '*'
++c.NotebookApp.notebook_dir = os.environ['HOME']
++c.NotebookApp.disable_check_xsrf = True
++
++
+ if 'SIDESTICKIES_SCRAPBOX_COOKIE_CONNECT_SID' in os.environ:
+     c.ScrapboxAPI.cookie_connect_sid = os.environ['SIDESTICKIES_SCRAPBOX_'
+                                                   'COOKIE_CONNECT_SID']

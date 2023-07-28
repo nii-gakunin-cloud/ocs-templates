@@ -1,0 +1,9 @@
+Bootstrap: docker
+From: niicloudoperation/notebook
+
+%files
+    ./patches/jupyter_notebook_config.py.diff /root
+
+%post
+    patch -d /opt/conda/etc/jupyter -p2 < /root/jupyter_notebook_config.py.diff
+    rm -f /root/jupyter_notebook_config.py.diff

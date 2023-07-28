@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Benchmark info
+echo "TIMING - Starting main script at: $(date)"
+
+# Benchmark info
+echo "TIMING - Starting HPL at: $(date)"
+
+# Launch HPL
+# Need to specify the network interface of the service network because
+# mdx VMs have a storage network in addition to the service network.
+mpiexec --mca btl_tcp_if_include ens160 /home/ooduser/hpl/bin/Linux_OPENBLAS/xhpl

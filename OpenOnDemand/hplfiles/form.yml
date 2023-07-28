@@ -1,0 +1,40 @@
+# /var/www/ood/apps/sys/hpl/form.yml
+---
+cluster: "hpl_cluster"
+attributes:
+  modules: "openblas"
+  hpl_n_param:
+    label: "HPL.dat problem size (N)"
+    widget: "number_field"
+    value: 10000
+  hpl_nb_param:
+    label: "HPL.dat block size (NB)"
+    widget: "number_field"
+    value: 384
+  hpl_p_param:
+    label: "HPL.dat P parameter"
+    widget: "number_field"
+    value: 1
+  hpl_q_param:
+    label: "HPL.dat Q parameter"
+    widget: "number_field"
+    value: 1
+  num_mpi_procs:
+    label: "MPI processes"
+    widget: "number_field"
+    value: 1
+  bc_account: null
+  bc_queue: null
+  bc_email_on_started: null
+form:
+  - modules
+  - hpl_n_param
+  - hpl_nb_param
+  - hpl_p_param
+  - hpl_q_param
+  - num_mpi_procs
+  - bc_num_slots
+  - bc_account
+  - bc_queue
+  - bc_num_hours
+  - bc_email_on_started

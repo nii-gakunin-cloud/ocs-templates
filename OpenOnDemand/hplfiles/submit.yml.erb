@@ -1,0 +1,11 @@
+# /var/www/ood/apps/sys/hpl/submit.yml.erb
+---
+batch_connect:
+  template: "basic"
+script:
+  copy_environment: true
+  native:
+    - "-N"
+    - "<%= bc_num_slots.blank? ? 1 : bc_num_slots.to_i %>"
+    - "-n"
+    - "<%= num_mpi_procs.blank? ? 1 : num_mpi_procs.to_i %>"

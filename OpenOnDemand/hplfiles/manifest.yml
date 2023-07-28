@@ -1,0 +1,7 @@
+---
+name: High-Performance Linpack
+category: Interactive Apps
+subcategory: Benchmarks
+role: batch_connect
+description: |
+  This app will run the High-Performance Linpack benchmark.
