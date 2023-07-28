@@ -2,8 +2,7 @@
 Description = Hybrid cloud daemon
 
 [Service]
-EnvironmentFile = /opt/hybridcloud/vcpsdk/config/env
-ExecStart = /opt/hybridcloud/scripts/hybrid-cloud-agent.sh
+ExecStart = /opt/HybridCloud/scripts/hybrid-cloud-agent.sh
 ExecStop = /bin/kill $MAINPID
 StandardOutput = syslog
 StandardError = syslog

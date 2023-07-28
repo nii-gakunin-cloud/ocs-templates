@@ -13,22 +13,23 @@ vcc:
     # private_ip: VC Controller private IP
 
     # VcNodeなどの起動・終了待ち時間の調整
-    wait_timeout_sec:: 1000 # default 1000sec = 15minutes
+    wait_timeout_sec: 1000 # default 1000sec = 15minutes
 
 # spec_options:
-#     # http://docs.docker.jp/engine/userguide/networking/default_network/donfigure-dns.html
-#     dns:
-#         - 8.8.8.8
-#     dns_search: example.com
-#     add_host:
-#        - master:172.30.2.194
+#    # http://docs.docker.jp/engine/userguide/networking/default_network/donfigure-dns.html
+#    dns:
+#      - 8.8.8.8
+#    dns_search: example.com
+#    add_host:
+#      - master:172.30.2.194
 #        - c1:172.30.2.101
 #        - c2:172.30.2.102
 #        - c3:172.30.2.103
 #        - c4:172.30.2.104
-#     options:
-#         - timeout:60
-#     hostname: mynode
+#    options:
+#      - timeout:60
+#    hostname: mynode
+#    gpus: all
 
 #
 # Amazon Web Services (AWS)
@@ -92,6 +93,6 @@ gcp:
 # Chameleon Cloud
 #
 chameleon:
-    user_name: "vault://cubbyhole/chameleon/user_name"
-    password: "vault://cubbyhole/chameleon/password"
+    application_credential_id: "vault://cubbyhole/chameleon/application_credential_id"
+    application_credential_secret: "vault://cubbyhole/chameleon/application_credential_secret"
     private_network: "default"

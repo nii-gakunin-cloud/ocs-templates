@@ -5,24 +5,25 @@ import os
 
 from vcpsdk import vcpsdk
 
-RESERVED_HOST_FILE = '/opt/vcpsdk/vcpsdk/config/hosts.json'
-
-vcp_accesskey = os.environ['VCP_ACCESSKEY']
-unit_group_name = os.environ['VC_NAME']
-
-
 def main():
-    sdk = vcpsdk.VcpSDK(vcc_access_token=vcp_accesskey, verbose=10)
+    sdk = vcpsdk.VcpSDK(os.environ['VCP_ACCESSKEY'],
+                        config_dir=os.environ['VCP_CONFIG_DIR'])
 
-    ugroup = sdk.get_ugroup(ugroup_name=unit_group_name)
+    ugroup = sdk.get_ugroup(ugroup_name=os.environ['VC_GROUP_NAME'])
     if ugroup is None:
         return
 
-    allocated_nodes = ugroup.find_nodes()
+    unit_compute = ugroup.get_unit(os.environ['VC_UNIT_NAME'])
+    if unit_compute is None:
+        return
+
+    allocated_nodes = unit_compute.find_nodes()
     used_ips = []
     for node in allocated_nodes:
         used_ips.append(node.cloud_instance_address)
-    with open(RESERVED_HOST_FILE) as f:
+
+    etc_hosts_file = f"{os.environ['VCP_CONFIG_DIR']}/hosts.json"
+    with open(etc_hosts_file) as f:
         reserved = json.load(f)
     for ip in used_ips:
         print(reserved[ip])
@@ -30,3 +31,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

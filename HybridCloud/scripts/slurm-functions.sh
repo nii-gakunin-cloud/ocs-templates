@@ -5,13 +5,14 @@
 #
 # 監視対象の SLURM PARTITION 名
 #
-PARTITION="${QUEUE_NAME:-cloud}"
+PARTITION="${QUEUE_NAME:-normal}"
 
 #
 # squeue - view information about jobs located in the Slurm scheduling queue.
 # https://slurm.schedmd.com/squeue.html
 #
 JOB_STATUS_COMMAND="squeue"
+SSH_COMMAND="ssh slurm-master"
 
 #
 # JOB STATE CODES
@@ -46,7 +47,7 @@ get_status () {
         elif [ "${stats[1]}" = "${RUN_STAT}" ]; then
             RUN_COUNT="${stats[0]}"
         fi 
-    done < <("${JOB_STATUS_COMMAND}" | \
+    done < <(${SSH_COMMAND} ${JOB_STATUS_COMMAND} | \
              awk -v queue="${PARTITION}" '{if($2==queue) print $5}' | sort | uniq -c)
 }
 
@@ -55,7 +56,7 @@ get_status () {
 #
 join_cluster () {
     if [ -n $1 ]; then
-        sudo scontrol update node=$1 state=idle
+        ${SSH_COMMAND} sudo scontrol update node=$1 state=idle
     fi
 }
 
@@ -67,7 +68,7 @@ join_cluster () {
 #
 leave_cluster () {
     if [ -n $1 ]; then
-        sudo scontrol update node=$1 state=drain reason=downing
+        ${SSH_COMMAND} sudo scontrol update node=$1 state=drain reason=downing
     fi
 }
 
@@ -75,5 +76,5 @@ leave_cluster () {
 # 使用するジョブ管理コマンドが実行可能かどうかを確認する
 #
 check_version () {
-    "${JOB_STATUS_COMMAND}" --version
+    ${SSH_COMMAND} ${JOB_STATUS_COMMAND} --version
 }

@@ -1,0 +1,21 @@
+#!/usr/bin/expect
+# mdxで初回起動時にパスワード変更を求められるため、自動応答して
+# パスワードを変更するスクリプト
+
+set user [lindex $argv 0]
+set host [lindex $argv 1]
+# ssh秘密鍵のパス
+set key [lindex $argv 2]
+set password [lindex $argv 3]
+
+spawn env LANG=C ssh -oStrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $key "${user}\@${host}"
+
+expect -glob "New password: "
+send -- "${password}\n"
+
+expect -glob "Retype new password: "
+send -- "${password}\n"
+
+wait
+
+exit 0

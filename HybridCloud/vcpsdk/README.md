@@ -1,9 +1,9 @@
 ## How to build container image
 
-Get `tokyo_ca.crt` file and place it in the current directory.
+Get `vcp_ca.crt` file and place it in the current directory.
 
 ```
-docker build -t vcpsdk:20.10.0 .
+docker build -t vcpsdk:22.10.0 .
 ```
 
 
@@ -20,44 +20,28 @@ Edit the following files.
 ## add VC node
 
 ```
-. ./config/env
-
 docker run --rm \
-  -v $(pwd)/config:/opt/vcpsdk/vcpsdk/config \
-  -v id_ed25519.pub:/tmp/key.pub \
-  -e VCP_ACCESSKEY=${VCP_ACCESSKEY} \
-  -e VC_NAME=${VC_NAME} \
-  -e IMAGE_NAME=${IMAGE_NAME} \
-  -e PROVIDER_NAME=${PROVIDER_NAME} \
-  -e FLAVOR_NAME=${FLAVOR_NAME} \
-  vcpsdk:20.10.0 add_vcnode.py
+  -v $(pwd):/opt/ocs-templates/HybridCloud/vcpsdk \
+  --env-file=$(pwd)/config/env \
+  vcpsdk:22.10.0 add_vcnode.py
 ```
 
 
 ## delete all VC node
 
 ```
-. ./config/env
-
 docker run --rm \
-  -v $(pwd)/config:/opt/vcpsdk/vcpsdk/config \
-  -e VCP_ACCESSKEY=${VCP_ACCESSKEY} \
-  -e VC_NAME=${VC_NAME} \
-  -e IMAGE_NAME=${IMAGE_NAME} \
-  -e PROVIDER_NAME=${PROVIDER_NAME} \
-  -e FLAVOR_NAME=${FLAVOR_NAME} \
-  vcpsdk:20.10.0 cleanup_vc.py
+  -v $(pwd):/opt/ocs-templates/HybridCloud/vcpsdk \
+  --env-file=$(pwd)/config/env \
+  vcpsdk:22.10.0 delete_vcnode.py
 ```
 
 
 ## get VC node
 
 ```
-. ./config/env
-
 docker run --rm \
-  -v $(pwd)/config:/opt/vcpsdk/vcpsdk/config \
-  -e VCP_ACCESSKEY=${VCP_ACCESSKEY} \
-  -e VC_NAME=${VC_NAME} \
-  vcpsdk:20.10.0 get_vcnode.py
+  -v $(pwd):/opt/ocs-templates/HybridCloud/vcpsdk \
+  --env-file=$(pwd)/config/env \
+  vcpsdk:22.10.0 get_vcnode.py
 ```

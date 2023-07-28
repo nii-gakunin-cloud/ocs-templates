@@ -9,8 +9,8 @@ aws:
     small:
         instance_type: m4.large
         volume_type: gp2
-        # AWS の最少AMIサイズは8G
-        volume_size: 8
+        # VCノードでのAWS の最少AMIサイズは16G
+        volume_size: 16
     medium:
         instance_type: m4.xlarge
         volume_type: gp2
@@ -39,8 +39,8 @@ aws_spot:
     small:
         instance_type: m4.large
         volume_type: standard
-        # AWS の最少AMIサイズは8G
-        volume_size: 8
+        # VCノードで使うAWS の最少AMIサイズは16G
+        volume_size: 16
     medium:
         instance_type: m4.xlarge
         volume_type: standard
@@ -75,10 +75,10 @@ hokudai:
         flavor_name: '1core-6GB'
         volume_size: 50 # minimum 50G
     medium:
-        flavor_name: '2core-8G'
+        flavor_name: '2core-12GB'
         volume_size: 80
     large:
-        flavor_name: '4core-16G'
+        flavor_name: '4core-24GB'
         volume_size: 100
 
 #
@@ -179,6 +179,11 @@ azure_disk:
         storage_account_type: Standard_LRS
         disk_size_gb: 128
 
+# 予約時のspec, 確保時のspecで必要な項目がマージされたもの
+# TODO: 細かい設定が可能か調査
+#chameleon:
+#    default:
+#        node_type: compute_haswell
 #
 # GCP
 #
