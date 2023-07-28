@@ -1,0 +1,45 @@
+diff --git a/vcpsdk/plugins/mdx_ext.py b/vcpsdk/plugins/mdx_ext.py
+index cfa647e..3a05447 100644
+--- a/vcpsdk/plugins/mdx_ext.py
++++ b/vcpsdk/plugins/mdx_ext.py
+@@ -159,8 +159,8 @@ class MdxResourceExt(object):
+         vm_spec["vm_name"] = vm_name
+ 
+         self._mdxlib.deploy_vm(vm_spec)
++        vm_id = self._find_vm(vm_name)
+         if wait_for:
+-            vm_id = self._find_vm(vm_name)
+             # historyで待つ
+             # for _i in range(0, SLEEP_COUNT):
+             #     # vm_info = self._mdxlib.get_vm_info(vm_id)
+@@ -311,6 +311,7 @@ class MdxResourceExt(object):
+ 
+           {
+             "name": 仮想マシン名
++            "vm_id": 仮想マシンID
+             "os_type": OSタイプ
+             "status": 仮想マシンの状態 "PowerON" "PowerOFF" "Suspended" "NotFound" "Deploying" "Detached" のいずれか
+             "vmware_tools": [
+diff --git a/vcpsdk/plugins/mdx_lib.py b/vcpsdk/plugins/mdx_lib.py
+index df2fd79..6403ff2 100644
+--- a/vcpsdk/plugins/mdx_lib.py
++++ b/vcpsdk/plugins/mdx_lib.py
+@@ -235,6 +235,7 @@ class MdxLib(object):
+ 
+           {
+              `name`: 仮想マシン名
++             `vm_id`: 仮想マシンID
+              `os_type`:
+              `status`: 仮想マシンの状態 "PowerON" "PowerOFF" "Suspended" "NotFound" "Deploying" "Detached"
+              `vmware_tools`:
+@@ -255,7 +256,9 @@ class MdxLib(object):
+         res = self._call_api("/api/vm/{}/".format(vm_id), method="GET")
+         if res.status_code != 200:
+             raise MdxRestException("mdxlib: get vm info is failed: {}".format(res.text), status_code=res.status_code)
+-        return res.json()
++        result = res.json()
++        result["vm_id"] = vm_id
++        return result
+ 
+     def get_vm_catalogs(self, project_id):
+         res = self._call_api("/api/catalog/project/{}/?page=1&page_size=50".format(project_id), method="GET")

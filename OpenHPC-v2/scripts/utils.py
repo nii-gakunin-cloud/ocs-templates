@@ -186,6 +186,22 @@ def check_parameter_compute_etc_hosts(value, params, kwargs):
             '#計算ノードのIPアドレスとホスト名')
 
 
+def _check_mdx_pack_num(packnum, kind, link):
+    if packnum < 3:
+        raise OhpcParameterError(
+            f'パック数には3以上の値を設定してください({kind}): {packnum}',
+            link)
+
+def check_parameter_mdx_master_pack_num(value, params, kwargs):
+    link = '#mdxでのVMデプロイ準備'
+    _check_mdx_pack_num(value, 'マスターノード', link)
+
+
+def check_parameter_mdx_compute_pack_num(value, params, kwargs):
+    link = '#mdxでのVMデプロイ準備'
+    _check_mdx_pack_num(value, '計算ノード', link)
+
+
 def spec_env_munge_key(gvars, vcp, token):
     vault_url = \
         f'{vcp.vcc_info()["vault_url"]}/v1/{gvars["vault_path_munge_key"]}'
