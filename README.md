@@ -60,7 +60,7 @@ Pythonによるプログラムの共同開発や講義演習などを行うの�
 (VCP SDK v22.04以降対応 (AWS、Azureで動作確認済み))<br>
 [OpenHPC](https://openhpc.community/) v1.xで配布されているパッケージを利用して、クラウド上にHPC環境を構築します。Slurmを利用したジョブスケジューラやSingularityコンテナ利用環境の設定と、構築したHPC環境でのベンチマークプログラムの実行まで行うことができます。
 
-- [講義演習環境テンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/CoursewareHub-not-recommended)
+- [JupyterHub v1.xベース講義演習環境テンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/CoursewareHub-not-recommended)
 (VCP SDK v22.04対応 (AWS、Azure、mdxで動作確認済み))<br>
 [Jupyter Notebook](https://jupyter.org/)を用いた講義演習環境を構築します。
 講義演習環境の基盤ソフトウェアには、JupyterHub v1.xを講義演習用に国立情報学研究所で拡張した[CoursewareHub](https://github.com/NII-cloud-operation)を用いています。
