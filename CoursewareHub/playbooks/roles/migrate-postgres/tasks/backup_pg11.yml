@@ -1,0 +1,25 @@
+- tempfile:
+    state: directory
+  register: workdir_pg
+- block:
+    - template:
+        src: docker-compose.yml.j2
+        dest: "{{ workdir_pg.path }}/docker-compose.yml"
+    - command:
+        chdir: "{{ workdir_pg.path }}"
+        cmd: "docker compose up --wait"
+    - command:
+        chdir: "{{ workdir_pg.path }}"
+        cmd: "docker compose exec postgres pg_dump -U {{ db_user }} -d {{ db_name }} -a -t '*user*' -f user.sql"
+    - command:
+        chdir: "{{ workdir_pg.path }}"
+        cmd: "docker compose cp postgres:user.sql /home/{{ansible_user}}/"
+  always:
+    - command:
+        chdir: "{{ workdir_pg.path }}"
+        cmd: "docker compose down"
+      ignore_errors: true
+    - file:
+        path: "{{ workdir_pg.path }}"
+        state: absent
+- command: mv /jupyter/psql/data /jupyter/psql/data-11

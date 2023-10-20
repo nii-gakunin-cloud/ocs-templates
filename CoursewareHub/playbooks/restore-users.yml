@@ -1,0 +1,4 @@
+- hosts: all
+  roles:
+    - role: restore-users
+  become: true

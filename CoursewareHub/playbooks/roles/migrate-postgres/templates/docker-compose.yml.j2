@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:11
+    volumes:
+      - /jupyter/psql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: {{ db_name }}
+      POSTGRES_PASSWORD: "{{ db_pass }}"
+      POSTGRES_USER: {{ db_user }}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$(cat $$POSTGRES_USER_FILE) -d $$(cat $$POSTGRES_DB_FILE)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

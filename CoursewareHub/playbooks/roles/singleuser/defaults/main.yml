@@ -1,0 +1,4 @@
+singleuser_image_names:
+  - coursewarehub/initial-course-image
+  - coursewarehub/default-course-image
+

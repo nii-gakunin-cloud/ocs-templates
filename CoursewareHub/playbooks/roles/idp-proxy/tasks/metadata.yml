@@ -1,0 +1,8 @@
+- file:
+    path: "{{idp_proxy_metadata_dir}}"
+    state: directory
+    recurse: true
+- copy:
+    src: "{{ cgidp_metadata }}"
+    dest: "{{ idp_proxy_metadata_dir }}/cgidp-metadata.xml"
+  when: cgidp_metadata is defined 

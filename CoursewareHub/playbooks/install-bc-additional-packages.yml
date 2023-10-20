@@ -1,0 +1,31 @@
+- hosts: all
+  become: yes
+  tasks:
+  - block:
+      - yum:
+          name: '*'
+          state: latest
+          exclude: kernel*
+          update_cache: yes
+      - yum:
+          name: tree
+      - yum:
+          name: docker-compose-plugin
+    when:
+      - ansible_os_family == "RedHat"
+  - block:
+      - apk:
+          name: tree
+          update_cache: yes
+      - file:
+          state: directory
+          path: /usr/local/libexec/docker
+      - file:
+          state: directory
+          path: /usr/local/libexec/docker/cli-plugins
+      - get_url:
+          url: https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-linux-x86_64
+          dest: /usr/local/libexec/docker/cli-plugins/docker-compose
+          mode: 0755
+    when:
+      - ansible_os_family == "Alpine"

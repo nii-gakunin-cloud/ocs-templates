@@ -1,0 +1,2 @@
+saml_metadata_dir: "{{jupyterhub_cfg_dir}}/simplesamlphp/metadata/xml"
+hub_const_file: "{{jupyterhub_cfg_dir}}/hub-const.php"

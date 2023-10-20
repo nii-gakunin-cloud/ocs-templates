@@ -1,0 +1,2 @@
+logo_url: https://raw.githubusercontent.com/NII-cloud-operation/CoursewareHub-LC_deploy/main/coursewarehub/jupyterhub-logo.png
+jupyterhub_custom_dir: "{{jupyterhub_cfg_dir}}/jupyterhub_config.d"

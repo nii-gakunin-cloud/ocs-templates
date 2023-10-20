@@ -1,0 +1,3 @@
+postgres_image: postgres:13
+registry_image: registry:2
+backend_network_name: courseware-backend

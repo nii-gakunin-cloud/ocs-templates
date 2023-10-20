@@ -1,0 +1,12 @@
+- command:
+    docker login -u cwh -p {{registry_pass}} {{master_fqdn}}:5000
+  become: true
+- command:
+    docker pull -q {{singleuser_image}}
+- command:
+    docker tag {{singleuser_image}} {{master_fqdn}}:5000/{{item}}
+  loop: "{{singleuser_image_names}}"
+- command:
+    docker push {{master_fqdn}}:5000/{{item}}
+  loop: "{{singleuser_image_names}}"
+

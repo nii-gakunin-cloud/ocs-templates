@@ -1,0 +1,29 @@
+- name: Set ansible inventory
+  block:
+    - file:
+        path: "{{home_dir}}/{{teacher_id}}/ansible"
+        state: directory
+        owner: "{{teacher_id}}"
+        group: "{{teacher_id}}"
+    - command:
+        cmd: !unsafe "docker node ls -f role=manager --format '{{.Hostname}}'"
+      register: manager_info
+    - command:
+        docker node inspect --format '{% raw %}{{.Status.Addr}}{% endraw %}' {{item}}
+      loop: "{{manager_info.stdout.split() | list }}"
+      register: manager_ipaddresses
+    - command:
+        cmd: !unsafe "docker node ls -f role=worker --format '{{.Hostname}}'"
+      register: worker_info
+    - command:
+        docker node inspect --format '{% raw %}{{.Status.Addr}}{% endraw %}' {{item}}
+      loop: "{{worker_info.stdout.split() | list }}"
+      register: worker_ipaddresses
+    - set_fact:
+        manager_nodes: "{{ manager_ipaddresses.results | map(attribute='stdout') }}"
+        worker_nodes: "{{ worker_ipaddresses.results | map(attribute='stdout') }}"
+    - template:
+        dest: "{{home_dir}}/{{teacher_id}}/ansible/inventory"
+        src: inventory.j2
+        owner: "{{teacher_id}}"
+        group: "{{teacher_id}}"

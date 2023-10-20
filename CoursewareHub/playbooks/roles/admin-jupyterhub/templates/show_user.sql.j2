@@ -1,0 +1,10 @@
+SELECT u.name, u.admin, u.last_activity, r.name AS role
+  FROM users u
+  LEFT OUTER JOIN user_role_map m on u.id = m.user_id
+  LEFT OUTER JOIN roles r ON m.role_id = r.id
+  WHERE u.name = '{{teacher_id}}';
+
+SELECT user_name, mail
+  FROM local_users
+  WHERE user_name = '{{teacher_id}}';
+

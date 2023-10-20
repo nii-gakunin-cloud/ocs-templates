@@ -1,0 +1,6 @@
+- import_tasks: system-user.yml
+- import_tasks: contents-directory.yml
+- import_tasks: ssh-key.yml
+- import_tasks: ansible-inventory.yml
+- import_tasks: sudo.yml
+

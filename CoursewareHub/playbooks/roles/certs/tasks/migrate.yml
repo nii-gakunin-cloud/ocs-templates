@@ -1,0 +1,31 @@
+- file:
+    path: "/home/{{ansible_user}}/certs"
+    state: directory
+    recurse: true
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+- copy:
+    src: /srv/cwh/certs/auth-proxy.cer
+    dest: "/home/{{ansible_user}}/certs/{{master_fqdn}}.cer"
+    remote_src: yes
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+- copy:
+    src: /srv/cwh/certs/auth-proxy.chained.cer
+    dest: "/home/{{ansible_user}}/certs/{{master_fqdn}}.chained.cer"
+    remote_src: yes
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+- copy:
+    src: /srv/cwh/certs/auth-proxy.key
+    dest: "/home/{{ansible_user}}/certs/{{master_fqdn}}.key"
+    remote_src: yes
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+- copy:
+    src: /srv/cwh/certs/idp-proxy.cer
+    dest: "/home/{{ansible_user}}/certs/{{auth_fqdn}}.cer"
+    remote_src: yes
+    owner: "{{ansible_user}}"
+    group: "{{ansible_user}}"
+  when: auth_fqdn is defined and auth_fqdn|trim|length > 0

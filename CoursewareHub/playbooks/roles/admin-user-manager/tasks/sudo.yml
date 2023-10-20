@@ -1,0 +1,6 @@
+- name: Grant sudo
+  copy:
+    dest: "/etc/sudoers.d/{{teacher_id}}"
+    content: |
+      {{teacher_id}} ALL=(ALL) NOPASSWD: ALL
+

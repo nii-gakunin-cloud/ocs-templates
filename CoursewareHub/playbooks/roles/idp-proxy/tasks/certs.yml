@@ -1,0 +1,33 @@
+- file:
+    path: "{{idp_proxy_cert_dir}}"
+    state: directory
+    recurse: true
+- copy:
+    src: "certs/{{auth_fqdn}}.key"
+    dest: "{{idp_proxy_cert_dir}}/idp-proxy.key"
+    remote_src: yes
+- stat:
+    path: "certs/{{auth_fqdn}}.chained.cer"
+  register: chained_file_status
+- copy:
+    src: "certs/{{auth_fqdn}}.cer"
+    dest: "{{idp_proxy_cert_dir}}/idp-proxy.cer"
+    remote_src: yes
+- copy:
+    src: "certs/{{auth_fqdn}}.chained.cer"
+    dest: "{{idp_proxy_cert_dir}}/idp-proxy.chained.cer"
+    remote_src: yes
+  when: chained_file_status.stat.exists
+- block:
+    - copy:
+        src: "certs/{{auth_fqdn}}.cer"
+        dest: "{{idp_proxy_cert_dir}}/idp-proxy.chained.cer"
+        remote_src: yes
+    - shell:
+        cat "certs/{{intermediate_certfile}}" >> "{{idp_proxy_cert_dir}}/idp-proxy.chained.cer"
+      when: intermediate_certfile is defined
+  when: not chained_file_status.stat.exists
+- get_url:
+    url: "{{metadata_signer_url}}"
+    dest: "{{idp_proxy_cert_dir}}/gakunin-signer.cer"
+

@@ -1,0 +1,21 @@
+INSERT INTO users (name, admin, cookie_id, last_activity) 
+  VALUES ('{{teacher_id}}', TRUE, '{{cookie_id}}', now())
+  ON CONFLICT (name) DO NOTHING;
+
+INSERT INTO user_role_map (user_id, role_id)
+  VALUES (
+    (SELECT id AS user_id FROM users WHERE name='{{teacher_id}}'),
+    (SELECT id AS role_id FROM roles WHERE name='admin')
+  )
+  ON CONFLICT (user_id, role_id) DO NOTHING;
+
+{% if encrypted_teacher_password is defined %}
+INSERT INTO local_users (id, user_name, password, mail)
+  VALUES (
+    nextval('local_users_id_seq'),
+    '{{teacher_id}}',
+    '{{encrypted_teacher_password}}',
+    '{{teacher_email}}'
+  )
+  ON CONFLICT (user_name) DO UPDATE SET password = EXCLUDED.password;
+{% endif %}

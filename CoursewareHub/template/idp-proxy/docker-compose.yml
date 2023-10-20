@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  idp-proxy:
+    image: {{ idp_proxy_image }}
+    container_name: idp-proxy
+    restart: unless-stopped
+    environment:
+      AUTH_FQDN: {{ auth_fqdn }}
+      GAKUNIN_FEDERATION: {{federation}}
+{% if ds_fqdn is defined %}
+      DS_FQDN: {{ds_fqdn}}
+{% endif %}
+{% if cg_fqdn is defined %}
+      CG_FQDN: {{cg_fqdn}}
+{% endif %}
+    env_file:
+      - {{idp_proxy_dir}}/.env-cron
+    ports:
+      - 443:443
+    hostname: {{ auth_fqdn }}
+    volumes:
+      - {{idp_proxy_certs_dir}}:/etc/cert
+      - {{idp_proxy_metadata_dir}}:/var/www/simplesamlphp/metadata/xml

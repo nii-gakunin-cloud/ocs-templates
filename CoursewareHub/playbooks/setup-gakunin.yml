@@ -1,0 +1,7 @@
+- hosts: all
+  roles:
+    - role: auth-proxy
+    - role: docker-compose
+    - role: certs
+  become: true
+

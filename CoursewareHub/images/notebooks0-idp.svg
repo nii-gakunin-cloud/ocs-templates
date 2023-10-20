@@ -1,0 +1,77 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 702 800">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2"/>
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc>blockdiag {
+    node_width = 255;
+    node_height = 150;
+    orientation = portrait;
+
+    group {
+        shape = line;
+        style = none;
+        orientation = portrait;
+
+        group {
+            label = "IdP-proxy";
+            orientation = portrait;
+            color = "#B0D6C6";
+            "511" -&gt; "521";
+            "521" -&gt; "541"[style=none];
+            "541" -&gt; "591"[style=none];
+        }
+        "521" -&gt; "211";
+        "541" -&gt; "211"[dir=back];
+
+        group {
+            color = "#D6B0D3";
+            orientation = portrait;
+            label = "CoursewareHub";
+            "121" -&gt; "211";
+        }
+
+    }
+}
+</desc>
+  <rect fill="rgb(176,214,198)" height="740" style="filter:url(#filter_blur)" width="271" x="56" y="30"/>
+  <rect fill="rgb(214,176,211)" height="360" style="filter:url(#filter_blur)" width="271" x="375" y="220"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="46"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="236"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="426"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="67" y="616"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="386" y="236"/>
+  <rect fill="rgb(0,0,0)" height="150" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="255" x="386" y="426"/>
+  <rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="64" y="40"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="131">Ansible&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="120">VC&#12494;&#12540;&#12489;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="109">VC&#12494;&#12540;&#12489;&#12395;&#38306;&#12377;&#12427;&#12497;&#12521;&#12513;&#12540;&#12479;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="98">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/511-VC&#12494;&#12540;&#12489;&#20316;&#25104;-IdP-proxy.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="56">511: VC&#12494;&#12540;&#12489;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="69">- IdP-proxy</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="64" y="230"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="352">&#23398;&#35469;mAP&#12392;&#12398;&#36899;&#25658;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="341">&#23398;&#35469;&#12395;SP&#35373;&#32622;&#12398;&#30003;&#35531;&#12434;&#34892;&#12358;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="330">IdP-proxy&#12467;&#12531;&#12486;&#12490;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="319">IdP-proxy&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="308">&#35388;&#26126;&#26360;&#12398;&#37197;&#32622;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="297">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="286">&#25805;&#20316;&#23550;&#35937;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="275">&#12399;&#12376;&#12417;&#12395;</text><a xlink:href="notebooks/521-IdP-proxy&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="252">521: IdP-proxy&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="64" y="420"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="487">&#12513;&#12479;&#12487;&#12540;&#12479;&#12398;&#36861;&#21152;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="476">&#25805;&#20316;&#23550;&#35937;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="465">&#27010;&#35201;</text><a xlink:href="notebooks/541-IdP-proxy&#12408;auth-proxy&#12398;&#12513;&#12479;&#12487;&#12540;&#12479;&#12434;&#30331;&#37682;&#12377;&#12427;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="442">541: auth-proxy&#12398;&#12513;&#12479;&#12487;&#12540;&#12479;&#12434;&#30331;&#37682;&#12377;&#12427;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="64" y="610"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="677">Ansible&#35373;&#23450;&#12398;&#12463;&#12522;&#12450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="666">&#27083;&#31689;&#29872;&#22659;&#12398;&#21066;&#38500;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="66" width="251" y="655">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#25351;&#23450;</text><a xlink:href="notebooks/591-IdP-proxy&#12398;&#21066;&#38500;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="66" width="251" y="632">591: IdP-proxy&#12398;&#21066;&#38500;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="383" y="230"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="365">CoursewareHub&#12395;&#12450;&#12463;&#12475;&#12473;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="354">&#12467;&#12531;&#12486;&#12531;&#12484;&#12398;&#37197;&#20633;&#12398;&#28310;&#20633;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="343">&#31649;&#29702;&#32773;&#12398;&#30331;&#37682;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="332">&#12467;&#12531;&#12486;&#12490;&#12398;&#36215;&#21205;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="321">CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="310">&#35388;&#26126;&#26360;&#12398;&#37197;&#32622;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="299">&#12497;&#12521;&#12513;&#12540;&#12479;&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="288">&#27010;&#35201;</text><a xlink:href="notebooks/121-CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;-&#12525;&#12540;&#12459;&#12523;&#12518;&#12540;&#12470;&#35469;&#35388;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="246">121: CoursewareHub&#12398;&#12475;&#12483;&#12488;&#12450;&#12483;&#12503;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="259">- &#12525;&#12540;&#12459;&#12523;&#12518;&#12540;&#12470;&#35469;&#35388;</text></a><rect fill="rgb(255,255,255)" height="150" stroke="rgb(0,0,0)" width="255" x="383" y="420"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="522">CoursewareHub&#12395;&#23398;&#35469;IdP&#12398;&#12450;&#12459;&#12454;&#12531;&#12488;&#12391;&#12525;&#12464;&#12452;&#12531;&#12377;&#12427;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="511">&#12513;&#12479;&#12487;&#12540;&#12479;&#12398;&#26356;&#26032;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="500">CoursewareHub&#12398;&#35373;&#23450;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="489">mAP&#12464;&#12523;&#12540;&#12503;&#12398;&#20316;&#25104;</text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="9" font-style="normal" font-weight="normal" font-anchor="middle" x="385" width="251" y="478">&#27010;&#35201;</text><a xlink:href="notebooks/211-&#23398;&#35469;&#36899;&#25658;&#12398;&#35373;&#23450;&#12434;&#34892;&#12358;-IdP-proxy&#12434;&#21033;&#29992;&#12377;&#12427;.ipynb"><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="436">211: &#23398;&#35469;&#36899;&#25658;&#12398;&#35373;&#23450;&#12434;&#34892;&#12358; </text><text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="bold" font-anchor="middle" x="385" width="251" y="449">-  IdP-proxy&#12434;&#21033;&#29992;&#12377;&#12427;</text></a><path d="M 191 190 L 191 222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="191,229 187,222 195,222 191,229" stroke="rgb(0,0,0)"/>
+  <path d="M 191 380 L 191 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 191 400 L 510 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 400 L 510 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,419 506,412 514,412 510,419" stroke="rgb(0,0,0)"/>
+  <path d="M 327 495 L 383 495" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="320,495 327,491 327,499 320,495" stroke="rgb(0,0,0)"/>
+  <path d="M 510 380 L 510 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,419 506,412 514,412 510,419" stroke="rgb(0,0,0)"/>
+  <path d="M 191 190 L 191 222" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="191,229 187,222 195,222 191,229" stroke="rgb(0,0,0)"/>
+  <path d="M 191 380 L 191 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 191 400 L 510 400" fill="none" stroke="rgb(0,0,0)"/>
+  <path d="M 510 400 L 510 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,419 506,412 514,412 510,419" stroke="rgb(0,0,0)"/>
+  <path d="M 327 495 L 383 495" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="320,495 327,491 327,499 320,495" stroke="rgb(0,0,0)"/>
+  <path d="M 510 380 L 510 412" fill="none" stroke="rgb(0,0,0)"/>
+  <polygon fill="rgb(0,0,0)" points="510,419 506,412 514,412 510,419" stroke="rgb(0,0,0)"/>
+  <rect fill="none" height="740" stroke="rgb(243,152,0)" stroke-dasharray="0 196605" stroke-width="3" width="590" x="56" y="30"/>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="50" x="192.0" y="36">IdP-proxy</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="72" x="511.0" y="225">CoursewareHub</text>
+</svg>

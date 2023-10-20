@@ -1,0 +1,2 @@
+registry_user: cwh
+registry_password_file: "{{registry_dir}}/htpasswd"

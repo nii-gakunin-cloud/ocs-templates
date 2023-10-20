@@ -1,0 +1,5 @@
+- hosts: all
+  roles:
+    - role: admin-user-worker
+  become: true
+

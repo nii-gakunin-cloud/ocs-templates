@@ -1,0 +1,2 @@
+admin_dir: "{{jupyter_root_dir}}/admin"
+deploy_notebook_url: "https://raw.githubusercontent.com/NII-cloud-operation/CoursewareHub-LC_deploy/main/coursewarehub/D06_CoursewareHub%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E3%81%AE%E9%85%8D%E5%82%99.ipynb"

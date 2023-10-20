@@ -1,0 +1,26 @@
+- command:
+    docker service ps -q -f desired-state=running coursewarehub_postgres
+  register: service_info
+- command:
+    docker inspect -f '{% raw %}{{.Status.ContainerStatus.ContainerID}}{% endraw %}' {{service_info.stdout}}
+  register: postgres_info
+- tempfile:
+    state: directory
+  register: work_dir
+- block:
+    - copy:
+        dest: "{{work_dir.path}}/20-select-admin.sql"
+        src: select-admin.sql
+    - command:
+        docker cp {{work_dir.path}}/20-select-admin.sql {{postgres_info.stdout}}:/tmp/
+    - command:
+        docker exec {{postgres_info.stdout}} psql -U {{db_user}} -d {{db_name}} -f /tmp/20-select-admin.sql --csv -t
+      register: show_tables
+    - command:
+        docker exec {{postgres_info.stdout}} rm /tmp/20-select-admin.sql
+  always:
+    - file:
+        path: "{{work_dir.path}}"
+        state: absent
+- debug:
+    var: show_tables.stdout

@@ -1,0 +1,20 @@
+- file:
+    path: "{{jupyterhub_cfg_dir}}"
+    state: directory
+    recurse: true
+- name: deploy resource.yaml
+  copy:
+    src: "{{rsc_yml}}"
+    dest: "{{jupyterhub_cfg_dir}}/resource.yaml"
+- file:
+    path: "{{jupyterhub_custom_dir}}"
+    state: directory
+    recurse: true
+- block:
+    - copy:
+        src: "{{ item }}"
+        dest: "{{jupyterhub_custom_dir}}"
+      loop: "{{ jupyterhub_config_list }}"
+  when: jupyterhub_config_list is defined
+- import_tasks: logo.yml
+

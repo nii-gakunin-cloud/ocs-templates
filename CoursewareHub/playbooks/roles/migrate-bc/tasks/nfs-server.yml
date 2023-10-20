@@ -1,0 +1,15 @@
+- copy:
+    src: "../../../docker/bc/nfsd/etc/vcp/rc.d/{{ item }}"
+    dest: /etc/vcp/rc.d/
+    mode: 0755
+  loop:
+    - 00-mkfs.sh
+    - 10-bind-mount.sh
+    - 10-exports.sh
+- file:
+    path: "/var/lib/vcp/.{{ item }}"
+    state: touch
+  loop:
+    - 00-mkfs
+    - 10-bind-mount
+    - 10-exports

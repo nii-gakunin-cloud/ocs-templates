@@ -1,0 +1,9 @@
+- command: cat /jupyter/psql/data/PG_VERSION
+  register: pg_version
+  ignore_errors: true
+- debug:
+    var: pg_version
+- import_tasks: backup_pg11.yml
+  when: pg_version.stdout == "11"
+- import_role:
+    name: postgres

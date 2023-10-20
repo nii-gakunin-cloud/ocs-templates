@@ -1,0 +1,37 @@
+- command:
+    docker service ps -q -f desired-state=running coursewarehub_postgres
+  register: service_info
+- command:
+    docker inspect -f '{% raw %}{{.Status.ContainerStatus.ContainerID}}{% endraw %}' {{service_info.stdout}}
+  register: postgres_info
+- tempfile:
+    state: directory
+  register: work_dir
+- block:
+    - copy:
+        dest: "{{work_dir.path}}/20-restore_users.sql"
+        src: "/home/{{ansible_user}}/user.sql"
+        remote_src: true
+    - copy:
+        dest: "{{work_dir.path}}/20-user_role_map.sql"
+        src: insert_user_role_map.sql
+    - command:
+        docker cp {{work_dir.path}}/20-restore_users.sql {{postgres_info.stdout}}:/tmp/
+    - command:
+        docker cp {{work_dir.path}}/20-user_role_map.sql {{postgres_info.stdout}}:/tmp/
+    - file:
+        path: "{{work_dir.path}}"
+        state: absent
+    - command:
+        docker exec {{postgres_info.stdout}} psql -U {{db_user}} -d {{db_name}} -f /tmp/20-restore_users.sql
+    - command:
+        docker exec {{postgres_info.stdout}} psql -U {{db_user}} -d {{db_name}} -f /tmp/20-user_role_map.sql
+    - command:
+        docker exec {{postgres_info.stdout}} rm /tmp/20-restore_users.sql
+    - command:
+        docker exec {{postgres_info.stdout}} rm /tmp/20-user_role_map.sql
+  always:
+    - file:
+        path: "{{work_dir.path}}"
+        state: absent
+

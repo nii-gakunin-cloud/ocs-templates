@@ -1,0 +1,16 @@
+cg_groups: []
+auth_fqdn: ""
+enable_federation: false
+enable_test_federation: false
+
+jupyterhub_cfg_dir: /etc/jupyterhub
+jupyterhub_var_dir: /var/jupyterhub
+jupyter_root_dir: /jupyter
+postgres_dir: "{{ jupyter_root_dir }}/psql"
+registry_dir: "{{ jupyter_root_dir }}/registry"
+home_dir: "{{ jupyter_root_dir }}/users"
+compose_dir: /opt/coursewarehub
+
+jupyterhub_image: "niicloudoperation/coursewarehub-jupyterhub:master"
+auth_proxy_image: "niicloudoperation/coursewarehub-auth-proxy:master"
+singleuser_image: "niicloudoperation/notebook"

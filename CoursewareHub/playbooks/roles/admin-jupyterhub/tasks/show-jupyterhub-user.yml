@@ -1,0 +1,29 @@
+- command:
+    docker service ps -q -f desired-state=running coursewarehub_postgres
+  register: service_info
+- command:
+    docker inspect -f '{% raw %}{{.Status.ContainerStatus.ContainerID}}{% endraw %}' {{service_info.stdout}}
+  register: postgres_info
+- tempfile:
+    state: directory
+  register: work_dir
+- block:
+    - template:
+        dest: "{{work_dir.path}}/10-show_user-{{teacher_id}}.sql"
+        src: show_user.sql.j2
+    - command:
+        docker cp {{work_dir.path}}/10-show_user-{{teacher_id}}.sql {{postgres_info.stdout}}:/tmp/
+    - file:
+        path: "{{work_dir.path}}"
+        state: absent
+    - command:
+        docker exec {{postgres_info.stdout}} psql -U {{db_user}} -d {{db_name}} -f /tmp/10-show_user-{{teacher_id}}.sql
+      register: show_tables
+    - command:
+        docker exec {{postgres_info.stdout}} rm /tmp/10-show_user-{{teacher_id}}.sql
+  always:
+    - file:
+        path: "{{work_dir.path}}"
+        state: absent
+- debug:
+    var: show_tables.stdout

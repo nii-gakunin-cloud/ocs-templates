@@ -1,0 +1,12 @@
+- file:
+    path: "{{jupyterhub_cfg_dir}}"
+    state: directory
+    recurse: true
+- template:
+    src: hub-const.php.j2
+    dest: "{{hub_const_file}}"
+- file:
+    path: "{{saml_metadata_dir}}"
+    state: directory
+    recurse: true
+

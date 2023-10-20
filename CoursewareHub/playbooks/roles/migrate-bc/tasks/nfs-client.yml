@@ -1,0 +1,7 @@
+- copy:
+    src: ../../../docker/bc/node/etc/vcp/rc.d/00-fstab.sh
+    dest: /etc/vcp/rc.d/
+    mode: 0755
+- file:
+    path: /var/lib/vcp/.00-fstab
+    state: touch

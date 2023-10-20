@@ -1,0 +1,15 @@
+- import_role:
+    name: certs
+    tasks_from: nop
+- get_url:
+    url: "{{metadata_signer_url}}"
+    dest: "{{saml_certs_dir}}/gakunin-signer.cer"
+  when: metadata_signer_url is defined
+
+- import_role:
+    name: auth-proxy
+    tasks_from: nop
+- copy:
+    src: "{{cgidp_metadata}}"
+    dest: "{{saml_metadata_dir}}/cgidp-metadata.xml"
+  when: cgidp_metadata is defined

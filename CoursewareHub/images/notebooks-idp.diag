@@ -1,0 +1,30 @@
+blockdiag {
+    node_width = 255;
+    node_height = 150;
+    orientation = portrait;
+
+    group {
+        shape = line;
+        style = none;
+        orientation = portrait;
+
+        group {
+            label = "IdP-proxy";
+            orientation = portrait;
+            color = "#B0D6C6";
+            "511" -> "521";
+            "521" -> "541"[style=none];
+            "541" -> "591"[style=none];
+        }
+        "521" -> "211";
+        "541" -> "211"[dir=back];
+
+        group {
+            color = "#D6B0D3";
+            orientation = portrait;
+            label = "CoursewareHub";
+            "121" -> "211";
+        }
+
+    }
+}

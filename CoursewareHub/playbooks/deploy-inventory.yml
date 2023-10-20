@@ -1,0 +1,6 @@
+- hosts: all
+  become: true
+  tasks:
+    - import_role:
+        name: admin-user-manager
+        tasks_from: ansible-inventory

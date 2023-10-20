@@ -1,0 +1,34 @@
+- name: create SSH key and register
+  block:
+    - file:
+        path: "{{home_dir}}/{{teacher_id}}/.ssh"
+        state: directory
+        owner: "{{teacher_id}}"
+        group: "{{teacher_id}}"
+        mode: 0700
+    - command:
+        cmd: "ssh-keygen -f {{home_dir}}/{{teacher_id}}/.ssh/id_rsa -N '' -C '{{teacher_id}}'"
+        creates: "{{home_dir}}/{{teacher_id}}/.ssh/id_rsa"
+    - file:
+        path: "{{home_dir}}/{{teacher_id}}/.ssh/id_rsa"
+        state: file
+        owner: "{{teacher_id}}"
+        group: "{{teacher_id}}"
+        mode: 0600
+    - file:
+        path: "{{home_dir}}/{{teacher_id}}/.ssh/id_rsa.pub"
+        state: file
+        owner: "{{teacher_id}}"
+        group: "{{teacher_id}}"
+    - command:
+        cat {{home_dir}}/{{teacher_id}}/.ssh/id_rsa.pub
+      register: pubkey
+    - authorized_key:
+        user: "{{teacher_id}}"
+        key: "{{pubkey.stdout}}"
+    - file:
+        path: "{{ home_dir }}/{{ teacher_id }}"
+        state: directory
+        owner: "{{teacher_id}}"
+        group: "{{teacher_id}}"
+        mode: 0755

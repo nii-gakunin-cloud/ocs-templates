@@ -1,0 +1,214 @@
+version: '3.8'
+services:
+  auth-proxy:
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager    
+      replicas: 1
+    depends_on:
+      - jupyterhub
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "https://localhost/php/login.php"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    environment:
+      AUTH_FQDN: "{{ auth_fqdn }}"
+      CRON_SECRET: "{{ cron_secret }}"
+      HUB_NAME: jupyterhub
+      MASTER_FQDN: "{{ master_fqdn }}"
+{% if enable_federation %}
+      ENABLE_FEDERATION: "yes"
+{% if enable_test_federation %}      
+      ENABLE_TEST_FEDERATION: "yes"
+{% endif %}
+{% endif %}
+      CG_FQDN: "{{ cg_fqdn | default('') }}"
+      DS_FQDN: "{{ gakunin_ds_hostname | default('') }}"
+    extra_hosts:
+      - "{{master_fqdn}}:127.0.0.2"
+    hostname: auth-proxy
+    image: {{ auth_proxy_image }}
+    networks:
+      - backend
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - read_only: true
+        source: {{ httpd_certs_dir }}
+        target: /etc/nginx/certs
+        type: bind
+      - read_only: true
+        source: {{ hub_const_file }}
+        target: /var/www/lib/hub-const.php
+        type: bind
+      - read_only: true
+        source: {{ lti_cfg_dir }}/{{ lti_private_key_file}}
+        target: /var/www/lib/lti/private.key
+        type: bind
+      - read_only: true
+        source: {{ lti_cfg_dir }}/{{ lti_cfg_file }}
+        target: /var/www/lib/lti/configs/lti.json
+        type: bind
+      - read_only: true
+        source: {{ saml_metadata_dir }}
+        target: /var/www/simplesamlphp/metadata/xml
+        type: bind
+      - read_only: true
+        source: {{ saml_certs_dir }}
+        target: /var/www/simplesamlphp/cert
+        type: bind
+
+  jupyterhub:
+    deploy:
+      placement:
+        constraints:
+        - node.role==manager
+      replicas: 1
+    depends_on:
+      - postgres
+      - registry
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/hub/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    environment:
+      BACKEND_NETWORK: courseware-backend
+      CONCURRENT_SPAWN_LIMIT: "{{ concurrent_spawn_limit | default('20')}}"
+{% if cull_server is defined %}
+      CULL_SERVER: '{{ cull_server }}'
+{% endif %}
+{% if cull_server_every is defined %}
+      CULL_SERVER_EVERY: '{{ cull_server_every }}'
+{% endif %}
+{% if cull_server_idle_timeout is defined %}
+      CULL_SERVER_IDLE_TIMEOUT: '{{ cull_server_idle_timeout }}'
+{% endif %}
+{% if cull_server_max_age is defined %}
+      CULL_SERVER_MAX_AGE: '{{ cull_server_max_age }}'
+{% endif %}
+      DEBUG: 'yes'
+      POSTGRES_ENV_JPY_PSQL_PASSWORD: "{{ db_pass | urlencode | replace("/", "%2f") }}"
+      POSTGRES_ENV_JPY_PSQL_USER: {{ db_user }}
+      POSTGRES_PORT_5432_TCP_ADDR: 'postgres'
+      RESOURCE_ALLOCATION_FILE: /srv/jupyterhub/resource.yaml
+      SPAWNER_CONSTRAINTS: node.role==worker
+      SPAWNER_HTTP_TIMEOUT: "{{ spawner_http_timeout | default('120') }}"
+      SPAWNER_RESTART_MAX_ATTEMPTS: "{{ spawner_restart_max_attempts | default('5') }}"
+      SPAWNER_START_TIMEOUT: "{{ spawner_start_timeout | default('300') }}"
+{% if jupyterhub_singleuser_app is defined %}
+      JUPYTERHUB_SINGLEUSER_APP: '{{ jupyterhub_singleuser_app }}'
+{% endif %}
+{% if jupyterhub_singleuser_default_url is defined %}
+      JUPYTERHUB_SINGLEUSER_DEFAULT_URL: '{{ jupyterhub_singleuser_default_url }}'
+{% endif %}
+      REGISTRY_HOST: "{{ master_fqdn }}:5000"
+      REGISTRY_USER: "{{ registry_user }}"
+      REGISTRY_PASSWORD: "{{ registry_pass }}"
+    hostname: jupyterhub
+    image: {{ jupyterhub_image }}
+    networks:
+      - backend
+    ports:
+      - 8000:8000
+      - 8081:8081
+    volumes:
+      - source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        type: bind
+      - source: /var/run/restuser.sock
+        target: /var/run/restuser.sock
+        type: bind
+      - read_only: true
+        source: {{jupyterhub_var_dir}}/logo.png
+        target: /var/jupyterhub/logo.png
+        type: bind
+      - read_only: true
+        source: {{jupyterhub_cfg_dir}}/resource.yaml
+        target: /srv/jupyterhub/resource.yaml
+        type: bind
+      - read_only: true
+        source: {{jupyterhub_custom_dir}}
+        target: /jupyterhub_config.d
+        type: bind
+{% if migration is defined %}
+    extra_hosts:
+      - "{{master_fqdn}}:{{manager_ipaddress}}"
+{% endif %}
+    command: >
+      /bin/bash -c
+      "jupyterhub upgrade-db && exec jupyterhub"
+
+  postgres:
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      replicas: 1
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$(cat $$POSTGRES_USER_FILE) -d $$(cat $$POSTGRES_DB_FILE)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: {{ db_name }}
+      POSTGRES_PASSWORD: "{{ db_pass }}"
+      POSTGRES_USER: {{ db_user }}
+    hostname: postgres
+    image: {{postgres_image}}
+    networks:
+      - backend
+    volumes:
+      - type: bind
+        source: {{postgres_dir}}/data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: {{postgres_dir}}/create.sql
+        target: /docker-entrypoint-initdb.d/create.sql
+
+  registry:
+    deploy:
+      placement:
+        constraints:
+        - node.role==manager
+      replicas: 1
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --no-check-certificate https://localhost:5000/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    image: registry:2
+    networks:
+      - backend
+    ports:
+      - 5000:5000
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/auth-proxy.chained.cer
+      REGISTRY_HTTP_TLS_KEY: /certs/auth-proxy.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+      REGISTRY_STORAGE_DELETE_ENABLED: 'true'
+    volumes:
+      - source: {{registry_dir}}/data
+        target: /var/lib/registry
+        type: bind
+      - read_only: true
+        source: {{registry_password_file}}
+        target: /auth/htpasswd
+        type: bind
+      - read_only: true
+        source: {{httpd_certs_dir}}
+        target: /certs
+        type: bind
+
+networks:
+  backend:
+    external: true
+    name: {{backend_network_name}}
+

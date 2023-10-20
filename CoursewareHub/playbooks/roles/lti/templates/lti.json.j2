@@ -1,0 +1,13 @@
+{
+{% for key, it in lti_config.items() %}
+  "{{ key }}": {
+    "client_id": "{{ it.client_id }}",
+    "auth_login_url": "{{ it.auth_login_url }}",
+    "auth_token_url": "{{ it.auth_token_url }}",
+    "key_set_url": "{{ it.key_set_url }}",
+    "private_key_file": "/{{ lti_private_key_file }}",
+    "deployment": ["{{ it.deployment_id }}"]
+  }{%if not loop.last %},{% endif %}
+
+{% endfor %}
+}

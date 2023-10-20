@@ -1,0 +1,19 @@
+- import_role:
+    name: auth-proxy
+    tasks_from: nop
+- import_role:
+    name: lti
+    tasks_from: nop
+- import_role:
+    name: certs
+    tasks_from: nop
+- import_role:
+    name: jupyterhub
+    tasks_from: nop
+- import_role:
+    name: registry
+    tasks_from: nop
+- template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ compose_dir }}/docker-compose.yml"
+    backup: yes

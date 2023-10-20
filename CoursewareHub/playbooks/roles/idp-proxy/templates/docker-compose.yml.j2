@@ -1,0 +1,28 @@
+services:
+  idp-proxy:
+    image: niicloudoperation/coursewarehub-idp-proxy:master
+    environment:
+{% if cg_fqdn is defined %}
+      CG_FQDN: {{ cg_fqdn }}
+{% endif %}
+{% if gakunin_ds_hostname is defined %}
+      DS_FQDN: {{ gakunin_ds_hostname }}
+{% endif %}
+      AUTH_FQDN: {{ auth_fqdn }}
+      CRON_SECRET: {{ cron_secret }}
+{% if enable_test_federation is defined and enable_test_federation %}
+      ENABLE_TEST_FEDERATION: "yes"
+{% endif %}
+    volumes:
+      - "./cert:/etc/cert:ro"
+{% if cgidp_metadata is defined %}
+      - "./metadata/cgidp-metadata.xml:/var/www/simplesamlphp/metadata/xml/cgidp-metadata.xml:ro"
+{% endif %}
+    ports:
+      - 443:443
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fkI https://localhost/simplesaml || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+

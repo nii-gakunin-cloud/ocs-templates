@@ -1,0 +1,4 @@
+lti_cfg_dir: "{{jupyterhub_cfg_dir}}/lti"
+lti_private_key_file: "private.key"
+lti_cfg_file: lti.json
+lti_config: {}

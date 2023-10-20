@@ -1,0 +1,10 @@
+- lineinfile:
+    path: /etc/lvm/lvm.conf
+    regexp: '^(\s*{{item}})\s*=\s*\d+\s*$'
+    line: '\1 = 0'
+    backrefs: yes
+  loop:
+    - multipath_component_detection
+    - md_component_detection
+    - udev_sync
+    - udev_rules

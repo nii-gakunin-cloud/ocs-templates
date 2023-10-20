@@ -1,0 +1,20 @@
+---
+- file:
+    path: "{{admin_dir}}"
+    state: directory
+    recurse: true
+- file:
+    path: "{{admin_dir}}/{{item}}"
+    state: directory
+  loop:
+    - admin_tools
+    - tools
+- file:
+    path: "{{admin_dir}}/{{item}}"
+    state: directory
+    mode: 0777
+  loop:
+    - textbook
+    - info
+- import_tasks: deploy-notebook.yml
+

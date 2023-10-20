@@ -1,0 +1,6 @@
+- hosts: all
+  roles:
+    - role: admin-user-manager
+    - role: admin-jupyterhub
+  become: true
+

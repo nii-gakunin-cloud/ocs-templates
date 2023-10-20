@@ -1,0 +1,4 @@
+- hosts: all
+  roles:
+    - role: migrate-postgres
+  become: true

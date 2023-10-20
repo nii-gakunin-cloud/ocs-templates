@@ -1,0 +1,4 @@
+idp_proxy_dir: /srv/idp-proxy
+idp_proxy_cert_dir: "{{ idp_proxy_dir }}/cert"
+idp_proxy_metadata_dir: "{{ idp_proxy_dir }}/metadata"
+

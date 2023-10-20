@@ -1,0 +1,11 @@
+- group:
+    name: "{{ teacher_id }}"
+    gid: "{{ teacher_gid }}"
+- user:
+    name: "{{ teacher_id }}"
+    uid: "{{ teacher_uid }}"
+    group: "{{ teacher_id }}"
+    home: "{{ home_dir }}/{{ teacher_id }}"
+- import_role:
+    name: admin-user-manager
+    tasks_from: sudo

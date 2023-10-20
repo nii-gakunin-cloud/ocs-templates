@@ -1,0 +1,7 @@
+- hosts: all
+  tasks:
+    - import_role:
+        name: admin-jupyterhub
+        tasks_from: show-jupyterhub-user
+  become: true
+

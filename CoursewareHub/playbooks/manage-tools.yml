@@ -1,0 +1,6 @@
+- hosts: all
+  become: true
+  roles:
+  - role: manage-tools
+  vars:
+    default_user: "{{ansible_user}}"

@@ -1,0 +1,95 @@
+blockdiag {
+    node_width = 260;
+    node_height = 145;
+
+    group {
+         shape = line;
+         style = none;
+        orientation = portrait;
+        group {
+            label = "ノード作成";
+            color = "#B0C0D6";
+
+            "011";
+
+            group {
+                orientation = portrait;
+                    shape = line;
+                    style = none;
+                    "021" -> "031"[style=dashed];
+            }
+        }
+
+        group {
+            orientation = portrait;
+            color = "#D6B0D3";
+            "121";
+        }
+
+        "011" -> "121";
+        "021" -> "121";
+        "031" -> "121";
+
+        group {
+            label = "認証連携";
+            color = "#FFA07A";
+            "211";
+            "311";
+            "411";
+        }
+        "121" -> "211";
+        "121" -> "311";
+        "121" -> "411";
+    }
+
+    group {
+        shape = line;
+        style = none;
+        group {
+            label = "設定変更";
+            color = "#B7B0D6";
+            orientation = portrait;
+            "711";
+            "721";
+            "731";
+        }
+        group {
+            shape = line;
+            style = none;
+            "801";
+        }
+        group {
+            label = "ノード操作";
+            color = "#D6C6AF";
+
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                group {
+                    shape = line;
+                    style = none;
+                    "911" -> "912";
+                }
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "921";
+                    "922";
+                }
+                "991";
+            }
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "931";
+                "932";
+                "933";
+                "931" -> "933"[style=dashed];
+                "932" -> "933"[style=dashed];
+            }
+        }
+    }
+}

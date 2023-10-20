@@ -1,0 +1,7 @@
+- hosts: all
+  roles:
+    - role: gakunin-sp
+    - role: auth-proxy
+    - role: docker-compose
+  become: true
+

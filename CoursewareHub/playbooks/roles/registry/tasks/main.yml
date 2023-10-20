@@ -1,0 +1,11 @@
+- file:
+    path: "{{ registry_dir }}"
+    state: directory
+    recurse: true
+- file:
+    path: "{{ registry_dir }}/data"
+    state: directory
+- shell:
+    cmd: "docker run --rm --entrypoint htpasswd httpd:2 -Bbn {{registry_user}} {{registry_pass}} > {{registry_password_file}}"
+    creates: "{{registry_password_file}}"
+

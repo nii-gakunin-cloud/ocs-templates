@@ -1,0 +1,7 @@
+- file:
+    path: "{{ compose_dir }}"
+    state: directory
+    recurse: true
+- import_tasks: compose.yml
+- import_tasks: network.yml
+

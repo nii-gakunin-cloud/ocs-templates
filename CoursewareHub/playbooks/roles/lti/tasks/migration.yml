@@ -1,0 +1,8 @@
+- stat:
+    path: /srv/cwh/auth-proxy/lti/private.key
+  register: key_stat
+- copy:
+    src: /srv/cwh/auth-proxy/lti/private.key
+    dest: "{{lti_cfg_dir}}/{{lti_private_key_file}}"
+    remote_src: true
+  when: key_stat.stat.isreg is defined and key_stat.stat.isreg

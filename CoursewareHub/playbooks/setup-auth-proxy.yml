@@ -1,0 +1,6 @@
+- hosts: all
+  roles:
+    - role: auth-proxy
+    - role: certs
+    - role: lti
+  become: true

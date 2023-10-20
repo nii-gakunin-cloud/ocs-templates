@@ -1,0 +1,17 @@
+---
+- name: Create a directory for LTI.
+  file:
+    path: "{{lti_cfg_dir}}"
+    state: directory
+- name: Generate LTI settings
+  template:
+    src: lti.json.j2
+    dest: "{{lti_cfg_dir}}/{{lti_cfg_file}}"
+    backup: yes
+- import_tasks: migration.yml
+  when: migration is defined
+- name: Generate RSA key pair.
+  shell:
+    cmd: "openssl genrsa -out {{lti_private_key_file}}"
+    chdir: "{{lti_cfg_dir}}"
+    creates: "{{lti_private_key_file}}"

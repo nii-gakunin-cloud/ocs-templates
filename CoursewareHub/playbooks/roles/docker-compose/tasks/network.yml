@@ -1,0 +1,6 @@
+- shell:
+    docker network ls -f name={{backend_network_name}} -q | wc -l
+  register: docker_network
+- command:
+    docker network create {{backend_network_name}} -d overlay --subnet {{cousewarehub_backend}}
+  when: docker_network.stdout == '0'

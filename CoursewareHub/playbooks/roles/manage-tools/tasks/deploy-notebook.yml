@@ -1,0 +1,6 @@
+- get_url:
+    url: "{{deploy_notebook_url}}"
+    dest: "{{home_dir}}/{{teacher_id}}/D06_CoursewareHubコンテンツの配備.ipynb"
+    owner: "{{teacher_id}}"
+    group: users
+

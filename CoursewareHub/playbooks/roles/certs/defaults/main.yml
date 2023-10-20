@@ -1,0 +1,3 @@
+httpd_certs_dir: "{{jupyterhub_cfg_dir}}/nginx/certs"
+saml_certs_dir: "{{jupyterhub_cfg_dir}}/simplesamlphp/cert"
+

@@ -1,0 +1,10 @@
+- file:
+    path: "{{ idp_proxy_dir }}"
+    state: directory
+    recurse: true
+- template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ idp_proxy_dir }}/docker-compose.yml"
+    backup: yes
+- import_tasks: certs.yml
+- import_tasks: metadata.yml

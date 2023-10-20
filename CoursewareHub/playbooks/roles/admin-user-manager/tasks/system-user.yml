@@ -1,0 +1,9 @@
+- name: Creating a System User
+  block:
+    - file:
+        path: "{{ home_dir }}"
+        state: directory
+        recurse: true
+    - user:
+        name: "{{ teacher_id }}"
+        home: "{{ home_dir }}/{{ teacher_id }}"

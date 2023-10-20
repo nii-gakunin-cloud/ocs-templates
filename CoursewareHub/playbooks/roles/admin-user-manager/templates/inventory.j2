@@ -1,0 +1,16 @@
+[ch-all:children]
+ch-master
+ch-nodes
+
+[ch-all:vars]
+ansible_user={{ teacher_id }}
+
+[ch-master]
+{% for it in manager_nodes %}
+{{ it }}
+{% endfor %}
+
+[ch-nodes]
+{% for it in worker_nodes %}
+{{ it }}
+{% endfor %}

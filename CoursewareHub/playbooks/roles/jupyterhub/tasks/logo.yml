@@ -1,0 +1,12 @@
+- file:
+    path: "{{jupyterhub_var_dir}}"
+    state: directory
+- copy:
+    src: "{{logo_file}}"
+    dest: "{{jupyterhub_var_dir}}/logo.png"
+  when: logo_file is defined
+- get_url:
+    url: "{{logo_url}}"
+    dest: "{{jupyterhub_var_dir}}/logo.png"
+  when: logo_file is not defined
+

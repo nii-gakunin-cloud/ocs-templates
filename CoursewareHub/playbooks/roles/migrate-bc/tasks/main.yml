@@ -1,0 +1,14 @@
+- import_tasks: lvm.yml
+- import_tasks: hosts.yml
+- command:
+    cmd: systemctl status nfs-server
+  register: nfs_server
+  ignore_errors: true
+- import_tasks: nfs-server.yml
+  when: nfs_server.rc == 0
+- import_tasks: nfs-client.yml
+  when: nfs_server.rc != 0
+- template:
+    src: 20-hosts.sh.j2
+    dest: /etc/vcp/rc.d/20-hosts.sh
+    mode: 0755

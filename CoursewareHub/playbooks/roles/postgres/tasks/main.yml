@@ -1,0 +1,14 @@
+---
+- file:
+    path: "{{postgres_dir}}"
+    state: directory
+    recurse: true
+- name: postgres data directory
+  file:
+    path: "{{postgres_dir}}/data"
+    state: directory
+- name: deploy init.sql
+  copy:
+    src: create.sql
+    dest: "{{postgres_dir}}/create.sql"
+
