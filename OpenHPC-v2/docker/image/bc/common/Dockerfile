@@ -1,6 +1,6 @@
-FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-alpine3.13-x86_64 AS vcp-base
+FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-alpine3.13-x86_64-20230226 AS vcp-base
 
-FROM rockylinux:8.6
+FROM rockylinux:8.8.20230518
 
 # ---------------------------------------------------------------------------
 # https://github.com/CentOS/CentOS-Dockerfiles/tree/master/systemd/centos7/Dockerfile
@@ -38,7 +38,7 @@ RUN dnf -y install \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
-RUN dnf -y module enable ruby:2.7 \
+RUN dnf -y module enable ruby:3.1 \
  && dnf -y install \
       ruby \
       ruby-devel \
@@ -54,8 +54,8 @@ RUN dnf -y module enable ruby:2.7 \
       -e '/RateLimitIntervalSec=/s/^#?RateLimitIntervalSec=.+/RateLimitIntervalSec=1s/' \
       -e '/RateLimitBurst=/s/^#?RateLimitBurst=.+/RateLimitBurst=10000/'
 
-ARG CADVISOR_VERSION=v0.39.2
-RUN curl -fsSL -o /usr/local/bin/cadvisor https://github.com/google/cadvisor/releases/download/${CADVISOR_VERSION}/cadvisor \
+ARG CADVISOR_VERSION=v0.47.2
+RUN curl -fsSL -o /usr/local/bin/cadvisor https://github.com/google/cadvisor/releases/download/${CADVISOR_VERSION}/cadvisor-${CADVISOR_VERSION}-linux-amd64 \
  && chmod +x /usr/local/bin/cadvisor
 
 ARG SERF_VERSION=0.8.0
