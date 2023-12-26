@@ -6,14 +6,14 @@
         owner: "{{teacher_id}}"
         group: "{{teacher_id}}"
     - command:
-        cmd: !unsafe "docker node ls -f role=manager --format '{{.Hostname}}'"
+        cmd: !unsafe "docker node ls -f role=manager --format '{{.ID}}'"
       register: manager_info
     - command:
         docker node inspect --format '{% raw %}{{.Status.Addr}}{% endraw %}' {{item}}
       loop: "{{manager_info.stdout.split() | list }}"
       register: manager_ipaddresses
     - command:
-        cmd: !unsafe "docker node ls -f role=worker --format '{{.Hostname}}'"
+        cmd: !unsafe "docker node ls -f role=worker --format '{{.ID}}'"
       register: worker_info
     - command:
         docker node inspect --format '{% raw %}{{.Status.Addr}}{% endraw %}' {{item}}
