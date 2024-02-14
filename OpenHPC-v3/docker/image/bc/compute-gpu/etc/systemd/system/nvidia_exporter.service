@@ -1,0 +1,12 @@
+[Unit]
+Description=Nvidia exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/nvidia_gpu_prometheus_exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

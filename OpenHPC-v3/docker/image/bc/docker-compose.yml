@@ -1,0 +1,28 @@
+services:
+  openhpc-common:
+    image: ${REGISTRY}/vcp/openhpc:common-${TAG}
+    build: ./common
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+  openhpc-master:
+    image: ${REGISTRY}/vcp/openhpc:master-${TAG}
+    build:
+     context: ./master
+     args:
+     - TAG=$TAG
+     - REGISTRY=$REGISTRY
+  openhpc-compute:
+    image: ${REGISTRY}/vcp/openhpc:compute-${TAG}
+    build:
+     context: ./compute
+     args:
+     - TAG=$TAG
+     - REGISTRY=$REGISTRY
+  openhpc-compute-gpu:
+    image: ${REGISTRY}/vcp/openhpc:compute-gpu-${TAG}
+    build:
+     context: ./compute-gpu
+     args:
+     - TAG=$TAG
+     - REGISTRY=$REGISTRY

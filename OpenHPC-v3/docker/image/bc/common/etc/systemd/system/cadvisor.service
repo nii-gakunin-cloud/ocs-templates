@@ -1,0 +1,12 @@
+[Unit]
+Description=cAdvisor
+After=network.target docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/cadvisor -port 18083 -logtostderr -enable_load_reader -docker_only
+Restart=always
+EnvironmentFile=/etc/sysconfig/cadvisor
+
+[Install]
+WantedBy=multi-user.target
