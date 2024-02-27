@@ -22,13 +22,15 @@
 Shibboleth等のSSO連携や、長期利用のためのアップデート方法については、本構成を元に各機関の事情に合わせてカスタマイズしてご利用いただくことを想定しています。
 本テンプレートでは、VCPを利用せずにAWSまたはAzureに直接LMS環境を構築する手順も合わせて公開しています。
 
-- [HPCテンプレート v1](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenHPC-v1)
-(VCP SDK v22.04以降対応 (AWS、Azureで動作確認済み))<br>
-[OpenHPC](https://openhpc.community/) v1.xで配布されているパッケージを利用して、クラウド上にHPC環境を構築します。Slurmを利用したジョブスケジューラやSingularityコンテナ利用環境の設定と、構築したHPC環境でのベンチマークプログラムの実行まで行うことができます。
+- [HPCテンプレート v3](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenHPC-v3)
+(VCP SDK v22.04対応 (AWS、Azureで動作確認済み))<br>
+[OpenHPC](https://openhpc.community/) v3.xで配布されているパッケージを利用して、クラウド上にHPC環境を構築します。Slurmを利用したジョブスケジューラやSingularityコンテナ利用環境の設定、GPUノードの設定と、構築したHPC環境でのベンチマークプログラムの実行やNVIDIA社の[NGCカタログ](https://www.nvidia.com/ja-jp/gpu-cloud/containers/)のコンテナ実行まで行うことができます。
+ベースコンテナにはRocky Linux v9.xを利用しています．
 
 - [HPCテンプレート v2](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenHPC-v2)
 (VCP SDK v22.04対応 (AWS、Azure、Oracle Cloud Infrastructure、mdxで動作確認済み))<br>
 [OpenHPC](https://openhpc.community/) v2.xで配布されているパッケージを利用して、クラウド上にHPC環境を構築します。Slurmを利用したジョブスケジューラやSingularityコンテナ利用環境の設定、GPUノードの設定と、構築したHPC環境でのベンチマークプログラムの実行やNVIDIA社の[NGCカタログ](https://www.nvidia.com/ja-jp/gpu-cloud/containers/)のコンテナ実行まで行うことができます。
+ベースコンテナにはRocky Linux v8.xを利用しています．
 
 - [Open OnDemandテンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenOnDemand)
 (VCP SDK v22.04以降対応 (mdxで動作確認済み))<br>
