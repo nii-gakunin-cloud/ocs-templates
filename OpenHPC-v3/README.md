@@ -44,7 +44,7 @@ VCディスク（クラウド上の仮想ディスク）もVCノードと同様�
 
 このテンプレートで構築するミドルウェア、OSのバージョンを示します。
 
-* [OpenHPC 3.0.1](https://github.com/openhpc/ohpc/releases/tag/v3.0.1.GA)
+* [OpenHPC 3.1](https://github.com/openhpc/ohpc/releases/tag/v3.1.GA)
 * Rocky Linux 9
 
 ### 前提条件
@@ -104,9 +104,9 @@ OpenHPC環境で[HPL(High-Performance Linpack Benchmark)](http://www.netlib.org/
 
 * 121: Linpackベンチマーク - HPL
 
-#### NGC(NVIDIA GPU CLOUD)カタログのコンテナをSingularityで実行する
+#### NGC(NVIDIA GPU CLOUD)カタログのコンテナをApptainerで実行する
 
-OpenHPC環境で[NGCカタログ](https://ngc.nvidia.com/)のコンテナをSingularityで実行する手順の例を図に示します。
+OpenHPC環境で[NGCカタログ](https://ngc.nvidia.com/)のコンテナをApptainerで実行する手順の例を図に示します。
 
 [![NGCカタログのコンテナを実行する](images/notebooks0-gpu.svg)](images/notebooks0-gpu.svg)
 
@@ -117,11 +117,11 @@ OpenHPC環境で[NGCカタログ](https://ngc.nvidia.com/)のコンテナをSing
 * 032: 設定ファイルの編集 - GPU(GRES)の登録
 * 051: ユーザの追加
 
-その後、構築したOpenHPC環境でNGCカタログのコンテナを利用したジョブを実行します。ジョブの実行は構築の際に利用した管理権限のあるユーザではなく「051:ユーザの追加」で作成した一般ユーザによって行うことを想定しています。この実行例ではNGCカタログのコンテナを実行する前に「140: Singularityの利用」によってSingularityを用いたコンテナ実行の手順を確認しています。
+その後、構築したOpenHPC環境でNGCカタログのコンテナを利用したジョブを実行します。ジョブの実行は構築の際に利用した管理権限のあるユーザではなく「051:ユーザの追加」で作成した一般ユーザによって行うことを想定しています。この実行例ではNGCカタログのコンテナを実行する前に「140: Apptainerの利用」によってApptainerを用いたコンテナ実行の手順を確認しています。
 
-* 140: Singularityの利用
-* 141: NGC Catalogのコンテナを実行する - PyTorch-Singularity
-* 142: NGC Catalogのコンテナを実行する - TensorFlow-Singularity
+* 140: Apptainerの利用
+* 141: NGC Catalogのコンテナを実行する - PyTorch-Apptainer
+* 142: NGC Catalogのコンテナを実行する - TensorFlow-Apptainer
 
 ##### 注意
 
@@ -131,29 +131,25 @@ NGCカタログのコンテナを実行する場合は、環境構築で実行�
     - `compute_instance_type`にNVIDIAのGPUを利用できるインスタンスタイプ、VMサイズを指定してください
     - 動作確認済のインスタンスタイプ・VMサイズを以下に示します
         + AWS
+            - [G5(NVIDIA A10G)](https://aws.amazon.com/jp/ec2/instance-types/g5/)
             - [G4(NVIDIA T4)](https://aws.amazon.com/jp/ec2/instance-types/g4/)
-            - [G3(NVIDIA M60)](https://aws.amazon.com/jp/ec2/instance-types/g3/)
-            - [P3(NVIDIA V100)](https://aws.amazon.com/jp/ec2/instance-types/p3/)
         + Azure
             - [NC T4_v3(NVIDIA T4)](https://docs.microsoft.com/ja-jp/azure/virtual-machines/nct4-v3-series)
             - [NCv3(NVIDIA V100)](https://docs.microsoft.com/ja-jp/azure/virtual-machines/ncv3-series)
-            - [NV(NVIDIA M60)](https://docs.microsoft.com/ja-jp/azure/virtual-machines/nv-series)
-            - [NVv3(NVIDIA M60)](https://docs.microsoft.com/ja-jp/azure/virtual-machines/nvv3-series)
         + Oracle Cloud
             - [VM.GPU2(NVIDIA P100)](https://www.oracle.com/jp/cloud/compute/gpu.html)
-    - AWS P2などのNVIDIA K80ではCUDA Compute Capabilityが3.7なのでNGCカタログのコンテナが実行できません
 
 * 4.1.5 計算ノードにおけるGPUの利用
     - `compute_use_gpu`の値に`True` を指定してください
 * 4.2.3 マスターノードのルートボリュームサイズ
-    - コンテナイメージをSingularityで利用できるように処理するための作業領域としてある程度以上のサイズが必要となります
+    - コンテナイメージをApptainerで利用できるように処理するための作業領域としてある程度以上のサイズが必要となります
     - NGCカタログのPyTorchまたはTensorFlowのコンテナイメージを利用するには、`master_root_size`に少なくとも 60GB 以上の値を指定してください
 
 > 上に示した「4.1.3」などの表記は Notebook「010: パラメータ設定」における章番号になります。
 
 #### NGC(NVIDIA GPU CLOUD)カタログのコンテナをDockerで実行する
 
-[NGCカタログ](https://ngc.nvidia.com/)のコンテナをDockerで実行する手順の例を図に示します。前節との違いはコンテナの実行に SingularityではなくDockerを利用することになります。
+[NGCカタログ](https://ngc.nvidia.com/)のコンテナをDockerで実行する手順の例を図に示します。前節との違いはコンテナの実行に ApptainerではなくDockerを利用することになります。
 
 [![NGCカタログのコンテナをDockerで実行する](images/notebooks0-gpu-docker.svg)](images/notebooks0-gpu-docker.svg)
 
@@ -185,6 +181,8 @@ NGCカタログのコンテナを実行する場合は、環境構築で実行�
         - 各VCノード、VCディスクに割り当てるリソースを指定します
     1. IPアドレスとホスト名
         - 各ノードに設定するIPアドレスとホスト名を指定します
+    1. mdx固有の設定
+        - mdx上でOpenHPC環境を作成する場合に必要となる設定について示します
     1. Slurm
         - Slurmに関連するパラメータを指定します
     1. チェック
@@ -250,6 +248,40 @@ NGCカタログのコンテナを実行する場合は、環境構築で実行�
         - このNotebookを実行するための前提条件を満たしていることを確認します
     1. Docker Engineのインストール
         - [Install Docker Engine on CentOS](https://docs.docker.com/engine/install/centos/)の手順に従い Docekr Engineを計算ノードにインストールします
+    1. NVIDIA Container Toolkit のインストール
+        - [Setting up NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#id2)の手順に従いインストールを行います
+* [081: 計算ノードの追加](notebooks/081-計算ノードの追加.ipynb)
+    1. 前提
+        - * このnotebookで動作確認しているのは、mdx VM上に構築されたOpenHPC環境のみです
+    1. 準備
+
+    1. 追加するノードのパラメータ設定
+        - 計算ノード追加の準備として、変数などの設定を実施します
+    1. mdx VMの起動
+        - 計算ノードとなるmdx VMを起動し、VCノードとして使用できる状態にします
+    1. Slurmへの組み込み
+        - 起動したmdx VMをVC Unitに組み込み、必要な設定更新をした後でSlurmに組み込みます
+    1. notebook環境側のデータ更新
+        - 後でさらにノードを追加したり、ノードを削除する場合に備えて、ノードを追加した状態の設定に合わせて、noetbook環境側のデータを更新します
+    1. その他
+        - このnotebookでは扱いませんが、計算ノードに対してパッケージの追加や設定ファイルの更新などを実施している場合は、別途追加した計算ノードにも同じ設定が必要です
+* [082: 計算ノードの削除](notebooks/082-計算ノードの削除.ipynb)
+    1. 前提
+        - * このnotebookで動作確認しているのは、mdx VM上に構築されたOpenHPC環境のみです
+    1. 準備
+
+    1. 削除対象のノード抽出
+        - 削除するノード数を、`numnodes_remove`に設定します
+    1. ジョブスケジューリングの抑止
+        - 削除対象のノードにジョブがスケジュールされない状態に遷移させ、ジョブが割り当てられていない状態になるまで待ち合わせます
+    1. Slurmクラスタの再構成
+        - `slurm.conf`を削除対象のノードを除外した設定にし、Slurmクラスタの再構成を実施します
+    1. 削除対象のノードの終了処理
+
+    1. notebook環境側のデータ更新
+
+    1. `/etc/hosts`の更新
+        - 計算ノードの削除にあたっては必須の作業ではありませんが、Slurmクラスタのノードの`/etc/hosts`から、削除した計算ノードのエントリを削除します
 * [121: Linpackベンチマーク -- HPL](notebooks/121-Linpackベンチマーク-HPL.ipynb)
     1. 前提条件
         - このNotebookを実行するための前提条件を満たしていることを確認します
@@ -257,17 +289,17 @@ NGCカタログのコンテナを実行する場合は、環境構築で実行�
         - HPLを実行するための準備作業を行います
     1. HPLの実行
         - HPLを実行します
-* [140: Singularityの利用](notebooks/140-Singularityの利用.ipynb)
+* [140: Apptainerの利用](notebooks/140-Apptainerの利用.ipynb)
     1. 前提条件
         - このNotebookを実行するための前提条件を満たしていることを確認します
-    1. Singularityの実行
-        - singularityで docker コンテナイメージを実行してみます
-* [141: NGC Catalogのコンテナを実行する--PyTorch-Singularity](notebooks/141-NGCのコンテナ実行-PyTorch.ipynb)
+    1. Apptainerの実行
+        - apptainerで docker コンテナイメージを実行してみます
+* [141: NGC Catalogのコンテナを実行する--PyTorch-Apptainer](notebooks/141-NGCのコンテナ実行-PyTorch.ipynb)
     1. 前提条件
         - このNotebookを実行するための前提条件を満たしていることを確認します
     1. PyTorchコンテナの実行
         - PyTorchコンテナでMNISTを実行してみます
-* [142: NGC Catalogのコンテナを実行する--TensorFlow-Singularity](notebooks/142-NGCのコンテナ実行-TensorFlow.ipynb)
+* [142: NGC Catalogのコンテナを実行する--TensorFlow-Apptainer](notebooks/142-NGCのコンテナ実行-TensorFlow.ipynb)
     1. 前提条件
         - このNotebookを実行するための前提条件を満たしていることを確認します
     1. TensorFlowコンテナの実行

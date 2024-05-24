@@ -54,28 +54,28 @@ RUN dnf -y install \
 # -------------------------------
 # Install Compilers (Section 4.2)
 # -------------------------------
-RUN dnf -y install gnu12-compilers-ohpc \
+RUN dnf -y install gnu13-compilers-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # --------------------------------
 # Install MPI Stacks (Section 4.3)
 # --------------------------------
-RUN dnf -y install openmpi4-gnu12-ohpc mpich-ofi-gnu12-ohpc \
+RUN dnf -y install openmpi5-gnu13-ohpc mpich-ofi-gnu13-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------
 # Install Performance Tools (Section 4.4)
 # ---------------------------------------
-RUN dnf -y install ohpc-gnu12-perf-tools \
+RUN dnf -y install ohpc-gnu13-perf-tools \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------
 # Setup default development environment (Section 4.5)
 # ---------------------------------------
-RUN dnf -y install lmod-defaults-gnu12-openmpi4-ohpc \
+RUN dnf -y install lmod-defaults-gnu13-openmpi5-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
@@ -83,15 +83,15 @@ RUN dnf -y install lmod-defaults-gnu12-openmpi4-ohpc \
 # Install 3rd Party Libraries and Tools (Section 4.6)
 # ---------------------------------------------------
 RUN dnf -y install \
-      ohpc-gnu12-serial-libs \
-      ohpc-gnu12-io-libs \
-      ohpc-gnu12-python-libs \
-      ohpc-gnu12-runtimes \
+      ohpc-gnu13-serial-libs \
+      ohpc-gnu13-io-libs \
+      ohpc-gnu13-python-libs \
+      ohpc-gnu13-runtimes \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 RUN dnf -y install \
-      ohpc-gnu12-mpich-parallel-libs \
-      ohpc-gnu12-openmpi4-parallel-libs \
+      ohpc-gnu13-mpich-parallel-libs \
+      ohpc-gnu13-openmpi5-parallel-libs \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 

@@ -12,8 +12,11 @@ setup_directory() {
 }
 
 setup_service() {
+  if [ -f /var/lib/vcp/.20-slurm ]; then
+    return
+  fi
   sed -i -r -e "/PIDFile=/s#/var/run/(slurm[a-z].*\.pid)#/var/run/slurm/\1#" /usr/lib/systemd/system/slurmctld.service
-  sed -i -e "/ExecStart=/aExecStartPre=/bin/mkdir -p /run/slurm\nExecStartPre=/usr/bin/chown slurm:slurm /run/slurm\nExecStartPre=/usr/bin/chown slurm:slurm /etc/slurm/slurm.conf\n" /usr/lib/systemd/system/slurmctld.service
+  sed -i -e "/ExecStart=/aExecStartPre=+/bin/mkdir -p /run/slurm\nExecStartPre=+/usr/bin/chown slurm:slurm /run/slurm\nExecStartPre=+/usr/bin/chown slurm:slurm /etc/slurm/slurm.conf\n" /usr/lib/systemd/system/slurmctld.service
 }
 
 setup_control_machine() {

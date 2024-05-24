@@ -2,9 +2,6 @@ FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-alpine3.13-x86_64-20230226 AS vcp-ba
 
 FROM rockylinux:9.3.20231119
 
-# ---------------------------------------------------------------------------
-# https://github.com/CentOS/CentOS-Dockerfiles/tree/master/systemd/centos7/Dockerfile
-
 ENV container docker
 
 # hadolint ignore=DL3003,SC2086
@@ -76,10 +73,10 @@ WORKDIR /
 
 # ---------------------------------------------------------------------------
 # Enable OpenHPC repository for local use
-RUN yum -y install http://repos.openhpc.community/OpenHPC/3/EL_9/x86_64/ohpc-release-3-1.el9.x86_64.rpm \
- && yum -y install dnf-plugins-core \
- && yum config-manager --set-enabled crb \
- && yum clean all \
+RUN dnf -y install http://repos.openhpc.community/OpenHPC/3/EL_9/x86_64/ohpc-release-3-1.el9.x86_64.rpm \
+ && dnf -y install dnf-plugins-core \
+ && dnf config-manager --set-enabled crb \
+ && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # hadolint ignore=DL3041
