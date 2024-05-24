@@ -1,4 +1,4 @@
-FROM rockylinux:8.8.20230518
+FROM rockylinux:8.9.20231119
 
 RUN dnf -y update \
  && dnf -y install \
