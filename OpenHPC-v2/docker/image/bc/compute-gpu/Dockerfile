@@ -1,8 +1,8 @@
 ARG TAG
 ARG REGISTRY
 
-FROM golang:1.17-buster AS builder
-RUN go get github.com/mindprince/nvidia_gpu_prometheus_exporter
+FROM golang:1.22-bookworm AS builder
+RUN go install github.com/mindprince/nvidia_gpu_prometheus_exporter@latest
 
 FROM $REGISTRY/vcp/openhpc:compute-$TAG
 

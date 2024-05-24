@@ -1,9 +1,6 @@
 FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-alpine3.13-x86_64-20230226 AS vcp-base
 
-FROM rockylinux:8.8.20230518
-
-# ---------------------------------------------------------------------------
-# https://github.com/CentOS/CentOS-Dockerfiles/tree/master/systemd/centos7/Dockerfile
+FROM rockylinux:8.9.20231119
 
 ENV container docker
 

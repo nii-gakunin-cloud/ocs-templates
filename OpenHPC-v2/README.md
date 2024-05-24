@@ -44,8 +44,8 @@ VCディスク（クラウド上の仮想ディスク）もVCノードと同様�
 
 このテンプレートで構築するミドルウェア、OSのバージョンを示します。
 
-* [OpenHPC 2.7](https://github.com/openhpc/ohpc/releases/tag/v2.7.GA)
-* Rocky Linux 8.8
+* [OpenHPC 2.8](https://github.com/openhpc/ohpc/releases/tag/v2.8.GA)
+* Rocky Linux 8.9
 
 ### 前提条件
 
@@ -132,17 +132,13 @@ NGCカタログのコンテナを実行する場合は、環境構築で実行�
     - `compute_instance_type`にNVIDIAのGPUを利用できるインスタンスタイプ、VMサイズを指定してください
     - 動作確認済のインスタンスタイプ・VMサイズを以下に示します
         + AWS
+            - [G5(NVIDIA A10G)](https://aws.amazon.com/jp/ec2/instance-types/g5/)
             - [G4(NVIDIA T4)](https://aws.amazon.com/jp/ec2/instance-types/g4/)
-            - [G3(NVIDIA M60)](https://aws.amazon.com/jp/ec2/instance-types/g3/)
-            - [P3(NVIDIA V100)](https://aws.amazon.com/jp/ec2/instance-types/p3/)
         + Azure
             - [NC T4_v3(NVIDIA T4)](https://docs.microsoft.com/ja-jp/azure/virtual-machines/nct4-v3-series)
             - [NCv3(NVIDIA V100)](https://docs.microsoft.com/ja-jp/azure/virtual-machines/ncv3-series)
-            - [NV(NVIDIA M60)](https://docs.microsoft.com/ja-jp/azure/virtual-machines/nv-series)
-            - [NVv3(NVIDIA M60)](https://docs.microsoft.com/ja-jp/azure/virtual-machines/nvv3-series)
         + Oracle Cloud
             - [VM.GPU2(NVIDIA P100)](https://www.oracle.com/jp/cloud/compute/gpu.html)
-    - AWS P2などのNVIDIA K80ではCUDA Compute Capabilityが3.7なのでNGCカタログのコンテナが実行できません
 
 * 4.1.5 計算ノードにおけるGPUの利用
     - `compute_use_gpu`の値に`True` を指定してください
