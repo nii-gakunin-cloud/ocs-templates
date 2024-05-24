@@ -78,17 +78,39 @@ blockdiag {
                     "921";
                     "922";
                 }
-                "991";
+                group {
+                    shape = line;
+                    style = none;
+                    orientation = portrait;
+                    "941";
+                    "991";
+                }
             }
+        }
+        group {
+            label = "スケジュール設定";
+            color = "#B0D3D6";
+            orientation = portrait;
             group {
                 shape = line;
                 style = none;
                 orientation = portrait;
-                "931";
-                "932";
-                "933";
-                "931" -> "933"[style=dashed];
-                "932" -> "933"[style=dashed];
+                "951";
+                "952";
+            }
+            group {
+                orientation = portrait;
+                shape = line;
+                style = none;
+                "953";
+                "954";
+            }
+            group {
+                orientation = portrait;
+                shape = line;
+                style = none;
+                "955";
+                "956";
             }
         }
     }

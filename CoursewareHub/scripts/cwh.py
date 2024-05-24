@@ -2,7 +2,7 @@ import hashlib
 import re
 
 
-def get_username_from_mail_address(mail_address):
+def get_username_from_mail_address(mail_address: str) -> str:
     # Convert to lower and remove characters except alphabetic
     wk = mail_address.split("@")
     local_part = wk[0].lower()

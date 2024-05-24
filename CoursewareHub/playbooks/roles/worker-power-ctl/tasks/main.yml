@@ -1,0 +1,18 @@
+- import_role:
+    name: worker-schedule
+- template:
+    src: docker-compose.yml.j2
+    dest: "{{ vcnode_ctl_dir }}/docker-compose.yml"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- copy:
+    dest: "{{ vcnode_ctl_dir }}/secrets/SSH_PRIVATE_KEY"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+    mode: "{{ secret_file_mode }}"
+    content: |
+      {{ lookup('file', ansible_ssh_private_key_file) }}
+  when: manager_docker_host != "unix:///var/run/docker.sock"
+- command:
+    cmd: "{{ path_docker_cli }} compose pull"
+    chdir: "{{ vcnode_ctl_dir }}"

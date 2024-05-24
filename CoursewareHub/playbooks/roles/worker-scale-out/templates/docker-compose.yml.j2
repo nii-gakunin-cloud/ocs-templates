@@ -1,0 +1,41 @@
+services:
+  ansible:
+    image: harbor.vcloud.nii.ac.jp/vcp/coursewarehub:scale-out
+    volumes:
+      - ./config:/home/vcp/.config/vcp
+      - ./schedule.json:/home/vcp/schedule.json
+{% if manager_docker_host == "unix:///var/run/docker.sock" %}
+      - /var/run/docker.sock:/var/run/docker.sock
+{% endif %}
+    environment:
+      UGROUP_NAME: {{ ugroup_name }}
+      UNIT_NAME: worker
+      DOCKER_HOST: {{ manager_docker_host }}
+{% if nfs_ipaddress is defined %}
+      NFS_SERVER: {{ nfs_ipaddress }}
+{% else %}
+      NFS_SERVER: {{ manager_ipaddress }}
+{% endif %}
+      MANAGER: {{manager_ipaddress}}
+      MASTER_FQDN: {{master_fqdn}}
+      IP_ADDRESS: {% for it in vcnode_all_ipaddress -%}
+              {{ it }}
+              {%- if not loop.last -%} , {%- endif -%}
+          {%- endfor %}
+
+      ADMIN_USER: {% for it in teacher_accounts -%}
+              {{ it }}
+              {%- if not loop.last -%} , {%- endif -%}
+          {%- endfor %}
+
+    secrets:
+      - VCC_ACCESS_TOKEN
+      - SSH_PRIVATE_KEY
+      - REGISTRY_PASSWORD
+secrets:
+  VCC_ACCESS_TOKEN:
+    file: ./secrets/VCC_ACCESS_TOKEN
+  SSH_PRIVATE_KEY:
+    file: ./secrets/SSH_PRIVATE_KEY
+  REGISTRY_PASSWORD:
+    file: ./secrets/REGISTRY_PASSWORD

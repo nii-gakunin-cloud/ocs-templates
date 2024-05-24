@@ -1,8 +1,8 @@
-FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-centos7-x86_64
+FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-rockylinux8.7-x86_64-rc0-rclocal
 
-RUN yum -y update \
-  && yum clean all \
-  && rm -rf /var/cache/yum/*
+RUN dnf -y update \
+  && dnf clean all \
+  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------------------------------------------
 # https://github.com/CentOS/CentOS-Dockerfiles/tree/master/systemd/centos7/Dockerfile
@@ -31,22 +31,22 @@ RUN sed -r -i \
     /etc/lvm/lvm.conf
 
 # ---------------------------------------------------------------------------
-RUN yum -y install \
+RUN dnf -y install \
       openssh-server \
       openssh-clients \
-      make \
       iproute \
-      chrony \
       rsync \
-      sudo \
       unzip \
       tree \
- && yum clean all \
- && rm -rf /var/cache/yum/*
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/*
 
-RUN yum -y install docker-compose-plugin \
- && yum clean all \
- && rm -rf /var/cache/yum/*
+RUN dnf -y install \
+      python3.11 \
+      python3.11-pip \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/* \
+ && alternatives --set python3 /usr/bin/python3.11
 
 RUN /usr/local/bin/fluent-gem install fluent-plugin-systemd --no-document \
  && mkdir -p /etc/fluentd/config.d/ocs-output \
@@ -54,28 +54,22 @@ RUN /usr/local/bin/fluent-gem install fluent-plugin-systemd --no-document \
       -e '/RateLimitInterval=/s/^#?RateLimitInterval=.+/RateLimitInterval=1s/' \
       -e '/RateLimitBurst=/s/^#?RateLimitBurst=.+/RateLimitBurst=10000/'
 
-ARG CADVISOR_VERSION=v0.39.2
-RUN curl -fsSL -o /usr/local/bin/cadvisor https://github.com/google/cadvisor/releases/download/${CADVISOR_VERSION}/cadvisor \
- && chmod +x /usr/local/bin/cadvisor
-
 COPY etc /etc/
-RUN systemctl enable docker cadvisor serf sshd fluentd user_init_command \
- && systemctl disable chronyd
+RUN systemctl enable docker cadvisor serf sshd fluentd user_init_command
 
 COPY entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # ---------------------------------------------------------------------------
-RUN yum -y install \
+RUN dnf -y install \
       openssl \
       wget \
       nfs-utils \
       git \
       nmap-ncat \
       jq \
- && yum clean all \
- && rm -rf /var/cache/yum/* \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/* \
  && systemctl enable rpcbind
 
 WORKDIR /
-

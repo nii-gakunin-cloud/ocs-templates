@@ -1,141 +1,104 @@
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
-import errno
-import os
-import re
-import yaml
-import subprocess
-from io import StringIO, BytesIO
-import tempfile
-import six
-import glob
-from pathlib import Path
+import json
 from configparser import ConfigParser
+from pathlib import Path
+from re import IGNORECASE, search
+from typing import Any, TypeAlias
+
+import yaml
+
+GROUP_VARS_DIR = "group_vars"
+
+PathStrType: TypeAlias = Path | str | None
+PathOptType: TypeAlias = Path | None
 
 
-GROUP_VARS_DIR = 'group_vars'
+def _load_group_vars_yml(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
 
-
-class Vault(str):
-    pass
-
-
-def vault_constructor(loader, node):
-    value = loader.construct_scalar(node)
-    return Vault(value)
-
-
-def vault_representer(dumper, data):
-    return dumper.represent_scalar(u'!vault', data, style='|')
-
-
-yaml.add_constructor(u'!vault', vault_constructor)
-yaml.add_representer(Vault, vault_representer)
-
-
-def _load_group_vars_yml(path):
-    if os.path.exists(path):
-        with open(path) as f:
-            data = yaml.safe_load(f)
-    else:
-        data = {}
+    with path.open(encoding="utf-8") as f:
+        data = yaml.safe_load(f)
     return data
 
 
-def _load_group_vars(target_group, dir=os.getcwd()):
-    parent = os.path.join(dir, GROUP_VARS_DIR, target_group)
-    if os.path.isdir(parent):
-        data = {}
-        for x in glob.glob(f'{parent}/*.yml'):
-            data.update(_load_group_vars_yml(x))
+def _load_group_vars(target_group: str, work_dir: PathOptType = None) -> dict[str, Any]:
+    if work_dir is None:
+        work_dir = Path.cwd()
+    target_path = work_dir / GROUP_VARS_DIR / target_group
+    if target_path.is_dir():
+        data: dict[str, Any] = {}
+        for gv_path in target_path.glob("*.yml"):
+            data.update(_load_group_vars_yml(gv_path))
         return data
-    else:
-        return _load_group_vars_yml(
-                os.path.join(dir, GROUP_VARS_DIR, target_group))
+
+    return _load_group_vars_yml(target_path)
 
 
-def load_group_vars(target_group, dir=os.getcwd()):
-    data = _load_group_vars('all', dir)
-    data.update(_load_group_vars(target_group, dir))
+def load_group_vars(target_group: str, work_dir: PathStrType = None) -> dict[str, Any]:
+    if isinstance(work_dir, str):
+        work_dir = Path(work_dir)
+    data = _load_group_vars("all", work_dir)
+    data.update(_load_group_vars(target_group, work_dir))
     return data
 
 
-def load_group_var(target_group, name, dir=os.getcwd()):
-    gvars = load_group_vars(target_group, dir)
-    return gvars[name]
+def load_group_var(target_group: str, name: str, work_dir: PathStrType = None) -> Any:
+    gvars = load_group_vars(target_group, work_dir)
+    return gvars.get(name)
 
 
-def store_group_vars(target_group, gvars, work_dir=os.getcwd()):
-    path = os.path.join(work_dir, GROUP_VARS_DIR, target_group)
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w') as f:
+def store_group_vars(
+    target_group: str, gvars: dict[str, Any], work_dir: PathStrType = None
+) -> None:
+    if work_dir is None:
+        work_dir = Path.cwd()
+    if isinstance(work_dir, str):
+        work_dir = Path(work_dir)
+    gv_path = work_dir / GROUP_VARS_DIR / target_group
+    gv_path.parent.mkdir(parents=True, exist_ok=True)
+    with gv_path.open(mode="w", encoding="utf-8") as f:
         yaml.safe_dump(gvars, f, default_flow_style=False)
 
 
-def ansible_vault_encrypt(value):
-    output = subprocess.check_output(
-            ["ansible-vault", "encrypt_string", value])
-    if isinstance(output, six.binary_type):
-        f = BytesIO(output)
-    else:
-        f = StringIO(output)
-    encrypt_value = yaml.safe_load(f)
-    f.close()
-    return encrypt_value
-
-
-def ansible_vault_decrypt(value):
-    work_file = tempfile.mkstemp()
-    f = os.fdopen(work_file[0], 'w')
-    f.write(value)
-    f.close()
-    try:
-        subprocess.check_output(["ansible-vault", "decrypt", work_file[1]])
-        with open(work_file[1]) as f:
-            result = f.read()
-        return result
-    finally:
-        os.remove(work_file[1])
-
-
-def encrypt_args(**args):
-    return dict([(k, ansible_vault_encrypt(v)) for k, v in args.items()])
-
-
-def update_group_vars(_target_group, _encrypt=False, work_dir=os.getcwd(),
-                      **args):
-    if _encrypt:
-        args = encrypt_args(**args)
-    gvars = _load_group_vars(_target_group, dir=work_dir)
-    gvars.update(args)
+def update_group_vars(
+    _target_group: str, work_dir: PathStrType = None, **kwargs
+) -> None:
+    if isinstance(work_dir, str):
+        work_dir = Path(work_dir)
+    gvars = _load_group_vars(_target_group, work_dir=work_dir)
+    gvars.update(kwargs)
     store_group_vars(_target_group, gvars, work_dir=work_dir)
 
 
-def remove_group_vars(_target_group, *args, work_dir=os.getcwd()):
-    gvars = _load_group_vars(_target_group, dir=work_dir)
+def remove_group_vars(
+    _target_group: str,
+    *args: str,
+    work_dir: PathStrType = None,
+    if_exists: bool = False,
+):
+    if isinstance(work_dir, str):
+        work_dir = Path(work_dir)
+    gvars = _load_group_vars(_target_group, work_dir=work_dir)
     for arg in args:
+        if if_exists and arg not in gvars:
+            continue
         gvars.pop(arg)
     store_group_vars(_target_group, gvars, work_dir=work_dir)
 
 
-def show_group_vars(target_group, dir=os.getcwd(), show_all=False):
-    path = os.path.join(dir, GROUP_VARS_DIR, target_group)
-    with open(path) as f:
-        lines = f.readlines()
-    for line in lines:
-        if show_all or not re.search('password', line, flags=re.IGNORECASE):
-            print(line, end="")
+def show_group_vars(
+    target_group: str, work_dir: PathStrType = None, show_all: bool = False
+) -> None:
+    gvars = load_group_vars(target_group, work_dir)
+    for key, value in gvars.items():
+        if show_all or not search("password", key, flags=IGNORECASE):
+            print(f"{key}: {json.dumps(value)}")
 
 
-def mkdir_p(path):
-    os.makedirs(path, exist_ok=True)
-
-
-def merge_dict(target, other):
+def _merge_dict(target: dict[str, Any], other: dict[str, Any]) -> dict[str, Any]:
     for key, value in other.items():
         if isinstance(value, dict):
-            merge_dict(target.setdefault(key, {}), value)
+            _merge_dict(target.setdefault(key, {}), value)
         else:
             if key not in target:
                 target[key] = value
@@ -143,50 +106,65 @@ def merge_dict(target, other):
 
 
 def update_inventory_yml(
-        new_value, inventory_path=Path('inventory.yml'), backup='.bak'):
+    new_value: dict[str, Any],
+    inventory_path: PathOptType = None,
+    backup: str | None = ".bak",
+) -> Path:
+    if inventory_path is None:
+        inventory_path = Path("inventory.yml")
     if inventory_path.exists():
         current_value = {}
-        with inventory_path.open() as f:
+        with inventory_path.open(encoding="utf-8") as f:
             current_value = yaml.safe_load(f)
-        inventory = (merge_dict(new_value, current_value)
-                     if current_value is not None else new_value)
+        inventory = (
+            _merge_dict(new_value, current_value)
+            if current_value is not None
+            else new_value
+        )
         if backup is not None:
             inventory_path.rename(
-                Path(inventory_path.parent, inventory_path.name + backup))
+                Path(inventory_path.parent, inventory_path.name + backup)
+            )
     else:
         inventory = new_value
-    with inventory_path.open(mode='w') as f:
+    with inventory_path.open(mode="w", encoding="utf-8") as f:
         yaml.safe_dump(inventory, f)
     return inventory_path
 
 
 def remove_group_from_inventory_yml(
-        name, inventory_path=Path('inventory.yml'), backup='.bak'):
-    with inventory_path.open() as f:
+    name: str, inventory_path: PathOptType = None, backup: str | None = ".bak"
+) -> Path:
+    if inventory_path is None:
+        inventory_path = Path("inventory.yml")
+    with inventory_path.open(encoding="utf-8") as f:
         inventory = yaml.safe_load(f)
-    del(inventory['all']['children'][name])
+    del inventory["all"]["children"][name]
     if backup is not None:
-        inventory_path.rename(
-            Path(inventory_path.parent, inventory_path.name + backup))
-    with inventory_path.open(mode='w') as f:
+        inventory_path.rename(Path(inventory_path.parent, inventory_path.name + backup))
+    with inventory_path.open(mode="w", encoding="utf-8") as f:
         yaml.safe_dump(inventory, f)
     return inventory_path
 
 
-def setup_ansible_cfg(inventory_path=Path('inventory.yml'), backup='.bak'):
+def setup_ansible_cfg(
+    inventory_path: PathOptType = None, backup: str | None = ".bak"
+) -> Path:
+    if inventory_path is None:
+        inventory_path = Path("inventory.yml")
     cfg = ConfigParser(interpolation=None)
-    cfg_path = Path('ansible.cfg').resolve()
+    cfg_path = Path("ansible.cfg").resolve()
     if cfg_path.exists():
-        with cfg_path.open() as f:
+        with cfg_path.open(encoding="utf-8") as f:
             cfg.read_file(f)
         if backup is not None:
             cfg_path.rename(Path(cfg_path.parent, cfg_path.name + backup))
     else:
-        cfg['defaults'] = {}
+        cfg["defaults"] = {}
 
-    cfg['defaults']['inventory'] = str(inventory_path.resolve())
+    cfg["defaults"]["inventory"] = str(inventory_path.resolve())
 
-    with cfg_path.open(mode='w') as f:
+    with cfg_path.open(mode="w", encoding="utf-8") as f:
         cfg.write(f)
     cfg_dir = cfg_path.parent
     cfg_dir.chmod(cfg_dir.stat().st_mode & ~0o022)

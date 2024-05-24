@@ -6,3 +6,5 @@
       msg: "{{ item }}"
     loop: "{{ ansible_facts.all_ipv4_addresses }}"
     failed_when: item | ansible.utils.ipaddr(cousewarehub_backend)
+  collections:
+    - ansible.utils

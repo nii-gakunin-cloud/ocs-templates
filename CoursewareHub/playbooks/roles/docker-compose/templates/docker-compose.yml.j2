@@ -150,7 +150,7 @@ services:
           - node.role == manager
       replicas: 1
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$(cat $$POSTGRES_USER_FILE) -d $$(cat $$POSTGRES_DB_FILE)"]
+      test: ["CMD-SHELL", "pg_isready -U {{ db_user }} -d {{ db_name }}"]
       interval: 10s
       timeout: 5s
       retries: 5

@@ -1,0 +1,4 @@
+- command:
+    docker login -u cwh -p {{registry_pass}} {{master_fqdn}}:5000
+- command:
+    docker pull -q {{master_fqdn}}:5000/coursewarehub/default-course-image

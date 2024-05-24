@@ -4,27 +4,23 @@ services:
     volumes:
       - ./config:/home/vcp/.config/vcp
       - ./schedule.json:/home/vcp/schedule.json
-{% if power_ctl_docker_host is not defined %}
+{% if manager_docker_host == "unix:///var/run/docker.sock" %}
       - /var/run/docker.sock:/var/run/docker.sock
 {% endif %}
     environment:
-      UGROUP_NAME: {{ugroup_name}}
+      UGROUP_NAME: {{ ugroup_name }}
       UNIT_NAME: worker
-{% if power_ctl_docker_host is not defined %}
-      DOCKER_HOST: unix:///var/run/docker.sock
-{% else %}
-      DOCKER_HOST: {{power_ctl_docker_host }}
-{% endif %}
+      DOCKER_HOST: {{ manager_docker_host }}
     secrets:
       - VCC_ACCESS_TOKEN
-{% if power_ctl_docker_host is defined %}
+{% if manager_docker_host != "unix:///var/run/docker.sock" %}
       - SSH_PRIVATE_KEY
 {% endif %}
 
 secrets:
   VCC_ACCESS_TOKEN:
     file: ./secrets/VCC_ACCESS_TOKEN
-{% if power_ctl_docker_host is defined %}
+{% if manager_docker_host != "unix:///var/run/docker.sock" %}
   SSH_PRIVATE_KEY:
     file: ./secrets/SSH_PRIVATE_KEY
 {% endif %}

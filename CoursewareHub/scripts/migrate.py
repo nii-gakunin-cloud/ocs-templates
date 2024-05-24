@@ -6,13 +6,16 @@ from pathlib import Path
 from group import GROUP_VARS_DIR, load_group_vars, store_group_vars
 
 logger = getLogger(__name__)
-basicConfig(level=INFO, format="%(message)s")
+basicConfig(level=INFO, style="{")
 
 
 def migrate_group_vars(target_group):
     gvars = load_group_vars(target_group)
     if "registry_pass" in gvars:
-        logger.info(f'"{target_group}" does nothing as it has already been migrated.')
+        logger.info(
+            '"{target_group}" does nothing as it has already been migrated.',
+            target_group=target_group,
+        )
         return
     backup_group_vars(target_group)
     new_gvars = migrate_202309_gvars(gvars)
@@ -24,7 +27,11 @@ def backup_group_vars(target_group):
     if group_vars_path.exists():
         ts = dt.strftime(dt.now(), "%Y%m%d%H%M%S")
         group_vars_path.rename(group_vars_path.parent / f".{group_vars_path.name}.{ts}")
-        logger.info(f'".{target_group}.{ts}" as a backup for "{target_group}".')
+        logger.info(
+            '".{target_group}.{ts}" as a backup for "{target_group}".',
+            target_group=target_group,
+            ts=ts,
+        )
 
 
 def migrate_202309_gvars(old_gvars):
@@ -94,7 +101,7 @@ def migrate_202309_gvars(old_gvars):
         if name in jupyterhub_params:
             gvars[name.lower()] = jupyterhub_params[name]
     test_federation = "https://sptest.cg.gakunin.jp/"
-    if any([x.startswith(test_federation) for x in gvars.get("cg_groups", [])]):
+    if any(x.startswith(test_federation) for x in gvars.get("cg_groups", [])):
         gvars["enable_test_federation"] = True
     if "federation" in old_gvars:
         gvars["enable_federation"] = True

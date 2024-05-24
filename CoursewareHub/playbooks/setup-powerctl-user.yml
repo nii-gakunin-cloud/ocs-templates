@@ -1,0 +1,12 @@
+- hosts: all
+  tasks:
+    - setup:
+      register: result
+    - set_fact:
+        uid: "{{ ansible_user_uid }}"
+        gid: "{{ ansible_user_gid }}"
+        systemd_dir: "{{ ansible_user_dir }}/.config/systemd/user/"
+    - import_role:
+        name: worker-power-ctl
+  vars:
+    secret_file_mode: 0644

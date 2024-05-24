@@ -1,0 +1,46 @@
+- file:
+    path: "{{ vcnode_ctl_dir }}"
+    state: directory
+    mode: 0700
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- template:
+    src: schedule.json.j2
+    dest: "{{ vcnode_ctl_dir }}/schedule.json"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- file:
+    path: "{{ vcnode_ctl_dir }}/config"
+    state: directory
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- copy:
+    src: /notebooks/notebook/vcp_config/vcp_config.yml
+    dest: "{{ vcnode_ctl_dir }}/config/"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- copy:
+    src: /notebooks/notebook/vcp_config/vcp_flavor.yml
+    dest: "{{ vcnode_ctl_dir }}/config/"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- file:
+    path: "{{ vcnode_ctl_dir }}/secrets"
+    state: directory
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+    mode: 0700
+- copy:
+    dest: "{{ vcnode_ctl_dir }}/secrets/VCC_ACCESS_TOKEN"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+    mode: "{{ secret_file_mode }}"
+    content: |-
+      {{ vcc_access_token }}
+
+- template:
+    src: cwh-worker-node.service.j2
+    dest: "{{ systemd_dir }}/cwh-worker-node.service"
+- template:
+    src: cwh-worker-node.timer.j2
+    dest: "{{ systemd_dir }}/cwh-worker-node.timer"
