@@ -8,12 +8,6 @@
 各テンプレートは、Jupyter Notebookによりアプリケーションの構築手順が記述されています。
 学認クラウドオンデマンド構築サービスで用いている基盤ソフトウェアVCPを用いることを前提としていますが、VCPを利用せずに環境構築する場合のテンプレートも一部公開しています。
 
-- [LMSテンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/Moodle)
-(VCP SDK v22.04以降対応 (AWS、Azureで動作確認済み))<br>
-[Moodle](https://moodle.org/)を用いた学習管理システムを構築します。
-本テンプレートでは，パスワード認証の他にShibboleth認証を利用したMoodleの構築手順と，アップデートを行う手順を記載しています。<br>
-（参考文献） Moodle運用におけるDocker及びJupyter Notebookの活用。浜元 信州、横山 重俊、竹房 あつ子、合田 憲人、桑田 喜隆、石坂 徹。[日本ムードル協会全国大会2018発表論文集](https://moodlejapan.org/mod/resource/view.php?id=1474)、pp. 6-12、2018年10月。
-
 - [LMSテンプレート簡易構成版](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/Moodle-Simple)
 (VCP SDK v22.04以降対応 (AWS、Azureで動作確認済み)、AWS対応、Azure対応)<br>
 [Moodle](https://moodle.org/)を用いた学習管理システムを構築します。
@@ -57,6 +51,12 @@ Pythonによるプログラムの共同開発や講義演習などを行うの�
 
 
 なお，以下のテンプレートは保守を終了しました．代替となる上記テンプレートの利用をおすすめします．
+
+- [LMSテンプレート](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/Moodle)
+(VCP SDK v22.04以降対応 (AWS、Azureで動作確認済み))<br>
+[Moodle](https://moodle.org/)を用いた学習管理システムを構築します。
+本テンプレートでは，パスワード認証の他にShibboleth認証を利用したMoodleの構築手順と，アップデートを行う手順を記載しています。<br>
+（参考文献） Moodle運用におけるDocker及びJupyter Notebookの活用。浜元 信州、横山 重俊、竹房 あつ子、合田 憲人、桑田 喜隆、石坂 徹。[日本ムードル協会全国大会2018発表論文集](https://moodlejapan.org/mod/resource/view.php?id=1474)、pp. 6-12、2018年10月。
 
 - [HPCテンプレート v1](https://github.com/nii-gakunin-cloud/ocs-templates/tree/master/OpenHPC-v1)
 (VCP SDK v22.04以降対応 (AWS、Azureで動作確認済み))<br>
