@@ -35,6 +35,7 @@ RUN dnf -y module reset php \
   php-xmlrpc \
   php-ldap \
   php-sodium \
+  php-tidy \
  && dnf clean all
 
 COPY php/php-opcache.ini /tmp

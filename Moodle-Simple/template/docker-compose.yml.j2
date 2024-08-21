@@ -41,6 +41,12 @@ services:
 {% endfor %}
 {% endif %}
 {% endif %}
+    healthcheck:
+      test: ['CMD', '/usr/local/bin/healthcheck.sh', '--innodb_initialized']
+      start_period: 5s
+      timeout: 5s
+      interval: 5s
+      retries: 5
   moodle:
     image: {{moodle_image_name}}
     container_name: moodle
@@ -108,6 +114,9 @@ services:
 {% endfor %}
 {% endif %}
 {% endif %}
+    depends_on:
+      db:
+        condition: service_healthy
 {% if httpd is defined %}
 {% if httpd == "httpd" %}
   httpd:

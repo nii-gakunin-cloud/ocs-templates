@@ -297,25 +297,7 @@ def setup_yaml_od():
 
 def check_version(version):
     vers = [int(x) for x in version.split(".")]
-    if len(vers) < 2:
+    if len(vers) < 2 or len(vers) > 3:
         return False
-    if len(vers) == 2:
-        if vers[0] > 3:
-            return True
-        elif vers[0] == 3 and (vers[1] == 9 or vers[1] == 11):
-            return True
-        else:
-            return False
-    if vers[0] == 4:
-        if (vers[1] == 0 and vers[2] >= 2) or vers[1] >= 1:
-            return True
-        else:
-            return False
-    elif vers[0] == 3:
-        if vers[1] == 9:
-            return vers[2] >= 15
-        elif vers[1] == 11:
-            return vers[2] >= 8
-        else:
-            return False
-    return False
+    return vers[0] == 4 and vers[1] > 0
+
