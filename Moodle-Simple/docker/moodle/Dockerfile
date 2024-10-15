@@ -1,6 +1,8 @@
-FROM rockylinux:8.9.20231119
+FROM rockylinux:9.3.20231119
 
 RUN dnf -y update \
+ && dnf -y install 'dnf-command(config-manager)' \
+ && dnf config-manager --set-enabled crb \
  && dnf -y install \
       aspell \
       graphviz \
@@ -13,16 +15,11 @@ RUN dnf -y update \
 RUN ln -sf /dev/stdout /var/log/httpd/access_log \
   && ln -sf /dev/stderr /var/log/httpd/error_log
 
-ARG REMI_URL=http://ftp.riken.jp/Linux/remi/enterprise/remi-release-8.rpm
-RUN dnf -y install epel-release \
- && dnf -y install ${REMI_URL} \
+ARG REMI_URL=http://ftp.riken.jp/Linux/remi/enterprise/remi-release-9.rpm
+RUN dnf -y install ${REMI_URL} \
  && dnf clean all
 
-ARG WAIT_FOR_URL=https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
-RUN curl -o /usr/local/bin/wait-for-it.sh ${WAIT_FOR_URL} \
- && chmod a+x /usr/local/bin/wait-for-it.sh
-    
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=8.3
 RUN dnf -y module reset php \
  && dnf -y module install php:remi-${PHP_VERSION} \
  && dnf -y install \
@@ -56,8 +53,11 @@ RUN curl -L -o /tmp/moodle.tar.gz https://github.com/moodle/moodle/archive/v${MO
  && ln -s /var/www/moodle /var/www/html \
  && sed -i -e '/Indexes/s/Options Indexes/Options/' /etc/httpd/conf/httpd.conf
 
+RUN dnf -y install fcgi \
+ && dnf clean all
+
 COPY etc /etc/
 COPY scripts /usr/local/bin/
 EXPOSE 80
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["/usr/local/bin/init"]
+HEALTHCHECK --interval=10s --start-period=10s --start-interval=30s --retries=10 CMD /usr/local/bin/healthcheck

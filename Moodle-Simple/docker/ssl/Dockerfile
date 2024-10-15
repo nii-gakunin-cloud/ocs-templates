@@ -1,6 +1,7 @@
-FROM rockylinux:8.9.20231119
+FROM rockylinux:9.3.20231119
 
-RUN dnf -y install httpd mod_ssl which \
+RUN dnf -y update \
+ && dnf -y install httpd mod_ssl which \ 
  && dnf clean all \
  && mkdir -p /var/www/moodle \
  && rm -rf /var/www/html \
@@ -14,3 +15,4 @@ COPY etc /etc
 COPY scripts /usr/local/bin
 EXPOSE 443
 CMD ["/usr/local/bin/init"]
+HEALTHCHECK CMD curl -fskI https://localhost || exit 1

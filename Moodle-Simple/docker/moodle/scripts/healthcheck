@@ -1,0 +1,31 @@
+#!/bin/sh
+
+: ${ENABLE_HTTPD:=true}
+: ${FPM_CONNECT:=/run/php-fpm/www.sock}
+
+check_http() {
+  if curl -sfI http://localhost &> /dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+check_fpm() {
+  env SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET \
+  cgi-fcgi -bind -connect ${FPM_CONNECT} &> /dev/null
+  return $?
+}
+
+if [ "${ENABLE_HTTPD,,}" = "true" ]; then
+  if ! check_http; then
+    exit 1
+  fi
+fi
+
+if ! check_fpm; then
+  exit 1
+fi
+
+exit 0
+

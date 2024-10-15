@@ -1,13 +1,12 @@
-FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-centos7-x86_64
+FROM harbor.vcloud.nii.ac.jp/vcp/base:1.8.1-rockylinux8.7-x86_64-rc0-rclocal
 
-RUN yum -y update \
-  && yum clean all \
-  && rm -rf /var/cache/yum/*
+RUN dnf -y update \
+  && dnf clean all \
+  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------------------------------------------
-# https://github.com/CentOS/CentOS-Dockerfiles/tree/master/systemd/centos7/Dockerfile
 
-ENV container docker
+ENV container=docker
 
 # hadolint ignore=DL3003,SC2086
 RUN (cd /lib/systemd/system/sysinit.target.wants/ && for i in *; do [ $i = systemd-tmpfiles-setup.service ] || [ $i = systemd-udevd.service ] || [ $i = systemd-user-sessions.service ] || rm -f $i; done); \
@@ -24,22 +23,23 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
 
 # ---------------------------------------------------------------------------
-RUN yum -y install \
+
+RUN dnf -y install \
       openssh-server \
       openssh-clients \
-      make \
       iproute \
-      chrony \
       rsync \
-      sudo \
       unzip \
       tree \
- && yum clean all \
- && rm -rf /var/cache/yum/*
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/*
 
-RUN yum -y install docker-compose-plugin \
- && yum clean all \
- && rm -rf /var/cache/yum/*
+RUN dnf -y install \
+      python3.12 \
+      python3.12-pip \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/* \
+ && alternatives --set python3 /usr/bin/python3.12
 
 RUN /usr/local/bin/fluent-gem install fluent-plugin-systemd --no-document \
  && mkdir -p /etc/fluentd/config.d/ocs-output \
@@ -47,22 +47,24 @@ RUN /usr/local/bin/fluent-gem install fluent-plugin-systemd --no-document \
       -e '/RateLimitInterval=/s/^#?RateLimitInterval=.+/RateLimitInterval=1s/' \
       -e '/RateLimitBurst=/s/^#?RateLimitBurst=.+/RateLimitBurst=10000/'
 
-ARG CADVISOR_VERSION=v0.39.2
-RUN curl -fsSL -o /usr/local/bin/cadvisor https://github.com/google/cadvisor/releases/download/${CADVISOR_VERSION}/cadvisor \
- && chmod +x /usr/local/bin/cadvisor
-
 COPY etc /etc/
-RUN systemctl enable docker cadvisor serf sshd fluentd user_init_command \
- && systemctl disable chronyd
+RUN systemctl enable docker cadvisor serf sshd fluentd user_init_command
 
 COPY entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # ---------------------------------------------------------------------------
-RUN yum -y install \
+RUN dnf -y install \
       cronie \
       cryptsetup \
       rsyslog \
- && yum clean all \
- && rm -rf /var/cache/yum/* \
- && systemctl enable rsyslog lvm2-monitor lvm2-lvmetad
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/* \
+ && systemctl enable rsyslog lvm2-monitor
+
+# ---------------------------------------------------------------------------
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
+ && unzip /tmp/awscliv2.zip -d /tmp \
+ && /tmp/aws/install \
+ && rm -rf /tmp/aws /tmp/awscliv2.zip

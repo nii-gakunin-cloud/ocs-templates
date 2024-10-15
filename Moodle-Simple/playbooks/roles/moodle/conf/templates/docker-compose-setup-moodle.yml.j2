@@ -3,4 +3,6 @@ services:
     image: {{moodle_image_name}}
     container_name: setup-moodle
     command: /bin/bash
+    healthcheck:
+      disable: true
 

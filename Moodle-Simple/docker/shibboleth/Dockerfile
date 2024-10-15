@@ -1,6 +1,7 @@
-FROM rockylinux:8.9.20231119
+FROM rockylinux:9.3.20231119
 
-RUN dnf -y install httpd mod_ssl which \
+RUN dnf -y update \
+ && dnf -y install httpd mod_ssl which \
  && dnf clean all \
  && mkdir -p /var/www/moodle \
  && rm -rf /var/www/html \
@@ -10,7 +11,7 @@ RUN dnf -y install httpd mod_ssl which \
  && sed -i -e '/<\/VirtualHost>/iIncludeOptional conf.d/moodle.conf' /etc/httpd/conf.d/ssl.conf \
  && sed -i -e '/Indexes/s/Options Indexes/Options/' /etc/httpd/conf/httpd.conf
 
-RUN curl 'https://shibboleth.net/cgi-bin/sp_repo.cgi?platform=rockylinux8' \
+RUN curl 'https://shibboleth.net/cgi-bin/sp_repo.cgi?platform=rockylinux9' \
   -o /etc/yum.repos.d/shibboleth.repo \
  && dnf -y install shibboleth \
  && dnf clean all \
@@ -23,9 +24,8 @@ RUN curl 'https://meatwiki.nii.ac.jp/confluence/download/attachments/12158175/at
       -L -o /etc/shibboleth/policy-map.xml
 
 RUN dnf -y install epel-release 'dnf-command(config-manager)' \
- && dnf -y install python39 supervisor \
- && dnf clean all \
- && alternatives --set python3 /usr/bin/python3.9
+ && dnf -y install supervisor \
+ && dnf clean all
 
 COPY etc /etc
 COPY scripts /usr/local/bin

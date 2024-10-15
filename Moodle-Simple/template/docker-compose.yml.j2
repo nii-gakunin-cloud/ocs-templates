@@ -50,8 +50,10 @@ services:
   moodle:
     image: {{moodle_image_name}}
     container_name: moodle
-{% if httpd is not defined %}
-    hostname: {{server_name}}
+{% if httpd is defined %}
+    init: true
+{% else %}
+    hostname: {{ moodle_url | urlsplit('hostname') }}
 {% endif %}
     restart: always
     volumes:
@@ -79,6 +81,8 @@ services:
       WAIT_FOR: db:3306
 {% if httpd is defined %}
       ENABLE_HTTPD: "false"
+{% else %}
+      ENABLE_HTTPD: "true"
 {% endif %}
     secrets:
       - MOODLE_ADMIN
@@ -122,8 +126,9 @@ services:
   httpd:
     image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:ssl
     restart: always
+    init: true
     container_name: httpd
-    hostname: {{ server_name }}
+    hostname: {{ moodle_url | urlsplit('hostname') }}
     volumes:
       - /run/php-fpm:/run/php-fpm
       - /srv/moodle/moodle/data/php:/var/www/moodle:rw
@@ -134,9 +139,12 @@ services:
       - /srv/moodle/httpd/conf/httpd/conf.modules.d:/etc/httpd/conf.modules.d
       - /var/log/httpd:/var/log/httpd
     environment:
-      SERVER_NAME: {{ server_name }}
+      SERVER_NAME: {{ moodle_url | urlsplit('hostname') }}
     ports:
       - 443:443
+    depends_on:
+      moodle:
+        condition: service_healthy
 {% if logging_driver is defined %}
     logging:
       driver: {{ logging_driver }}
@@ -158,7 +166,7 @@ services:
     image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:shibboleth
     restart: on-failure:5
     container_name: shibboleth
-    hostname: {{ server_name }}
+    hostname: {{ moodle_url | urlsplit('hostname') }}
     volumes:
       - /run/php-fpm:/run/php-fpm
       - /srv/moodle/moodle/data/php:/var/www/moodle:rw
@@ -171,7 +179,7 @@ services:
       - /var/log/httpd:/var/log/httpd
       - /var/log/shibboleth:/var/log/shibboleth
     environment:
-      SERVER_NAME: {{ server_name }}
+      SERVER_NAME: {{ moodle_url | urlsplit('hostname') }}
 {% if url_gakunin_ds is defined %}
       GAKUNIN_DS: "{{ url_gakunin_ds }}"
 {% endif %}
