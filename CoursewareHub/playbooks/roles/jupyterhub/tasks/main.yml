@@ -10,6 +10,9 @@
     path: "{{jupyterhub_custom_dir}}"
     state: directory
     recurse: true
+- copy:
+    src: notebook7.py
+    dest: "{{jupyterhub_custom_dir}}"
 - block:
     - copy:
         src: "{{ item }}"

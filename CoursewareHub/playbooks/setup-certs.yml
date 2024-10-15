@@ -1,0 +1,4 @@
+- hosts: all
+  roles:
+    - role: certs
+  become: true

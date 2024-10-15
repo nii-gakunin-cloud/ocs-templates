@@ -177,6 +177,7 @@ services:
         constraints:
         - node.role==manager
       replicas: 1
+    init: true
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --no-check-certificate https://localhost:5000/ || exit 1"]
       interval: 15s

@@ -48,10 +48,20 @@ blockdiag {
         group {
             label = "設定変更";
             color = "#B7B0D6";
-            orientation = portrait;
-            "711";
-            "721";
-            "731";
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "711";
+                "721";
+                "731";
+            }
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "741";
+            }
         }
         group {
             shape = line;
