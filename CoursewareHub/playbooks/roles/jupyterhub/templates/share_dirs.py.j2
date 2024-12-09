@@ -1,0 +1,14 @@
+from docker.types import Mount
+
+extra_user_mounts = []
+{% for dir in extra_mount_points %}
+extra_user_mounts.append(
+    Mount(
+        type="bind",
+        target="{homedir}{{ dir}}",
+        source="{{ dir }}",
+        read_only=False,
+    )
+)
+{% endfor %}
+c.CoursewareUserSpawner.extra_user_mounts = extra_user_mounts

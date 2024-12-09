@@ -12,7 +12,18 @@
     recurse: true
 - copy:
     src: notebook7.py
-    dest: "{{jupyterhub_custom_dir}}"
+    dest: "{{jupyterhub_custom_dir}}/10-notebook7.py"
+- block:
+    - template:
+        src: share_dirs.py.j2
+        dest: "{{jupyterhub_custom_dir}}/10-share_dirs.py"
+    - file:
+        path: "{{ item }}"
+        mode: '1777'
+        owner: nobody
+        group: nobody
+      loop: "{{ extra_mount_points }}"
+  when: extra_mount_points is defined and extra_mount_points | length > 0
 - block:
     - copy:
         src: "{{ item }}"
