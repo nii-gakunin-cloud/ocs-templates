@@ -1,5 +1,5 @@
-ARG TAG
-ARG REGISTRY
+ARG TAG=3.2
+ARG REGISTRY=harbor.vcloud.nii.ac.jp
 FROM $REGISTRY/vcp/openhpc:common-$TAG
 
 # ------------------------------------------------------------
@@ -30,12 +30,6 @@ RUN perl -pi -e 's/# End of file/\* soft memlock unlimited\n$&/s' /etc/security/
 # -------------------------------------------------------
 # Configure rsyslog on SMS and computes (Section 3.8.4.7)
 # -------------------------------------------------------
-#RUN echo "*.* @${sms_ip}:514" >> /etc/rsyslog.conf \
-# && perl -pi -e "s/^\*\.info/\\#\*\.info/" /etc/rsyslog.conf \
-# && perl -pi -e "s/^authpriv/\\#authpriv/" /etc/rsyslog.conf \
-# && perl -pi -e "s/^mail/\\#mail/" /etc/rsyslog.conf \
-# && perl -pi -e "s/^cron/\\#cron/" /etc/rsyslog.conf \
-# && perl -pi -e "s/^uucp/\\#uucp/" /etc/rsyslog.conf
 
 # Optionally, enable nhc and configure
 RUN dnf -y install nhc-ohpc \
@@ -53,3 +47,12 @@ RUN systemctl disable NetworkManager-wait-online \
  && dnf -y install hostname squashfs-tools \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
+
+# ------------------------------------------------------------
+# Apptainer
+# ------------------------------------------------------------
+RUN dnf -y remove singularity-ce \
+ && dnf -y install apptainer \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/*
+

@@ -1,5 +1,5 @@
-ARG TAG
-ARG REGISTRY
+ARG TAG=3.2
+ARG REGISTRY=harbor.vcloud.nii.ac.jp
 FROM $REGISTRY/vcp/openhpc:common-$TAG
 
 # ------------------------------------------------------------
@@ -30,9 +30,6 @@ RUN perl -pi -e 's/# End of file/\* soft memlock unlimited\n$&/s' /etc/security/
 # -------------------------------------------------------
 # Configure rsyslog on SMS and computes (Section 3.8.4.7)
 # -------------------------------------------------------
-#RUN perl -pi -e "s/\\#\\\$ModLoad imudp/\\\$ModLoad imudp/" /etc/rsyslog.conf \
-# && perl -pi -e "s/\\#\\\$UDPServerRun 514/\\\$UDPServerRun 514/" /etc/rsyslog.conf \
-# && systemctl restart rsyslog
 
 # Optionally, enable nhc and configure
 RUN dnf -y install nhc-ohpc \
@@ -54,28 +51,28 @@ RUN dnf -y install \
 # -------------------------------
 # Install Compilers (Section 4.2)
 # -------------------------------
-RUN dnf -y install gnu13-compilers-ohpc \
+RUN dnf -y install gnu14-compilers-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # --------------------------------
 # Install MPI Stacks (Section 4.3)
 # --------------------------------
-RUN dnf -y install openmpi5-gnu13-ohpc mpich-ofi-gnu13-ohpc \
+RUN dnf -y install openmpi5-gnu14-ohpc mpich-ofi-gnu14-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------
 # Install Performance Tools (Section 4.4)
 # ---------------------------------------
-RUN dnf -y install ohpc-gnu13-perf-tools \
+RUN dnf -y install ohpc-gnu14-perf-tools \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------
 # Setup default development environment (Section 4.5)
 # ---------------------------------------
-RUN dnf -y install lmod-defaults-gnu13-openmpi5-ohpc \
+RUN dnf -y install lmod-defaults-gnu14-openmpi5-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
@@ -83,15 +80,15 @@ RUN dnf -y install lmod-defaults-gnu13-openmpi5-ohpc \
 # Install 3rd Party Libraries and Tools (Section 4.6)
 # ---------------------------------------------------
 RUN dnf -y install \
-      ohpc-gnu13-serial-libs \
-      ohpc-gnu13-io-libs \
-      ohpc-gnu13-python-libs \
-      ohpc-gnu13-runtimes \
+      ohpc-gnu14-serial-libs \
+      ohpc-gnu14-io-libs \
+      ohpc-gnu14-python-libs \
+      ohpc-gnu14-runtimes \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 RUN dnf -y install \
-      ohpc-gnu13-mpich-parallel-libs \
-      ohpc-gnu13-openmpi5-parallel-libs \
+      ohpc-gnu14-mpich-parallel-libs \
+      ohpc-gnu14-openmpi5-parallel-libs \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
@@ -100,13 +97,6 @@ RUN dnf -y install \
 # ------------------------------------
 RUN systemctl enable munge \
  && systemctl enable slurmctld
-
-# ----------------------------
-#RUN dnf -y install \
-#      libjpeg-turbo-devel \
-#      python36-devel \
-# && dnf clean all \
-# && rm -rf /var/cache/dnf/*
 
 # ----------------------------
 RUN systemctl disable NetworkManager-wait-online chronyd \
@@ -118,3 +108,12 @@ COPY etc /etc/
 
 RUN sed -i -e '1,/TaskPlugin=/s/^TaskPlugin=/#TaskPlugin=/' /etc/slurm/slurm.conf \
  && sed -i -e '1,/JobCompType=/s/^JobCompType=/#JobCompType=/' /etc/slurm/slurm.conf
+
+# ------------------------------------------------------------
+# Apptainer
+# ------------------------------------------------------------
+RUN dnf -y remove singularity-ce \
+ && dnf -y install apptainer \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/*
+

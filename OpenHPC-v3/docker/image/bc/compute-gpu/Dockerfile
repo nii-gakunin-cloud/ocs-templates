@@ -1,5 +1,5 @@
-ARG TAG
-ARG REGISTRY
+ARG TAG=3.2
+ARG REGISTRY=harbor.vcloud.nii.ac.jp
 
 FROM golang:1.22-bookworm AS builder
 RUN go install github.com/mindprince/nvidia_gpu_prometheus_exporter@latest

@@ -18,10 +18,16 @@ VOLUME [ "/sys/fs/cgroup" ]
 
 CMD ["/usr/sbin/init"]
 
-# hadolint ignore=DL3041
-RUN dnf -y install \
+RUN dnf -y install 'dnf-command(config-manager)' rocky-release-security \
+ && dnf config-manager --disable security-common \
+ && dnf -y --enablerepo=security-common install \
       openssh-server \
       openssh-clients \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/*
+
+# hadolint ignore=DL3041
+RUN dnf -y install \
       iproute \
       rsync \
       sudo \
@@ -35,6 +41,7 @@ RUN dnf -y install \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
+# hadolint ignore=DL3041,DL3028
 RUN dnf -y module enable ruby:3.1 \
  && dnf -y install \
       ruby \
