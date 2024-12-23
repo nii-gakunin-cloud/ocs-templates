@@ -44,7 +44,7 @@ VCディスク（クラウド上の仮想ディスク）もVCノードと同様�
 
 このテンプレートで構築するミドルウェア、OSのバージョンを示します。
 
-* [OpenHPC 2.8](https://github.com/openhpc/ohpc/releases/tag/v2.8.GA)
+* [OpenHPC 2.9](https://github.com/openhpc/ohpc/releases/tag/v2.9.GA)
 * Rocky Linux 8.9
 
 ### 前提条件

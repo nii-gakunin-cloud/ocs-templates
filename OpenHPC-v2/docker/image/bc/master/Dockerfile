@@ -1,5 +1,5 @@
-ARG TAG
-ARG REGISTRY
+ARG TAG=2.9
+ARG REGISTRY=harbor.vcloud.nii.ac.jp
 FROM $REGISTRY/vcp/openhpc:common-$TAG
 
 # ------------------------------------------------------------
