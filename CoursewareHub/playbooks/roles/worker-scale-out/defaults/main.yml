@@ -1,5 +1,0 @@
-# uid: 1000
-# gid: 1000
-# systemd_dir: /etc/systemd/system
-# manager_docker_host: unix:///var/run/docker.sock
-service_desc: Update the number of worker nodes in CoursewareHub

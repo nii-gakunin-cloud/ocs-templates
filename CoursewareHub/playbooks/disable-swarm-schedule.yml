@@ -1,0 +1,15 @@
+- hosts: all
+  tasks:
+    - systemd:
+        name: cwh-worker-node.timer
+        enabled: false
+        state: stopped
+        scope: user
+      when: vcnode_ctl_dir is defined and vcnode_ctl_dir is match("/home.*")
+    - systemd:
+        name: cwh-worker-node.timer
+        enabled: false
+        state: stopped
+        scope: system
+      when: vcnode_ctl_dir is not defined
+      become: true

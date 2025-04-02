@@ -1,6 +1,4 @@
-ARG BASE_IMAGE=harbor.vcloud.nii.ac.jp/vcp/coursewarehub:bc-common
-# hadolint ignore=DL3006
-FROM $BASE_IMAGE
+FROM cwh-common
 
 COPY etc /etc/
 

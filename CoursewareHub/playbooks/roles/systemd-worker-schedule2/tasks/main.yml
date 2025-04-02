@@ -1,0 +1,11 @@
+- template:
+    src: cwh-worker-node.service.j2
+    dest: "{{ systemd_dir }}/cwh-worker-node.service"
+- template:
+    src: cwh-worker-node.timer.j2
+    dest: "{{ systemd_dir }}/cwh-worker-node.timer"
+- systemd:
+    name: cwh-worker-node.timer
+    state: started
+    enabled: true
+    daemon_reload: true

@@ -1,0 +1,4 @@
+services:
+  ansible:
+    environment:
+      FORCE_DEFAULT: "1"

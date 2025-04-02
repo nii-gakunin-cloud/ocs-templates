@@ -135,6 +135,12 @@ services:
         source: {{jupyterhub_custom_dir}}
         target: /jupyterhub_config.d
         type: bind
+      - source: {{ jupyter_root_dir }}/admin
+        target: /jupyter/admin
+        type: bind
+      - source: {{ home_dir }}
+        target: /jupyter/users
+        type: bind
 {% if migration is defined %}
     extra_hosts:
       - "{{master_fqdn}}:{{manager_ipaddress}}"

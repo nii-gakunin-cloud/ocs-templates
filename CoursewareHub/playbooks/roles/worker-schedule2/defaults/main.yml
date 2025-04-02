@@ -1,0 +1,6 @@
+worker_schedule_dir: /srv/worker-schedule
+worker_unit_name: worker
+uid: 1000
+gid: 1000
+ansible_image_name: harbor.vcloud.nii.ac.jp/vcp/coursewarehub:scale
+

@@ -31,4 +31,10 @@
       loop: "{{ jupyterhub_config_list }}"
   when: jupyterhub_config_list is defined
 - import_tasks: logo.yml
-
+- file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
+  loop:
+    - "{{ home_dir }}"
+    - "{{ jupyter_root_dir }}/admin"

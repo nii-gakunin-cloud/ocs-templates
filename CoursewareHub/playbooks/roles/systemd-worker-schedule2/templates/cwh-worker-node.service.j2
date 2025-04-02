@@ -1,0 +1,10 @@
+[Unit]
+Description={{ service_desc }}
+
+[Service]
+ExecStart=docker compose up
+WorkingDirectory={{ worker_schedule_dir }}
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target

@@ -24,4 +24,5 @@
     - file:
         path: "{{work_dir.path}}"
         state: absent
-
+- command:
+    docker service update --force coursewarehub_jupyterhub

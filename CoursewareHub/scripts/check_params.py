@@ -33,7 +33,16 @@ anchor_map = {
     "ssh_private_key_path": "#SSH公開鍵認証の鍵ファイルの指定",
     "idp_proxy_flavor": "#flavor指定",
     "ssh_user_name": "#mdx-VM-ログインユーザ名の指定",
+    "schedule_down_type": "#ノードの停止方法",
+    "vcnode_all_ipaddress": "#IPアドレス",
 }
+
+
+def _display_html_error(ex) -> None:
+    msg = f"<p>{' '.join(ex.args)}</p>"
+    if hasattr(ex, "link"):
+        msg += f'<a href="{ex.link}">リンク先</a>に戻って再度設定を行ってください。'
+    display(HTML(msg))
 
 
 def check_parameters(*targets, params=None, nb_vars=None):
@@ -51,34 +60,22 @@ def check_parameters(*targets, params=None, nb_vars=None):
             func = globals().get(f"check_parameter_{target}")
             if v is None:
                 if target not in opt_vars:
-                    msg = (f"{target}が設定されていません。",)
+                    msg = f"{target}が設定されていません。"
                     raise CwhParameterError(msg, target=target)
                 func = globals().get(f"opt_check_parameter_{target}")
             if func:
                 func(v, params, kwargs)
         except CwhParameterError as ex:
-            display(
-                HTML(
-                    f'<p>{" ".join(ex.args)}</p><a href="{ex.link}">'
-                    + "リンク先</a>に戻って再度設定を行ってください。"
-                )
-            )
+            _display_html_error(ex)
             raise ex
 
     for grp in params.get("opt_groups", []):
         try:
             match = len([x for x in grp if x in nb_vars])
             if match == 0:
-                raise CwhParameterError(
-                    f'{", ".join(grp)}のいずれもが設定されていません。', target=grp[0]
-                )
+                raise CwhParameterError(f"{', '.join(grp)}のいずれもが設定されていません。", target=grp[0])
         except CwhParameterError as ex:
-            display(
-                HTML(
-                    f'<p>{" ".join(ex.args)}</p><a href="{ex.link}">'
-                    + "リンク先</a>に戻って再度設定を行ってください。"
-                )
-            )
+            _display_html_error(ex)
             raise ex
 
     for grp in params.get("opt_groups", []):
@@ -86,13 +83,11 @@ def check_parameters(*targets, params=None, nb_vars=None):
             match = len([x for x in grp if x in nb_vars])
             if match > 1:
                 raise CwhParameterError(
-                    f'{", ".join(grp)}のうち複数の設定が行われています。' + "del()でどちらかの変数を削除してください。"
+                    f"{', '.join(grp)}のうち複数の設定が行われています。"
+                    + "del()でどちらかの変数を削除してください。"
                 )
         except CwhParameterError as ex:
-            desc = f'<p>{" ".join(ex.args)}</p>'
-            if hasattr(ex, "link"):
-                desc += f'<a href="{ex.link}">' + "リンク先</a>に戻って再度設定を行ってください。"
-            display(HTML(desc))
+            _display_html_error(ex)
             raise ex
 
 
@@ -315,3 +310,28 @@ def opt_check_parameter_ssh_user_name(value, _params, kwargs):
     if value is None and provider == "onpremises":
         target = "ssh_user_name"
         raise CwhParameterError(f"{target}が設定されていません。", target=target)
+
+
+def check_parameter_schedule_down_type(value, _params, _kwargs):
+    if value not in ["deleted", "power_down"]:
+        msg = f"deleted または power_down を指定してください: {value}"
+        raise CwhParameterError(msg, frame=currentframe())
+
+
+def check_parameter_vcnode_all_ipaddress(value, params, _kwargs):
+    if not isinstance(value, list):
+        raise CwhParameterError("IPアドレスのリストを指定してください", frame=currentframe())
+    if len(value) == 0:
+        raise CwhParameterError("IPアドレスのリストが空です", frame=currentframe())
+
+    vcp = params["vcp"]
+    provider = params["vc_provider"]
+    current_nodes = params.get("current_nodes", [])
+    for addr in value:
+        _check_ipv4_format(addr, currentframe())
+        _check_vpn_catalog(addr, vcp, provider, currentframe())
+        if provider == "onpremises" or addr in current_nodes:
+            continue
+        if _ipaddress_reachable(addr)[1]:
+            msg = f"指定されたIPアドレスは他のノードで利用されています: {addr}"
+            raise CwhParameterError(msg, frame=currentframe())

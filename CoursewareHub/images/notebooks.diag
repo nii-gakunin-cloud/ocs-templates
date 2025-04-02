@@ -105,23 +105,11 @@ blockdiag {
                 shape = line;
                 style = none;
                 orientation = portrait;
-                "951";
-                "952";
+                "811";
+                "831";
             }
-            group {
-                orientation = portrait;
-                shape = line;
-                style = none;
-                "953";
-                "954";
-            }
-            group {
-                orientation = portrait;
-                shape = line;
-                style = none;
-                "955";
-                "956";
-            }
+            "812";
+            "821";
         }
     }
 }

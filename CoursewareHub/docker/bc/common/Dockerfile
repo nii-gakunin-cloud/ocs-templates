@@ -5,9 +5,9 @@ RUN dnf -y update \
   && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------------------------------------------
-# https://github.com/CentOS/CentOS-Dockerfiles/tree/master/systemd/centos7/Dockerfile
+# https://hub.docker.com/r/rockylinux/rockylinux
 
-ENV container docker
+ENV container=docker
 
 # hadolint ignore=DL3003,SC2086
 RUN (cd /lib/systemd/system/sysinit.target.wants/ && for i in *; do [ $i = systemd-tmpfiles-setup.service ] || [ $i = systemd-udevd.service ] || [ $i = systemd-user-sessions.service ] || rm -f $i; done); \

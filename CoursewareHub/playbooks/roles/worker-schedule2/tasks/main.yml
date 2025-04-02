@@ -1,0 +1,56 @@
+- file:
+    state: directory
+    path: "{{ worker_schedule_dir }}"
+    mode: 0700
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- template:
+    src: compose.yaml.j2
+    dest: "{{ worker_schedule_dir }}/compose.yaml"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- file:
+    state: directory
+    path: "{{ worker_schedule_dir }}/config"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- copy:
+    src: /notebooks/notebook/vcp_config/vcp_config.yml
+    dest: "{{ worker_schedule_dir }}/config/"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- copy:
+    src: /notebooks/notebook/vcp_config/vcp_flavor.yml
+    dest: "{{ worker_schedule_dir }}/config/"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- file:
+    state: directory
+    path: "{{ worker_schedule_dir }}/secrets"
+    mode: 0700
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- copy:
+    dest: "{{ worker_schedule_dir }}/secrets/SSH_PRIVATE_KEY"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+    mode: 0600
+    content: |
+        {{ lookup('file', ssh_private_key_path) }}
+- copy:
+    dest: "{{ worker_schedule_dir }}/secrets/VCC_ACCESS_TOKEN"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+    mode: 0600
+    content: |-
+        {{ vcc_access_token }}
+- copy:
+    dest: "{{ worker_schedule_dir }}/secrets/REGISTRY_PASSWORD"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+    mode: 0600
+    content: |-
+      {{ registry_pass }}
+- command:
+    cmd: docker compose pull
+    chdir: "{{ worker_schedule_dir }}"

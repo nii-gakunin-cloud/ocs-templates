@@ -1,5 +1,0 @@
-- hosts: all
-  roles:
-    - role: worker-scale-out
-  become: true
-

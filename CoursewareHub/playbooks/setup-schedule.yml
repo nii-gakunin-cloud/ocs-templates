@@ -1,0 +1,5 @@
+- hosts: all
+  become: true
+  roles:
+    - worker-schedule2
+    - systemd-worker-schedule2
