@@ -49,6 +49,10 @@ CoursewareHubでは、教材配布、課題の回答収集、操作履歴の収�
 (VCP SDK v22.04対応 (AWS、Azure、mdxで動作確認済み))<br>
 Pythonによるプログラムの共同開発や講義演習などを行うのに適したJupyterHubの中で小規模グループ用である「The Littlest JupyterHub」の環境構築をおこなう。
 
+- [MCJ-CloudHub環境構築テンプレート](https://github.com/nii-gakunin-cloud/mcj-cloudhub)
+複数科目で共同・同時利用可能なWeb型プログラミング演習システムであるMCJ-CloudHubの環境構築・運用を行う。
+MCJ-CloudHubは、Web型プログラミング演習環境としてJupyterHubを、課題の配布・回収・採点ツールとしてnbgraderを採用し、複数科目で共同・同時利用可能とするために独自の改修・設定を行っている。 
+
 
 なお，以下のテンプレートは保守を終了しました．代替となる上記テンプレートの利用をおすすめします．
 
