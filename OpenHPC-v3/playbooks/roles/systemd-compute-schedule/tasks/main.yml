@@ -1,0 +1,11 @@
+- template:
+    src: ohpc-compute-schedule.service.j2
+    dest: "{{ systemd_dir }}/ohpc-compute-schedule.service"
+- template:
+    src: ohpc-compute-schedule.timer.j2
+    dest: "{{ systemd_dir }}/ohpc-compute-schedule.timer"
+- systemd:
+    name: ohpc-compute-schedule.timer
+    state: started
+    enabled: true
+    daemon_reload: true

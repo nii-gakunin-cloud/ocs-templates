@@ -94,6 +94,17 @@ def check_parameter_compute_nodes(value, params, kwargs):
             '#計算ノードのノード数')
 
 
+def check_parameter_max_compute_nodes(value, params, kwargs):
+    if not isinstance(value, int):
+        raise OhpcParameterError(
+            f"最大ノード数には整数を指定してください: {value}",
+            '#計算ノードのノード数')
+    if value < kwargs['compute_nodes']:
+        raise OhpcParameterError(
+            f"最大ノード数は計算ノード数以上の値を指定してください: {value}",
+            '#計算ノードのノード数')
+
+
 def check_parameter_compute_flavor(flavor, params, kwargs):
     try:
         spec = params['vcp'].get_spec(params['vc_provider'], flavor)
@@ -101,6 +112,26 @@ def check_parameter_compute_flavor(flavor, params, kwargs):
         raise OhpcParameterError(
             f"定義されていないflavorが指定されました: {flavor}",
             '#計算ノードのflavor')
+
+
+def check_parameter_compute_use_gpu(value, params, kwargs):
+    if not isinstance(value, bool):
+        raise OhpcParameterError(
+            f"真偽値以外の値が指定されました: {value}",
+            '#計算ノードにおけるGPUの利用')
+
+
+def check_parameter_compute_gpus(value, params, kwargs):
+    if not kwargs['compute_use_gpu']:
+        return
+    if not isinstance(value, int):
+        raise OhpcParameterError(
+            f"GPU数には整数を指定してください: {value}",
+            '#計算ノードにおけるGPUの利用')
+    if value < 1:
+        raise OhpcParameterError(
+            f"GPU数には1以上の値を指定してください: {value}",
+            '#計算ノードにおけるGPUの利用')
 
 
 def check_parameter_master_flavor(flavor, params, kwargs):
@@ -218,3 +249,8 @@ def spec_add_host_list(gvars):
 
 def spec_env_slurm_conf(gvars):
     return ','.join([f'{k}:{v}' for k, v in gvars["slurm_conf"].items()])
+
+
+def spec_env_slurm_partitions(gvars):
+    return ','.join([f'{k}:{v}' for k, v in gvars["slurm_partitions"].items()])
+

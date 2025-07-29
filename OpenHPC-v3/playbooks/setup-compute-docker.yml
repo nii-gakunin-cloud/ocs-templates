@@ -1,0 +1,9 @@
+- hosts: all
+  become: true
+  roles:
+    - role: docker
+      when: vcnode_schedule is not defined
+    - role: nvidia-container-toolkit
+      when: vcnode_schedule is not defined and compute_use_gpu
+    - role: use-docker-for-schedule
+      when: vcnode_schedule is defined

@@ -1,0 +1,6 @@
+{% if environ("CLUSTER") is none -%}
+ClusterName=cluster
+{% else -%}
+ClusterName={{ environ("CLUSTER") }}
+{%- endif %}
+SlurmctldHost={{ environ("MASTER_HOSTNAME") }}

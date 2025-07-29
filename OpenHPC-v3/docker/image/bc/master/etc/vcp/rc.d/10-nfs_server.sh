@@ -33,7 +33,7 @@ copy_and_bind() {
 
   rsync -a $src_dir $dst_pdir
   if ! grep -q -e "$dst_dir" /etc/fstab; then
-    echo "$dst_dir $src_dir none bind,noauto,x-systemd.automount 0 0" >> /etc/fstab
+    echo "$dst_dir $src_dir none bind,noauto 0 0" >> /etc/fstab
   fi
   mount --bind $dst_dir $src_dir
   [ $(fstype $src_dir) = "$FS_TYPE" ]
@@ -42,7 +42,7 @@ copy_and_bind() {
 setup_home() {
   mkdir -p ${EXPORTS_DIR}/home
   if ! grep -q -e "/home" /etc/fstab; then
-    echo "$EXPORTS_DIR/home /home none bind,noauto,x-systemd.automount 0 0" >> /etc/fstab
+    echo "$EXPORTS_DIR/home /home none bind,noauto 0 0" >> /etc/fstab
   fi
   mount --bind ${EXPORTS_DIR}/home /home
   [ $(fstype /home) = "$FS_TYPE" ]

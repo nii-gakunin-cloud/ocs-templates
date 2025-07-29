@@ -1,0 +1,15 @@
+- dnf:
+    name: dnf-plugins-core
+    update_cache: yes
+    state: present
+- command:
+    cmd: dnf config-manager --add-repo https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo
+    creates: /etc/yum.repos.d/nvidia-container-toolkit.repo
+- dnf:
+    name:
+      - nvidia-container-toolkit
+    update_cache: yes
+    state: present
+  notify:
+    - setup nvidia-container-toolkit
+    - restart docker

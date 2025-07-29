@@ -5,17 +5,7 @@ blockdiag {
     group {
         color = "#e6e6fa";
         label = "環境構築";
-        group {
-            shape = line;
-            style = none;
-            "010" -> "020";
-        }
-        group {
-            shape = line;
-            style = none;
-            "031" -> "051";
-        }
-        "020" -> "031"[folded];
+        "010" -> "020" -> "051";
     }
 
     group {

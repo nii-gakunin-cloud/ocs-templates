@@ -4,14 +4,14 @@
     owner: "{{ansible_ssh_user}}"
   become: true
 - template:
-    src: docker-compose-setup-db.yml.j2
-    dest: /srv/moodle/setup/docker-compose-setup-db.yml
+    src: compose.setup-db.yaml.j2
+    dest: /srv/moodle/setup/compose.setup-db.yaml
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-db.yml pull
+    cmd: docker compose -f setup/compose.setup-db.yaml pull
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-db.yml up -d
+    cmd: docker compose -f setup/compose.setup-db.yaml up -d
 - file:
     path: /srv/moodle/db
     state: directory
@@ -31,7 +31,7 @@
   become: true
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-db.yml down
+    cmd: docker compose -f setup/compose.setup-db.yaml down
 - file:
     path: /srv/moodle/db/data
     state: directory

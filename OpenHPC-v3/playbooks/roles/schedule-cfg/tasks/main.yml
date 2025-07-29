@@ -1,0 +1,11 @@
+- file:
+    state: directory
+    path: "{{ compute_schedule_dir }}/schedule"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- template:
+    src: schedule.yaml.j2
+    dest: "{{ compute_schedule_dir }}/schedule/schedule.yaml"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+    backup: true

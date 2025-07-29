@@ -1,0 +1,10 @@
+- template:
+    src: compose.override.yaml.j2
+    dest: "{{ compute_schedule_dir }}/compose.override.yaml"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+    backup: true
+- command:
+    cmd: docker compose up
+    chdir: "{{ compute_schedule_dir }}"
+  when: confirm is defined and confirm

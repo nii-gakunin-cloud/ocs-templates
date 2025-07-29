@@ -1,0 +1,11 @@
+SLURMD_OPTIONS=
+{%- if environ("MASTER_HOSTNAME") is not none -%}
+--conf-server {{ environ("MASTER_HOSTNAME") }}
+{%- endif %} {% if environ("FEATURE") is not none -%}
+-Z --conf "
+{%- if environ("GPUS") is not none -%}
+Gres=gpu:{{ environ("GPUS") }} {% endif -%}
+Feature={{ environ("FEATURE") }}"
+{%- endif %} {% if environ("SLURMD_OPTIONS") is not none -%}
+{{ environ("SLURMD_OPTIONS") }}
+{%- endif %}

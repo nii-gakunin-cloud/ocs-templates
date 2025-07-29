@@ -1,0 +1,25 @@
+services:
+  ansible:
+    image: {{ ansible_image_name }}
+    network_mode: host
+    volumes:
+      - ./config:/home/vcp/.config/vcp
+      - ./schedule:/home/vcp/schedule
+    environment:
+      UGROUP_NAME: {{ ugroup_name }}
+      UNIT_NAME: {{ compute_unit_name }}
+      CONTROLLER: {{ master_ipaddress }}
+      IP_ADDRESS: {% for it in compute_etc_hosts -%}
+              {{ it }}
+              {%- if not loop.last -%} , {%- endif -%}
+          {%- endfor %}
+
+      TZ: Asia/Tokyo
+    secrets:
+      - VCC_ACCESS_TOKEN
+      - SSH_PRIVATE_KEY
+secrets:
+  VCC_ACCESS_TOKEN:
+    file: ./secrets/VCC_ACCESS_TOKEN
+  SSH_PRIVATE_KEY:
+    file: ./secrets/SSH_PRIVATE_KEY

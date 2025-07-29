@@ -299,5 +299,5 @@ def check_version(version):
     vers = [int(x) for x in version.split(".")]
     if len(vers) < 2 or len(vers) > 3:
         return False
-    return vers[0] == 4 and (vers[1] == 1 or vers[1] >= 3)
+    return (vers[0] == 4 and (vers[1] == 1 or vers[1] >= 4)) or vers[0] == 5
 

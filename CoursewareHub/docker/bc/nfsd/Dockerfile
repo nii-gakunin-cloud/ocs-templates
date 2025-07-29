@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM cwh-common
 
 RUN dnf -y install dnsmasq \

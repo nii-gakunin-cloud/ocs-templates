@@ -4,14 +4,14 @@
     owner: "{{ansible_ssh_user}}"
   become: true
 - template:
-    src: docker-compose-setup-moodle.yml.j2
-    dest: /srv/moodle/setup/docker-compose-setup-moodle.yml
+    src: compose.setup-moodle.yaml.j2
+    dest: /srv/moodle/setup/compose.setup-moodle.yaml
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-moodle.yml pull
+    cmd: docker compose -f setup/compose.setup-moodle.yaml pull
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-moodle.yml up -d
+    cmd: docker compose -f setup/compose.setup-moodle.yaml up -d
 - file:
     path: /srv/moodle/moodle
     state: directory
@@ -75,7 +75,7 @@
   become: true
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-moodle.yml down
+    cmd: docker compose -f setup/compose.setup-moodle.yaml down
 - stat:
     path: "/srv/moodle/moodle/data/php.{{ date_time.stdout }}/config.php"
   register: config_php

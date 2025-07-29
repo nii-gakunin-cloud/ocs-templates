@@ -5,30 +5,34 @@
 : ${MAX_RETRY:=180}
 : ${EXPORT_DIR:=/exported}
 
-check_device () {
-NFS_DEV=$(lsblk -P -s -d | egrep -e 'MOUNTPOINTS?=""' | sed -r -n -e '/TYPE="disk"/s/NAME="([^"]+)".*/\1/p' | head -1)
-retry=0
-while [[ -z "$NFS_DEV" ]]; do
-  sleep 10
-  retry=$((retry + 1))
-  NFS_DEV=$(lsblk -P -s -d | egrep -e 'MOUNTPOINTS?=""' | sed -r -n -e '/TYPE="disk"/s/NAME="([^"]+)".*/\1/p' | head -1)
-  if [[ $retry -gt $MAX_RETRY ]]; then
-    echo "cannot find block device" >&2
-    exit 1
-  fi
-done
+get_nfs_dev() {
+  lsblk -J | jq -r '.blockdevices[] | select(.type=="disk" and (.children|not)) | .name' | sort -r | head -1
+}
 
-NFS_DEV="/dev/${NFS_DEV}"
-retry=0
-until [[ -b ${NFS_DEV} ]]; do
-  echo "wait ${NFS_DEV}"
-  sleep 1
-  retry=$((retry + 1))
-  if [[ $retry -gt $MAX_RETRY ]]; then
-    echo "ERROR!"
-    exit 1
-  fi
-done
+check_device () {
+  NFS_DEV=$(get_nfs_dev)
+  retry=0
+  while [[ -z "$NFS_DEV" ]]; do
+    sleep 10
+    retry=$((retry + 1))
+    NFS_DEV=$(get_nfs_dev)
+    if [[ $retry -gt $MAX_RETRY ]]; then
+      echo "cannot find block device" >&2
+      exit 1
+    fi
+  done
+
+  NFS_DEV="/dev/${NFS_DEV}"
+  retry=0
+  until [[ -b ${NFS_DEV} ]]; do
+    echo "wait ${NFS_DEV}"
+    sleep 1
+    retry=$((retry + 1))
+    if [[ $retry -gt $MAX_RETRY ]]; then
+      echo "ERROR!"
+      exit 1
+    fi
+  done
 }
 
 mkfs_nfs_dev () {

@@ -1,0 +1,8 @@
+- copy:
+    src: compose.default-nodes.yaml
+    dest: "{{ compute_schedule_dir }}/"
+    owner: "{{ uid }}"
+    group: "{{ gid }}"
+- command:
+    cmd: docker compose -f compose.yaml -f compose.default-nodes.yaml up
+    chdir: "{{ compute_schedule_dir }}"

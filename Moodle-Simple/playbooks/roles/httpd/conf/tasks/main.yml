@@ -4,14 +4,14 @@
     owner: "{{ansible_ssh_user}}"
   become: true
 - template:
-    src: docker-compose-setup-ssl.yml.j2
-    dest: /srv/moodle/setup/docker-compose-setup-ssl.yml
+    src: compose.setup-ssl.yaml.j2
+    dest: /srv/moodle/setup/compose.setup-ssl.yaml
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-ssl.yml pull
+    cmd: docker compose -f setup/compose.setup-ssl.yaml pull
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-ssl.yml up -d
+    cmd: docker compose -f setup/compose.setup-ssl.yaml up -d
 - file:
     path: /srv/moodle/httpd
     state: directory
@@ -28,4 +28,4 @@
   become: true
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-ssl.yml down
+    cmd: docker compose -f setup/compose.setup-ssl.yaml down

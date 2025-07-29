@@ -1,0 +1,9 @@
+services:
+  ansible:
+    environment:
+{% if compute_use_gpu %}
+      NVIDIA: "1"
+{% else %}
+      DOCKER: "1"
+{% endif %}
+

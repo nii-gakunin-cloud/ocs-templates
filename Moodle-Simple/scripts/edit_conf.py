@@ -237,7 +237,7 @@ def show_local_conf_diff(host, container, conf_path, version=None):
 
 
 def generate_docker_compose(host, conf_path, extra_vars, extra_vars_file):
-    template = "template/docker/compose/docker-compose.yml"
+    template = "template/docker/compose/compose.yaml"
     ansible_arg = f"src={template} dest={conf_path.parent}/"
     env = dict([(x, os.environ[x]) for x in ENV_INHERIT])
     args = ["ansible", host, "-m", "template", "-c", "local", "-a", ansible_arg]
@@ -256,7 +256,7 @@ def fetch_host_conf(host, conf_path):
 
 
 def fetch_docker_compose(host):
-    remote_path = MOODLE_DIR + "/docker-compose.yml"
+    remote_path = MOODLE_DIR + "/compose.yaml"
     return fetch_host_conf(host, remote_path)
 
 
@@ -267,7 +267,7 @@ def get_local_host_conf(host, conf_path, version=None):
 
 
 def get_local_docker_compose(host, version=None):
-    remote_path = MOODLE_DIR + "/docker-compose.yml"
+    remote_path = MOODLE_DIR + "/compose.yaml"
     return get_local_host_conf(host, remote_path, version)
 
 
@@ -278,7 +278,7 @@ def show_local_host_conf_diff(host, conf_path, version=None):
 
 
 def show_local_docker_compose_diff(host, version=None):
-    remote_path = MOODLE_DIR + "/docker-compose.yml"
+    remote_path = MOODLE_DIR + "/compose.yaml"
     show_local_host_conf_diff(host, remote_path, version)
 
 
@@ -292,13 +292,13 @@ def _upload_host_conf(host, local_path, remote_path):
 
 
 def upload_docker_compose(host, local_path, apply=True):
-    remote_path = MOODLE_DIR + "/docker-compose.yml"
+    remote_path = MOODLE_DIR + "/compose.yaml"
     _upload_host_conf(host, local_path, remote_path)
     if not apply:
         return
     ansible_arg = f"chdir={MOODLE_DIR} docker compose up -d --remove-orphans"
     args = ["ansible", host, "-a", ansible_arg]
-    logger.info("Apply the changes in docker-compose.yml.")
+    logger.info("Apply the changes in compose.yaml.")
     subprocess.run(args=args, check=True)
 
 

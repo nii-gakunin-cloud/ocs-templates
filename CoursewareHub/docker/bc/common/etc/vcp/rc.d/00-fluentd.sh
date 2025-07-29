@@ -9,4 +9,5 @@ cat >> $cfg <<EOF
 VCCC_ID=${VCCC_ID}
 VCCCTR_IPADDR=${VCCCTR_IPADDR}
 PRIVATE_IP=${PRIVATE_IP}
+FLUENT_CONF=/etc/fluentd/fluent.conf
 EOF

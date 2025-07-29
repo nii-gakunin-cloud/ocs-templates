@@ -1,0 +1,8 @@
+{%- if environ("GPUS") is not none %}
+{%- set gpus = environ("GPUS") | int -%}
+{%- if gpus > 1 -%}
+Name=gpu File=/dev/nvidia[0-{{ gpus - 1 }}]
+{% else -%}
+Name=gpu File=/dev/nvidia0
+{% endif -%}
+{% endif -%}

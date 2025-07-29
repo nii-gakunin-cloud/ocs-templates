@@ -1,0 +1,8 @@
+compute_schedule_dir: /srv/compute-schedule
+compute_unit_name: compute
+uid: 1000
+gid: 1000
+ansible_image_name: harbor.vcloud.nii.ac.jp/vcp/openhpc:scale
+systemd_dir: /etc/systemd/system
+update_interval: 15
+service_desc: Update the number of compute nodes in OpenHPC

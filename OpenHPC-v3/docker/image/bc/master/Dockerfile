@@ -1,6 +1,4 @@
-ARG TAG=3.2
-ARG REGISTRY=harbor.vcloud.nii.ac.jp
-FROM $REGISTRY/vcp/openhpc:common-$TAG
+FROM ohpc-common
 
 # ------------------------------------------------------------
 # Add baseline OpenHPC and provisioning services (Section 3.3)
@@ -28,7 +26,7 @@ RUN perl -pi -e 's/# End of file/\* soft memlock unlimited\n$&/s' /etc/security/
  && perl -pi -e 's/# End of file/\* hard memlock unlimited\n$&/s' /etc/security/limits.conf
 
 # -------------------------------------------------------
-# Configure rsyslog on SMS and computes (Section 3.8.4.7)
+# Configure rsyslog on SMS and computes (Section 3.8.4.12)
 # -------------------------------------------------------
 
 # Optionally, enable nhc and configure
@@ -58,7 +56,7 @@ RUN dnf -y install gnu14-compilers-ohpc \
 # --------------------------------
 # Install MPI Stacks (Section 4.3)
 # --------------------------------
-RUN dnf -y install openmpi5-gnu14-ohpc mpich-ofi-gnu14-ohpc \
+RUN dnf -y install openmpi5-pmix-gnu14-ohpc mpich-ofi-gnu14-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
@@ -116,4 +114,3 @@ RUN dnf -y remove singularity-ce \
  && dnf -y install apptainer \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
-

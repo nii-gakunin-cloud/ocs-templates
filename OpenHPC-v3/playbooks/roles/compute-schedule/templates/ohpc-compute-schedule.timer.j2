@@ -1,0 +1,8 @@
+[Unit]
+Description={{ service_desc }}
+
+[Timer]
+OnCalendar=*:0/{{ update_interval }}
+
+[Install]
+WantedBy=timers.target

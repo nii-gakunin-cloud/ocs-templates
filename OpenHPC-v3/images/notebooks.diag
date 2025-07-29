@@ -1,5 +1,5 @@
 blockdiag {
-    node_width = 220;
+    node_width = 235;
     node_height = 160;
 
     group {
@@ -15,13 +15,6 @@ blockdiag {
             shape = line;
             style = none;
             group {
-                shape = line;
-                style = none;
-                orientation = portrait;
-                "031";
-                "032";
-            }
-            group {
                 orientation = portrait;
                 shape = line;
                 style = none;
@@ -29,8 +22,6 @@ blockdiag {
                 "071";
             }
         }
-        "020" -> "031"[folded];
-        "020" -> "032"[folded];
         "020" -> "051"[folded];
         "020" -> "071"[folded];
     }
@@ -68,26 +59,38 @@ blockdiag {
         "052";
     }
     group {
-        label = "mdx";
-        color = "#b6a5c4";
-        orientation = portrait;
-        "081";
-        "082";
-    }
-    group {
         shape = line;
         style = none;
         orientation = portrait;
         group {
-            label = "停止、再開";
-            color = "#dcd3b2";
-            "911";
-            "912";
+            label = "ノード操作";
+            color = "#b6a5c4";
+            orientation = portrait;
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "081";
+                "082";
+            }
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "911";
+                "912";
+            }
         }
         group {
             label = "破棄";
             color = "#6a5d21";
             "920";
         }
+    }
+    group {
+        label = "計算ノード数のスケジュール設定";
+        color = "#c69cc5";
+        "811" -> "812" -> "821";
+        "811" -> "821";
     }
 }

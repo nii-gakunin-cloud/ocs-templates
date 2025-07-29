@@ -4,7 +4,7 @@
 : ${FPM_CONNECT:=/run/php-fpm/www.sock}
 
 check_http() {
-  if curl -sfI http://localhost &> /dev/null; then
+  if curl -sfI http://localhost/admin &> /dev/null; then
     return 0
   else
     return 1

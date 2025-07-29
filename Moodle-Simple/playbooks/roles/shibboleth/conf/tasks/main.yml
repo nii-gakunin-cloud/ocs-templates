@@ -4,14 +4,14 @@
     owner: "{{ansible_ssh_user}}"
   become: true
 - template:
-    src: docker-compose-setup-shibboleth.yml.j2
-    dest: /srv/moodle/setup/docker-compose-setup-shibboleth.yml
+    src: compose.setup-shibboleth.yaml.j2
+    dest: /srv/moodle/setup/compose.setup-shibboleth.yaml
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-shibboleth.yml pull
+    cmd: docker compose -f setup/compose.setup-shibboleth.yaml pull
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-shibboleth.yml up -d
+    cmd: docker compose -f setup/compose.setup-shibboleth.yaml up -d
 - file:
     path: /srv/moodle/shibboleth
     state: directory
@@ -32,7 +32,7 @@
   become: true
 - command:
     chdir: /srv/moodle
-    cmd: docker compose -f setup/docker-compose-setup-shibboleth.yml down
+    cmd: docker compose -f setup/compose.setup-shibboleth.yaml down
 - file:
     path: /srv/moodle/shibboleth/conf/shibboleth/metadata
     state: directory

@@ -16,6 +16,7 @@ setup_munge_service() {
   local service_path=/usr/lib/systemd/system/munge.service
   if [[ -f $service_path ]]; then
     sed -i -e '/ExecStart=/s/--syslog//' $service_path
+    sed -ri -e "/^PIDFile=/s#PIDFile=/var/run/#PIDFile=/run/#" $service_path
   fi
 }
 

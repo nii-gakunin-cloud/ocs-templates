@@ -1,0 +1,7 @@
+[Service]
+ExecStart=/usr/local/bin/execute_user_init_command.sh
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

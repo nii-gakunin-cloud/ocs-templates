@@ -5,6 +5,6 @@
     delaycompress
     daily
     postrotate
-        /usr/bin/docker compose -f /srv/moodle/docker-compose.yml exec -T moodle /usr/sbin/httpd -k graceful > /dev/null 2>/dev/null || true
+        /usr/bin/docker compose -f /srv/moodle/compose.yaml exec -T moodle /usr/sbin/httpd -k graceful > /dev/null 2>/dev/null || true
     endscript
 }

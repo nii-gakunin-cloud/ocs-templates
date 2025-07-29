@@ -1,0 +1,7 @@
+- command:
+    cmd: "{{ ansible_python_interpreter }} -m venv {{ venv_dir }}"
+    creates: "{{ venv_dir }}"
+- pip:
+    name: "file://{{ ansible_env.PWD }}/roles/vcp-schedule-utils/files/{{ pip_file }}"
+    virtualenv: "{{ venv_dir }}"
+    virtualenv_command: "{{ ansible_python_interpreter }} -m venv"

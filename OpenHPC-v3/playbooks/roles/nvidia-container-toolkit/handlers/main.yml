@@ -1,0 +1,6 @@
+- name: setup nvidia-container-toolkit
+  command: nvidia-ctk runtime configure --runtime=docker
+- name: restart docker
+  systemd:
+    name: docker
+    state: restarted

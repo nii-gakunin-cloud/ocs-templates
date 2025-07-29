@@ -1,6 +1,4 @@
-ARG TAG=3.2
-ARG REGISTRY=harbor.vcloud.nii.ac.jp
-FROM $REGISTRY/vcp/openhpc:common-$TAG
+FROM ohpc-common
 
 # ------------------------------------------------------------
 # Add OpenHPC base components to compute image (Section 3.8.2)
@@ -36,6 +34,14 @@ RUN dnf -y install nhc-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
+# ------------------------------------------------------------
+# Apptainer
+# ------------------------------------------------------------
+RUN dnf -y remove singularity-ce \
+ && dnf -y install apptainer \
+ && dnf clean all \
+ && rm -rf /var/cache/dnf/*
+
 # VCP customize
 COPY etc /etc/
 
@@ -55,4 +61,3 @@ RUN dnf -y remove singularity-ce \
  && dnf -y install apptainer \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
-

@@ -1,0 +1,90 @@
+{% if environ("CLUSTER") is none -%}
+ClusterName=cluster
+{% else -%}
+ClusterName={{ environ("CLUSTER") }}
+{%- endif %}
+SlurmctldHost={{ environ("HOSTNAME") }}
+
+{% if environ("GPUS") is not none -%}
+GresTypes=gpu
+{%- endif %}
+MpiDefault=none
+ProctrackType=proctrack/cgroup
+ReturnToService=1
+SlurmctldPidFile=/var/run/slurm/slurmctld.pid
+SlurmctldPort=6817
+SlurmdPidFile=/var/run/slurm/slurmd.pid
+SlurmdPort=6818
+SlurmdSpoolDir=/var/spool/slurmd
+SlurmUser=slurm
+StateSaveLocation=/var/spool/slurmctld
+SwitchType=switch/none
+
+# TIMERS
+InactiveLimit=0
+KillWait=30
+MinJobAge=300
+SlurmctldTimeout=120
+SlurmdTimeout=300
+Waittime=0
+
+# SCHEDULING
+SchedulerType=sched/backfill
+SelectType=select/cons_tres
+SelectTypeParameters=CR_Core_Memory
+
+# LOGGING AND ACCOUNTING
+AccountingStorageType=accounting_storage/none
+JobAcctGatherFrequency=30
+JobAcctGatherType=jobacct_gather/none
+SlurmctldDebug=info
+SlurmctldLogFile=/var/log/slurm/slurmctld.log
+SlurmdDebug=info
+SlurmdLogFile=/var/log/slurm/slurmd.log
+
+# OpenHPC default configuration
+# Enable the task/affinity plugin to add the --cpu-bind option to srun for GEOPM
+TaskPlugin=task/affinity
+PropagateResourceLimitsExcept=MEMLOCK
+JobCompType=jobcomp/filetxt
+Epilog=/etc/slurm/slurm.epilog.clean
+# Enable configless option
+SlurmctldParameters=enable_configless
+# Setup interactive jobs for salloc
+LaunchParameters=use_interactive_step
+{%- if environ("ENABLE_NSS_SLURM") is not none -%}
+,enable_nss_slurm
+{%- endif %}
+
+# COMPUTE NODES
+{% if environ("SLURM_NODE_PARAMS") is not none -%}
+{%- set ns = namespace(nodename="", params="") -%}
+{%- for item in environ("SLURM_NODE_PARAMS").split(",") -%}
+{%- set key, value = item.split(":", 1) -%}
+{%- if key == "NodeName" -%}
+{%- set ns.nodename = value -%}
+{%- else -%}
+{%- set ns.params = ns.params + " " + key + "=" + value -%}
+{%- endif -%}
+{%- endfor -%}
+NodeName={{ ns.nodename }}{{ ns.params }} State=UNKNOWN
+PartitionName=normal Nodes={{ ns.nodename }} Default=YES MaxTime=24:00:00 State=UP Oversubscribe=EXCLUSIVE
+{% elif environ("DYNAMIC_NODES") is not none -%}
+MaxNodeCount={{ environ("DYNAMIC_NODES") }}
+{% if environ("PARTITIONS") is not none -%}
+{% for item in environ("PARTITIONS").split(",") -%}
+{%- set params = item.split(":") -%}
+{% if params | length == 2 -%}
+{%- set partition, feature = params -%}
+Nodeset=ns-{{ feature }} Feature={{ feature }}
+PartitionName=all Nodes=ALL Default=yes
+PartitionName={{ partition }} Nodes=ns-{{ feature }}
+{% elif params | length == 3 -%}
+{%- set partition, feature, nodeset = params -%}
+Nodeset={{ nodeset }} Feature={{ feature }}
+PartitionName=all Nodes=ALL Default=yes
+PartitionName={{ partition }} Nodes={{ nodeset }}
+{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- endif %}

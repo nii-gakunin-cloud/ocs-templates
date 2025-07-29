@@ -1,12 +1,8 @@
-ARG TAG=3.2
-ARG REGISTRY=harbor.vcloud.nii.ac.jp
-
-FROM golang:1.22-bookworm AS builder
+FROM golang:1.24-bookworm AS builder
 RUN go install github.com/mindprince/nvidia_gpu_prometheus_exporter@latest
 
-FROM $REGISTRY/vcp/openhpc:compute-$TAG
+FROM ohpc-compute
 
-# hadolint ignore=DL3041
 RUN dnf config-manager --add-repo \
       https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/cuda-rhel9.repo \
  && dnf clean all \

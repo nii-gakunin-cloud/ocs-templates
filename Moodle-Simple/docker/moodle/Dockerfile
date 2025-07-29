@@ -1,4 +1,5 @@
-FROM rockylinux:9.3.20231119
+# syntax=docker/dockerfile:1
+FROM rockylinux/rockylinux:9.6.20250531
 
 RUN dnf -y update \
  && dnf -y install 'dnf-command(config-manager)' \
@@ -19,7 +20,7 @@ ARG REMI_URL=http://ftp.riken.jp/Linux/remi/enterprise/remi-release-9.rpm
 RUN dnf -y install ${REMI_URL} \
  && dnf clean all
 
-ARG PHP_VERSION=8.3
+ARG PHP_VERSION=8.4
 RUN dnf -y module reset php \
  && dnf -y module install php:remi-${PHP_VERSION} \
  && dnf -y install \
@@ -60,4 +61,4 @@ COPY etc /etc/
 COPY scripts /usr/local/bin/
 EXPOSE 80
 CMD ["/usr/local/bin/init"]
-HEALTHCHECK --interval=10s --start-period=10s --start-interval=30s --retries=10 CMD /usr/local/bin/healthcheck
+HEALTHCHECK --interval=10s --start-period=150s --retries=6 CMD /usr/local/bin/healthcheck

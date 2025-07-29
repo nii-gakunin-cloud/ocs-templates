@@ -5,7 +5,7 @@
     compress
     sharedscripts
     postrotate
-      /usr/bin/docker compose -f /srv/moodle/docker-compose.yml exec -T db \
+      /usr/bin/docker compose -f /srv/moodle/compose.yaml exec -T db \
           /usr/bin/mysqladmin --local \
           flush-error-log flush-engine-log flush-general-log flush-slow-log
     endscript

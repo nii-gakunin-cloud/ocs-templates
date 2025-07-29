@@ -9,3 +9,5 @@ VCCC_ID=${VCCC_ID}
 VCCCTR_IPADDR=${VCCCTR_IPADDR}
 PRIVATE_IP=${PRIVATE_IP}
 EOF
+
+sed -ri -e "/^PIDFile=/s#PIDFile=/var/run/#PIDFile=/run/#" /usr/lib/systemd/system/fluentd.service
