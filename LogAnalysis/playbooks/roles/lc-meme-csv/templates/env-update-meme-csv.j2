@@ -1,0 +1,7 @@
+NB_PATH={{ notebook_dir }}
+MEME_CSV_FILE={{ csv_file }}
+PATH={{ venv_dir }}/bin:/bin:/usr/bin:/usr/local/bin
+COURSE_SERVER="true"
+{% if qlabel_pattern is defined %}
+QLABEL_PATTERN="{{ qlabel_pattern }}"
+{% endif %}

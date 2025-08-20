@@ -1,0 +1,7 @@
+lc_wrapper_dir: /var/lib/lc-wrapper
+csv_file: "{{ lc_wrapper_dir }}/meme.csv"
+venv_dir: "{{ lc_wrapper_dir }}/.venv"
+memeid_pkg_version: 0.4.0
+memeid_pkg: "memeid_extractor-{{ memeid_pkg_version }}-py3-none-any.whl"
+memeid_cmd: "{{ venv_dir }}/bin/memeid-extractor"
+notebook_dir: /jupyter/admin/textbook

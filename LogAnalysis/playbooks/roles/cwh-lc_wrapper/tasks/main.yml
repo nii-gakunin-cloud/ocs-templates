@@ -1,0 +1,11 @@
+- name: Create directory for additional JupyterHub config files
+  file:
+    path: /etc/jupyterhub/jupyterhub_config.d
+    state: directory
+  become: true
+- name: Configure JupyterHub for fluentd integration with lc_wrapper
+  template:
+    src: lc_wrapper.py.j2
+    dest: /etc/jupyterhub/jupyterhub_config.d/lc_wrapper.py
+  become: true
+  notify: restart jupyterhub

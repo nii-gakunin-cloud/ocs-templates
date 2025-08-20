@@ -1,0 +1,5 @@
+*.gem
+Gemfile.lock
+/test/reports
+/*.md
+!/README.md

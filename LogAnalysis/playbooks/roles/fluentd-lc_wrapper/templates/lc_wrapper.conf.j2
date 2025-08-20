@@ -1,0 +1,107 @@
+<source>
+  @type forward
+  port 24224
+  bind "#{ENV['PRIVATE_IP']}"
+</source>
+
+<filter {{ tag }}.**>
+  @type parser
+  key_name log
+  <parse>
+    @type lc_wrapper
+  </parse>
+</filter>
+
+<filter {{ tag }}.**>
+  @type related_info
+  <map>
+    path /etc/passwd
+    delimiter ":"
+    field_names user_name, x, uid
+    key uid
+    value user_name
+  </map>
+</filter>
+
+<filter {{ tag }}.**>
+  @type record_modifier
+  <record>
+    local_name ${record['user_name'].rpartition('x')[0]}
+    lc_cell_meme_uuid ${record['lc_cell_meme'].split('-')[0..4].join('-')}
+  </record>
+</filter>
+
+<filter {{ tag }}.**>
+  @type related_info
+  key lc_cell_meme_uuid
+  <map>
+    path {{ csv_file }}
+    format csv
+    header true
+    key lc_cell_meme
+    value qno{% if qlabel_pattern is defined %}, qlabel{% endif %}
+
+  </map>
+</filter>
+
+<filter {{ tag }}.**>
+  @type related_info
+  <map>
+    path {{ csv_file }}
+    format csv
+    header true
+    key lc_notebook_meme
+    value textbook_path, course_server
+  </map>
+</filter>
+
+<filter {{ tag }}.**>
+  @type attach_file
+  key result
+  output_key result_json
+  base_dir {{ jupyter_home_dir }}
+  trim_path_levels 1
+  python_unpickle true
+  as_json true
+</filter>
+
+<filter {{ tag }}.**>
+  @type record_modifier
+  <record>
+{% if result2text_jsonpath is defined and result2text_jsonpath | length > 0 %}
+    result_text ${require 'jsonpath';
+{%- for jpath in result2text_jsonpath -%}
+{%- if not loop.first %} || {% endif -%}
+JsonPath.new('{{ jpath }}').on(record["result_json"]).first
+{%- endfor -%}
+    }
+{% else %}
+    result_text ${require 'jsonpath'; JsonPath.new('$.content.data["text/plain"]').on(record["result_json"]).first}
+{% endif %}
+  </record>
+</filter>
+
+<match {{ tag }}.**>
+  @type elasticsearch
+  host {{ es_url | urlsplit('hostname') }}
+  port {{ es_url | urlsplit('port') }}
+  scheme {{ es_url | urlsplit('scheme') }}
+{% if es_ssl_verify is defined %}
+  ssl_verify {{ es_ssl_verify | tojson }}
+{% endif %}
+{% if es_user is defined %}
+  user {{ es_user }}
+{% endif %}
+{% if es_password is defined %}
+  password {{ es_password }}
+{% endif %}
+{% set es_url_path = es_url | urlsplit('path') %}
+{%if es_url_path is not none and es_url_path | length > 0 %}
+  path {{ es_url | urlsplit('path') }}
+{% endif %}
+  logstash_format true
+  logstash_prefix {{ index_prefix }}
+  <buffer>
+    flush_mode immediate
+  </buffer>
+</match>

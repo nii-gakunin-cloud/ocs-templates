@@ -1,0 +1,37 @@
+- name: Create lc_wrapper_dir directory
+  file:
+    path: "{{ lc_wrapper_dir }}"
+    state: directory
+    recurse: true
+- name: Create temporary working directory for memeid package
+  tempfile:
+    state: directory
+  register: workdir_1
+- block:
+    - name: Copy memeid package to temporary directory
+      copy:
+        src: "{{ memeid_pkg }}"
+        dest: "{{ workdir_1.path }}/"
+    - name: Install memeid package into virtualenv
+      pip:
+        name: "file://{{ workdir_1.path }}/{{ memeid_pkg }}"
+        version: "{{ memeid_pkg_version }}"
+        virtualenv: "{{ venv_dir }}"
+        virtualenv_command: "/usr/bin/python3.11 -m venv"
+      notify: start update-meme-csv service
+  always:
+    - name: Remove temporary working directory for memeid package
+      file:
+        path: "{{ workdir_1.path }}"
+        state: absent
+      when: workdir_1.path is defined
+- name: Deploy update-meme-csv systemd service file from template
+  template:
+    src: update-meme-csv.service.j2
+    dest: /etc/systemd/system/update-meme-csv.service
+  notify: start update-meme-csv service
+- name: Deploy update-meme-csv environment file from template
+  template:
+    src: env-update-meme-csv.j2
+    dest: /etc/sysconfig/update-meme-csv
+  notify: start update-meme-csv service

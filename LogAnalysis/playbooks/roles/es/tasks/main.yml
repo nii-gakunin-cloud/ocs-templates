@@ -1,0 +1,11 @@
+- file:
+    path: "{{ es_path }}"
+    state: directory
+    recurse: true
+- template:
+    src: compose.yaml.j2
+    dest: "{{ es_path }}/compose.yaml"
+- template:
+    src: env.j2
+    dest: "{{ es_path }}/.env"
+

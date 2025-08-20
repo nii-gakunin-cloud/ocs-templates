@@ -1,0 +1,3 @@
+- name: restart jupyterhub
+  command: docker service update --force coursewarehub_jupyterhub
+  become: true

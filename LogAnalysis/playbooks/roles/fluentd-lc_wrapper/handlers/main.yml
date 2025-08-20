@@ -1,0 +1,6 @@
+
+- name: reload fluentd
+  systemd:
+    name: fluentd
+    state: reloaded
+  become: true

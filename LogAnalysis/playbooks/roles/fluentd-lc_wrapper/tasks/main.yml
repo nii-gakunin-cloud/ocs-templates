@@ -1,0 +1,62 @@
+- name: Import variables from lc-meme-csv role
+  import_role:
+    name: lc-meme-csv
+    tasks_from: nop
+- name: Detect gem command path
+  import_tasks:
+    file: cmd_gem.yml
+- name: Create temporary working directory for gem files
+  tempfile:
+    state: directory
+  register: workdir_1
+- block:
+    - name: Copy local gem files to temporary directory
+      copy:
+        src: "{{ item }}"
+        dest: "{{ workdir_1.path }}/"
+      loop:
+        - "{{ gem_lc_wrapper }}"
+        - "{{ gem_related_info }}"
+        - "{{ gem_attach_file }}"
+    - block:
+        - name: Install fluentd plugins from official gem repository
+          community.general.gem:
+            name: "{{ item }}"
+            executable: "{{ cmd_gem }}"
+            user_install: false
+          loop:
+            - fluent-plugin-elasticsearch
+            - fluent-plugin-record-modifier
+            - jsonpath
+          notify:
+            - reload fluentd
+        - name: Install fluentd plugins from local gem files
+          community.general.gem:
+            name: "{{ item.name }}"
+            gem_source: "{{ workdir_1.path }}/{{ item.gem }}"
+            executable: "{{ cmd_gem }}"
+            user_install: false
+          loop:
+            - name: fluent-plugin-lc-wrapper
+              gem: "{{ gem_lc_wrapper }}"
+            - name: fluent-plugin-related-info
+              gem: "{{ gem_related_info }}"
+            - name: fluent-plugin-attach-file
+              gem: "{{ gem_attach_file }}"
+          notify:
+            - reload fluentd
+      become: true
+  always:
+    - name: Remove temporary working directory for gem files
+      file:
+        path: "{{ workdir_1.path }}"
+        state: absent
+      when: workdir_1.path is defined
+- name: Deploy lc_wrapper fluentd configuration file from template
+  template:
+    src: lc_wrapper.conf.j2
+    dest: /etc/fluentd/config.d/lc_wrapper.conf
+    backup: true
+  become: true
+  notify:
+    - reload fluentd

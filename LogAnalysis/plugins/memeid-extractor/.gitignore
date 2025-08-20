@@ -1,0 +1,11 @@
+*.pyc
+__pycache__/
+*.whl
+.coverage*
+dist/
+junit-result.xml
+/*.md
+!/README.md
+*.csv
+*.bak
+*.backup

@@ -1,0 +1,4 @@
+gem_lc_wrapper: fluent-plugin-lc-wrapper-0.2.2.gem
+gem_related_info: fluent-plugin-related-info-0.5.2.gem
+gem_attach_file: fluent-plugin-attach-file-0.3.2.gem
+jupyter_home_dir: /jupyter/users

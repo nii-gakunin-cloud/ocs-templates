@@ -1,0 +1,5 @@
+- hosts: all
+  roles:
+    - role: lc-meme-csv
+  become: true
+

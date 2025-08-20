@@ -1,0 +1,7 @@
+.tool-versions
+Gemfile.lock
+*.gem
+*.csv
+/test/reports
+/*.md
+!/README.md

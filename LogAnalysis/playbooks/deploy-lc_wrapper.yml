@@ -1,0 +1,6 @@
+- hosts: all
+  roles:
+  - role: cwh-lc_wrapper
+  - role: fluentd-lc_wrapper
+  force_handlers: true
+

@@ -1,0 +1,12 @@
+[Unit]
+Description=Update meme csv file
+
+[Service]
+Type=simple
+ExecStart={{ memeid_cmd }} -W
+ExecReload=/bin/kill -USR1 $MAINPID
+Restart=always
+EnvironmentFile=/etc/sysconfig/update-meme-csv
+
+[Install]
+WantedBy=multi-user.target

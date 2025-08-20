@@ -1,0 +1,16 @@
+- name: Check available gem command paths
+  stat:
+    path: "{{ item }}"
+  register: cmd_gem_stat
+  loop:
+    - /opt/fluent/bin/gem
+    - /usr/bin/gem
+    - /usr/local/bin/gem
+  failed_when: false
+
+- name: Set gem command path fact
+  set_fact:
+    cmd_gem: "{{ item.item }}"
+  when: item.stat.exists and item.stat.executable
+  loop: "{{ cmd_gem_stat.results }}"
+  run_once: true

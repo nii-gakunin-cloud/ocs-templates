@@ -1,0 +1,6 @@
+- name: start update-meme-csv service
+  systemd:
+    name: update-meme-csv
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
