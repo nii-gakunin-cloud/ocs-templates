@@ -29,6 +29,11 @@ services:
       DS_FQDN: "{{ gakunin_ds_hostname | default('') }}"
     extra_hosts:
       - "{{master_fqdn}}:127.0.0.2"
+{% if auth_proxy_extra_hosts is defined %}
+{% for ext_host, ext_ip in auth_proxy_extra_hosts %}
+      - "{{ ext_host }}:{{ ext_ip }}"
+{% endfor %}
+{% endif %}
     hostname: auth-proxy
     image: {{ auth_proxy_image }}
     networks:

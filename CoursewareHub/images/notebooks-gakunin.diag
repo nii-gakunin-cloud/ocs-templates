@@ -1,0 +1,12 @@
+blockdiag {
+    node_width = 255;
+    node_height = 150;
+    orientation = portrait;
+
+    group {
+        shape = line;
+        style = none;
+        orientation = portrait;
+        "011" -> "121" -> "311";
+    }
+}

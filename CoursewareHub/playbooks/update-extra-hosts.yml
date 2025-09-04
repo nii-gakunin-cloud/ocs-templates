@@ -1,0 +1,7 @@
+- hosts: all
+  roles:
+    - role: docker-compose
+  handlers:
+    - name: update docker-compose.yml
+      command: "docker stack deploy -c {{ compose_dir }}/docker-compose.yml --detach=false coursewarehub"
+  become: true

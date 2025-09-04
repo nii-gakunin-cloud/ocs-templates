@@ -8,6 +8,8 @@ blockdiag {
         style = none;
         orientation = portrait;
 
+        "011";
+
         group {
             label = "IdP-proxy";
             orientation = portrait;
@@ -18,12 +20,13 @@ blockdiag {
         }
         "521" -> "211";
         "541" -> "211"[dir=back];
+        "511" -> "011"[style=none];
 
         group {
             color = "#D6B0D3";
             orientation = portrait;
             label = "CoursewareHub";
-            "121" -> "211";
+            "011" -> "121" -> "211";
         }
 
     }

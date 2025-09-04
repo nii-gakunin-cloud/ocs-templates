@@ -11,6 +11,6 @@ registry_dir: "{{ jupyter_root_dir }}/registry"
 home_dir: "{{ jupyter_root_dir }}/users"
 compose_dir: /opt/coursewarehub
 
-jupyterhub_image: "niicloudoperation/coursewarehub-jupyterhub@sha256:5f2701bc68b8e8b418c2d870c6bb9ed25029f462cc1206cb02090c0c3746fa73"
-auth_proxy_image: "niicloudoperation/coursewarehub-auth-proxy@sha256:d4861e701d7df75fbf7643af7fcd5bebf48450fe39cfdf13aab8d86e2f5d0307"
+jupyterhub_image: "niicloudoperation/coursewarehub-jupyterhub:2025.03"
+auth_proxy_image: "niicloudoperation/coursewarehub-auth-proxy:2025.03"
 singleuser_image: "niicloudoperation/notebook"

@@ -1,467 +1,348 @@
-# README
+# CoursewareHub
 
 VCP SDKを用いてクラウド上にCoursewareHub環境を構築します。
 
-## はじめに
+## 1. 概要
 
-このアプリケーションテンプレートではVCPで作成したノードに[CoursewareHub](https://github.com/NII-cloud-operation/CoursewareHub-LC_jupyterhub-deploy)環境を構築します。
+### 1.1. CoursewareHubとは
 
-### CoursewareHubのユーザ認証について
+[CoursewareHub](https://coursewarehub.github.io/)は[Jupyter Notebook](https://jupyter.org/)を用いた講義演習環境を提供するシステムです。大学・研究機関での教育活動においてプログラミング演習やデータサイエンス講義等での利用を想定しています。
 
-CoursewareHubではユーザの認証機能として以下に示す三つの方式に対応しています。
+**主要機能:**
 
-* ローカルユーザ認証
-    * CoursewareHubのローカルユーザデータベースを用いてユーザ管理を行う
-* 学認連携に基づく認証
-    * [学認](https://www.gakunin.jp/)のSPとして登録し、認証連携を行う
-    * CoursewareHubを直接SPとしては登録せずに、プロキシ(IdPプロキシ)を経由して連携することも可能
-* LMS(Learning Management System)との認証連携
-    * [LTI 1.3](http://www.imsglobal.org/spec/lti/v1p3/)による認証連携を行う
-    * アプリケーションテンプレートでは連携するLMSとして[Moodle](https://moodle.org/)を想定している
+* **Jupyter Notebook環境の提供**: 受講者がブラウザ経由でプログラミング環境にアクセス
+* **教材配布・課題管理**: 講師による教材配布、課題の回答収集機能
+* **学習履歴の収集**: 操作履歴や実行状況の収集・分析機能
+* **マルチユーザ対応**: 同時に多数のユーザが利用可能な環境
+* **LTI連携**: Learning Management System（LMS）との認証連携
+* **複数コース管理**: Named Serverを活用した複数コースの同時運用
 
-それぞれの認証機能は共存することが可能になっています。ただし、学認連携認証を用いる場合はコンテナの構成や設定手順が異なります。そのため、それに応じた異なる構築手順を用意しています。
+## 2. JupyterHubの基本概念
 
-一方 LMSとの認証連携を行う場合は、まずローカルユーザ認証、あるいは学認連携認証の手順でCoursewareHubを構築してください。その後にLMSとの認証連携の設定を追加する手順となっています。
+CoursewareHubのベースとなる[JupyterHub](https://jupyterhub.readthedocs.io/)の基本的な概念について説明します。
 
-### コンテナの構成について
+### 2.1. JupyterHubとは
 
-ローカルユーザ認証のみを用いる場合と、学認連携認証を利用する場合とではコンテナの構成が異なります。ここでは、それぞれのコンテナ構成について記します。
+JupyterHubは、複数のユーザが同時にJupyter Notebookを利用できる環境を提供するシステムです。
 
-CoursewareHubでは、学認連携の有無、あるいは連携方法の違いにより以下に示す方式を選択することができます。
-* ローカルユーザ認証のみを利用する
-* 学認フェデレーションに参加し、学認のIdPを利用して認証を行う
-    - IdP-proxyをSPとして学認に登録し、複数のCoursewareHubがIdP-proxyを通して学認のIdPを利用する
-    - CoursewareHubを直接SPとして学認に登録する
-    
-それぞれの方式に対応する構成図を以下に示します。
-    
-#### ローカルユーザ認証のみを利用する場合
+#### 通常のJupyter Notebookとの違い
 
-![モジュール構成a](notebooks/images/cw-121-01.png)
+* **通常のJupyter**: 1台のPCで1人のユーザが個人的に使用
+* **JupyterHub**: 1つのサーバで多数のユーザが同時に安全に使用
 
-#### IdP-proxyを利用する場合
+#### 講義演習環境への導入メリット
 
-![モジュール構成b](notebooks/images/cw-221-01.png)
+* **統一された環境**: 全ての受講者が同じソフトウェア環境を利用
+* **管理効率**: 講師が一元的に環境管理・課題配布
+* **スケーラブル**: 受講者数に応じてリソースを調整
+* **手軽な利用**: 受講者はブラウザだけでアクセス可能
 
-#### CoursewareHubを直接SPとして登録する場合
+### 2.2. 主要コンポーネント
 
-![モジュール構成c](notebooks/images/cw-321-01.png)
+![JupyterHub](notebooks/images/cw-000-01.png)
+<!--
+```mermaid
+graph TB
+        %% External user
+        User["👤 ユーザ"]
 
-### ノード構成
+        %% Single-user servers (独立したサーバ群)
+        Server1["📓 Single-user Server<br/>User A"]
+        Server2["📓 Single-user Server<br/>User B"]
+        ServerN["📓 Single-user Server<br/>・・・（他のユーザ環境）"]
 
-CoursewareHubのノードは役割に応じて以下のものに分類されます
-
-* manager
-    - JupyterHub, auth-proxy, PostgreSQLなどのSystemコンテナを実行するノード
-    - Docker Swarmのmanagerノードとなる
-* worker
-    - single-user Jupyter notebook serverを実行するノード
-    - Docker Swarm の workerノードとなる
-    
-CoursewareHubではデータやNotebookなどをノード間で共有するためにNFSを利用します。NFSサーバの配置により以下の３つパターン構成が可能となっています。
-
-1. 構成1
-    - managerノードにNFSサーバを配置する
-1. 構成2
-    - managerノードとNFSサーバを別のノードとして構成する
-1. 構成3
-    - 構成2のNFSサーバに、新たなCoursewareHub環境を追加する構成
-
-#### 構成1
-
-managerノードでNFSサーバを実行します。
-
-![構成1](notebooks/images/cw-011-01.png)
-
-#### 構成2
-
-managerノードとNFSサーバを分離し別々のノードとして構築します。
-
-![構成2](notebooks/images/cw-021-01.png)
-
-#### 構成3
-
-構成2のNFSサーバに、新たなCoursewareHub環境を追加します。NFSサーバは複数のCoursewareHub環境で共有されます。
-
-![構成3](notebooks/images/cw-031-01.png)
-
-### 収容設計について
-
-#### managerノード
-
-* システム用コンテナが実行される
-    - auth-proxyコンテナ
-    - JupyterHubコンテナ
-    - PostgreSQLコンテナ
-* ユーザが利用する single-userサーバコンテナは実行されない
-* NFSサーバをmanagerノードに共存させる場合（構成１）はディスク容量を適切な値に設定する
-
-#### workerノード
-
-* ユーザが利用するsingle-userコンテナが実行される
-* single-userコンテナのリソース量として以下の設定を行っている
-    - 最大CPU利用数
-    - 最大メモリ量(GB)
-    - 保証される最小割当てメモリ量(GB)
-* システム全体で必要となるリソース量を見積もるには
-    - (コンテナに割り当てるリソース量)×(最大同時使用人数)+(システムが利用するリソース量)×(ノード数)
-    
-#### 運用例
-
-* 最大同時使用人数
-    - 400 人
-* コンテナに割り当てるリソース量
-    - メモリ最小値保証
-        - 1GB
-    - メモリ最大値制限
-        - 2GB(swap 4GB)
-    - CPU最大値制限
-        - 200% (2cores)
+        %% Central Hub
+        subgraph HubComponents [" "]
+            Hub["❤️ Hub"]
+            Spawner["⚙️ Spawner"]
+            Auth["🔐 Authenticator"]
+        end
         
-上記の条件で運用を行った際の実績値を示します。
+        %% Data flow arrows
+        User - -> Hub
+        Spawner - ->|コンテナ起動| Server1
+        Hub - ->|プロキシ転送| Server1
+        Hub - -> Spawner
+        Server1 - ->|Notebook環境提供| User
+        Spawner -.-> Server2
+        Spawner -.-> ServerN
 
-* managerノード
-    - vCPU
-        - 10
-    - memory
-        - 16GB
-    - HDD
-        - 800GB
-* workerノード
-  - ノードA
-    - ノード数
-        - 4
-    - vCPU
-        - 30
-    - memory
-        - 100GB
-    - HDD
-        - 300GB
-  - ノードB
-    - ノード数
-        - 1
-    - vCPU
-        - 20
-    - memory
-        - 80GB
-    - HDD
-        - 300GB
+        Hub - -> Auth
 
-> workerノードはリソース量の異なるノードAとノードBで構成されていた。
-
-workerノードのメモリ総量は480GB(=100×4+80)となっていますが、これは以下のように見積もっています。
+    %% Styling
+    classDef hubStyle fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+    classDef serverStyle fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef componentStyle fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef userStyle fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    
+    class Hub hubStyle
+    class Server1,Server2,ServerN serverStyle
+    class Auth,Spawner componentStyle
+    class User userStyle
 ```
-(コンテナのメモリ最小値保証)×(最大同時使用人数)+(システム利用分)
-= 1GB × 400人 + 80GB
+-->
+
+#### Hub
+* 各ユーザのNotebook環境の状態管理  
+* ユーザのアクセスを適切な環境に転送
+* システム全体の管理・監視
+
+#### Spawner
+* ユーザがログインしたときに専用環境を起動
+* ユーザ毎のリソース制限（CPU・メモリ）
+* 使用後の自動停止でリソース節約
+
+#### Single-user Server
+* ユーザごとの独立したJupyter Notebook環境
+* 作業ファイルはユーザのホームディレクトリで管理
+* 他ユーザからサーバ、ファイルともに完全に分離
+
+#### Authenticator
+* ユーザの認証、ログイン検証
+* ユーザの権限確認
+
+### 2.3. CoursewareHubとの関係
+
+[CoursewareHub](https://coursewarehub.github.io/)は[JupyterHub](https://jupyterhub.readthedocs.io/)をベースに、国立情報学研究所が教育利用向けに拡張したシステムです。
+
+#### JupyterHubの活用部分
+* マルチユーザ機能
+* スケーラビリティ
+* セキュリティ
+
+#### CoursewareHub独自の拡張
+* **教材配布機能**: 講師が作成した教材を受講者に一括配布
+* **学習履歴収集**: 受講者の操作履歴や実行状況の収集・分析
+* **LTI連携**: Moodleなどの学習管理システムとの連携
+* **複数コース対応**: 1つのシステムで複数の講義を同時運用
+
+
+## 3. システム構成とアーキテクチャ
+
+CoursewareHubの構築・運用で必要となるシステム構成について説明します。
+
+### 3.1. CoursewareHubのノード構成
+
+CoursewareHubは、JupyterHubの分散アーキテクチャを基盤として以下のノード構成で動作します：
+
+#### managerノード（管理機能）
+
+* **JupyterHub**: JupyterHubの基本機能（Single-user Serverの管理、リソース制限、ユーザ管理）
+* **auth-proxy**: CoursewareHub独自の認証プロキシ
+  * LTI連携（Moodleとの連携）
+  * 学認連携（大学間連携）
+* **PostgreSQL**: ユーザ情報、セッション情報
+* **Registry**: Single-user serverのコンテナイメージを保存、配布する
+* **NFS共有機能**（基本構成の場合）: ユーザデータの共有ストレージ
+
+#### workerノード（実行環境）
+
+JupyterHubのSingle-user serverを実行する環境です。Single-user serverでは以下の機能を提供します：
+* **リソース分離**: ユーザ毎のCPU・メモリ制限とプロセス分離
+* **コンテナ実行基盤**: Spawnerにより起動されるコンテナの実行環境
+* **講義用コンテナイメージ**: コース毎に用意されたコンテナイメージを使用
+
+#### 分散処理の利点
+* **スケーラビリティ**: workerノードを追加することで同時ユーザ数を拡大
+* **リソース効率**: managerノードは計算処理を行わず管理に専念
+* **障害分離**: 特定のworkerノードの障害が全体システムに影響しない
+
+### 3.2. ストレージとネットワーク構成
+
+#### ストレージ構成
+データ共有にはNFSを利用します。以下の構成から選択可能：
+
+**構成1（基本構成）**
+* managerノードにNFSサーバを配置する最もシンプルな構成
+* ![構成1](notebooks/images/cw-011-01.png)
+
+**その他の構成**
+* **構成2**: managerノードとNFSサーバを分離した構成
+* **構成3**: 構成2で構築したNFSサーバを共有して、CoursewareHubを構築する構成
+
+#### 認証方式別のコンテナ構成
+* **ローカルユーザ認証・LTI連携**: ![モジュール構成a](notebooks/images/cw-121-01.png)
+* **学認連携**: IdP-proxy経由・直接連携の2つの方式が選択可能（詳細は[学認連携設定ガイド](gakunin.md)参照）
+
+### 3.3. 収容設計と要件
+
+#### システム要件の考え方
+JupyterHubのSpawnerによる動的コンテナ管理（ユーザログイン時の起動・アイドル時の自動停止）を考慮したリソース設計：
+
+**基本計算式**
+```
+総必要リソース = (single-userコンテナリソース) × (最大同時利用者数) + (システム利用分)
 ```
 
-## 事前に準備が必要となるものについて
+#### managerノードの要件
+* **主要負荷**: PostgreSQLとJupyterHubプロセスの処理
+* **特性**: ユーザ数が増加してもCPU・メモリ使用量は比較的安定
+* **構成1の場合**: NFSサーバも同居するため十分なディスク容量とI/O性能が必要
 
-このアプリケーションテンプレートを実行するにあたって事前に準備が必要となるものについて記します。
+#### workerノードの要件
+* **コンテナリソース設定例**:
+  * 保証メモリ量（mem_guarantee）: 1GB
+  * 最大メモリ量（mem_limit）: 2GB
+  * 保証CPU利用数（cpu_guarantee）: 0.5
+  * 最大CPU利用数（cpu_limit）: 2.0
 
-### VCノード
+#### 運用実績例（400人同時利用）
+* **managerノード**: vCPU: 10、メモリ: 16GB、HDD: 800GB
+* **workerノード**: ノード数: 5、総vCPU: 140、総メモリ: 480GB、総HDD: 1.5TB
+  * メモリ設計:
+    * (コンテナのメモリ最小値保証)×(最大同時使用人数)+(システム利用分) = 1GB × 400 + 80GB
 
-ノードを作成するとき必要となるものについて記します。
+## 4. 認証方式の選択
 
+CoursewareHubでは、利用環境に応じて複数の認証方式から選択できます。
+
+### 4.1. 認証方式の比較
+
+| 認証方式 | 適用場面 | 特徴 | 管理負荷 |
+|---------|---------|------|---------|
+| **ローカルユーザ認証** | 小規模講義、短期利用 | 簡単セットアップ | 高（手動ユーザ管理） |
+| **LTI連携** | LMS統合環境 | Moodleとのシームレス連携 | 低（LMS側で管理） |
+| **学認連携** | 大学間連携、学認参加機関 | ID管理不要、SSO | 低（自動ID連携） |
+
+### 4.2. 認証方式別の必要条件
+
+各認証方式を選択する際の必要条件は以下の通りです：
+
+**ローカルユーザ認証:**
+* 小規模な受講者数（手動ユーザ管理が可能な範囲）
+* 短期間での利用
+* 迅速なシステム構築が最優先である
+* 既存の認証システムやLMSとの連携が不要
+
+**LTI連携:**
+* LTI 1.3対応のMoodle環境が既に稼動中（バージョン4.1以降推奨）
+* CoursewareHubからMoodleへのネットワークアクセスが確保されている
+* Moodleサイト管理者権限での設定が必要（外部ツール登録のため）
+* 複数コースでの運用が要求される
+
+**学認連携:**
+* 学認（学術認証フェデレーション）参加機関であること
+* 機関のIdP（Identity Provider）が学認フェデレーションに接続済み
+* 複数大学での共同講義または大規模利用の要件がある
+* 機関内でのSAML認証基盤の運用体制が整備されている
+
+### 4.3. LTI連携の機能
+
+LTI（Learning Tools Interoperability）連携では以下の機能を提供します：
+
+* **基本LTI連携**: MoodleコースとCoursewareHubの連携
+* **複数コース対応**: JupyterHubのNamed Server機能を活用した複数コース同時運用
+
+#### Named Serverを活用した複数コース機能
+
+CoursewareHubの複数コース機能は、JupyterHubの**Named Server**機能を基盤として実現されています：
+
+**Named Serverとは**:
+* JupyterHub標準機能の一つで、1ユーザが複数の独立したNotebook環境を同時に持てる仕組み
+* 各Named Serverには固有の名前が付与され、異なるコンテナイメージや設定を使用可能
+* CoursewareHubでは、Named Server名にコース名を使用してコース毎の環境を分離
+
+**CoursewareHubでの活用方法**:
+* **コース毎の環境分離**: `course_server`パラメータで指定したコース名をNamed Server名として使用
+* **専用ディレクトリ**: `/home/{username}/{coursename}/` にコース専用の作業領域を自動作成
+* **講師権限制御**: 講師ユーザのみが新しいNamed Server（コース環境）を作成可能
+* **受講者制限**: 受講者は講師が作成済みのコース環境にのみアクセス可能
+
+**実装上の要点**:
+* LTIカスタムパラメータ`course_server`の値をNamed Server名として使用
+* JupyterHubのSpawnerが、指定されたNamed Serverとして新しいsingle-user serverを起動
+* 環境変数`CWH_COURSE_NAME`にコース名を設定し、Notebook内でコース識別が可能
+
+学認連携の詳細については[学認連携設定ガイド](gakunin.md)を参照してください。
+
+## 5. 構築の準備と手順
+
+### 5.1. 事前準備
+
+#### VCP環境
 * VCCアクセストークン
-    - VCP SDKを利用してクラウド環境にノード作成などを行うために必要となります
-    - VCCアクセストークンがない場合はVC管理者に発行を依頼してください
-* SSH公開鍵ペア
-    - VCノードに登録するSSHの公開鍵
-    - このNotebook環境内で新たに作成するか、事前に作成したものをこの環境にアップロードしておいてください
-* VCノードに割り当てるアドレス
-    - ノードのネットワークインタフェースに以下に示す何れかのアドレスを指定することができます
-        - IPアドレス
-        - MACアドレス
-* NTPの設定
-    - 学認フェデレーションに参加し SAML 認証を利用する場合、正しい時刻設定が必要となります
-    - VCノードのNTPサービスを有効にするためには、事前にVCコントローラへの設定が必要となります
-    - VCコントローラへの設定にはOCS運用担当者への申請が必要となります
+* VCノードに割り当てるIPアドレスまたはMACアドレス
 
-### CoursewareHub
+#### 証明書・DNS
+* CoursewareHubのサーバ証明書と秘密鍵
+* サーバ証明書に対応するDNS登録
 
-CoursewareHubを構築する際に必要となるものについて記します。
+#### 認証方式別の追加準備
 
-* CoursewareHubのサーバ証明書
-    - CoursewareHubではHTTPSでサーバを公開するため、サーバ証明書とその秘密鍵が必要となります
-    - 必要に応じて、サーバ証明書の中間CA証明書を準備してください
-    - サーバ証明書に記載されているホスト名のDNS登録も必要となります
+**LTI連携利用時**
+* 連携対象のMoodle環境（LTI 1.3対応、バージョン4.1以降推奨）
+* CoursewareHubからMoodleへのネットワークアクセス
+* Moodleサイト管理者権限（外部ツール登録のため）
 
-また事前の段階では不要ですが、学認のIdPを認証に利用する場合は構築手順の過程で
-学認フェデレーションに参加の申請を行う必要があります。
+**学認連携利用時**
+* 学認フェデレーション関連の準備（詳細は[学認連携設定ガイド](gakunin.md)参照）
 
-### IdP-proxy
+### 5.2. 構築の流れ
 
-IdP-proxy を構築する際に必要となるものについて記します。
+1. **VCノード作成** → 基本インフラの準備
+2. **CoursewareHub基本セットアップ** → ローカル認証での基本機能
+3. **認証連携設定**（必要に応じて） → 学認・LTI連携の追加
+4. **運用設定** → 管理者設定、カスタムイメージ等
 
-* IdP-proxyのサーバ証明書
-    - IdP-proxyではHTTPSでサーバを公開するため、サーバ証明書とその秘密鍵が必要となります
-    - 必要に応じて、サーバ証明書の中間CA証明書を準備してください
-    - サーバ証明書に記載されているホスト名のDNS登録も必要となります
+### 5.3. 構築手順
 
-また事前の段階では不要ですが、学認のIdPを認証に利用する場合は構築手順の過程で
-学認フェデレーションに参加の申請を行う必要があります。
+#### 基本構築（ローカル認証）
+1. [011: VCノード作成--構成1](notebooks/011-VCノード作成-構成1.ipynb)
+2. [121: CoursewareHubセットアップ--ローカルユーザ認証](notebooks/121-CoursewareHubのセットアップ-ローカルユーザ認証.ipynb)
 
-## Notebookの一覧
+#### LTI連携追加
+* [411: LTI認証連携設定](notebooks/411-LTI認証連携の設定を行う.ipynb)
 
+#### 学認連携追加
+詳細な手順は[学認連携設定ガイド](gakunin.md)を参照してください。
 
-### 各Notebookの関連について
+## 6. 運用・管理
 
-テンプレートとなるNotebookの関係を示す図を以下に示します。図に表示される１つのブロックが１つのNotebookに対応しています。
+### 6.1. 日常運用
 
-[![関連図-cwh](images/notebooks0.svg)](images/notebooks0.svg)
+#### 教材・環境管理
 
-次の図はIdP-proxyの構築とそれに関連するCoursewareHubのNotebookの関連を示します。
+* [731: 講義用Notebook環境のイメージ登録](notebooks/731-講義用Notebook環境のイメージ登録.ipynb) - カスタムイメージ管理
 
-[![関連図-idpproxy](images/notebooks0-idp.svg)](images/notebooks0-idp.svg)
+#### 権限管理、設定変更
 
-### Notebookの目次
+* [721: 管理者の追加](notebooks/721-管理者の追加.ipynb) - 管理者ユーザの追加
+* [711: パラメータ変更](notebooks/711-CoursewareHubのパラメータ変更.ipynb) - 設定変更
 
-各Notebookの目次を示します。リンクが表示されている項目が一つのNotebookに対応しています。
+### 6.2. スケーリング・リソース管理
 
-* [011: VCノードの作成--構成1](notebooks/011-VCノード作成-構成1.ipynb)
-    1. はじめに
-        - このNotebookではCoursewareHub環境を構築するためのノード作成を行います
-    1. VCノードに関するパラメータ
-        - CoursewareHubの構築環境となるVCノードに関するパラメータを指定します
-    1. VCディスクに関するパラメータ
-        - CoursewareHubに関するデータやNotebook、ユーザのホームディレクトリなどに利用するVCディスクに関するパラメータを指定します
-    1. VCディスクの作成
-        - NFS用のVCディスクを作成します
-    1. VCノードの起動
+#### 自動スケーリング
 
-    1. Docker Swarmの設定
-        - Docker Swarm の設定を行います
-* [021: VCノードの作成--構成2](notebooks/021-VCノード作成-構成2.ipynb)
-    1. はじめに
-        - このNotebookではCoursewareHub環境を構築するためのノード作成を行います
-    1. VCノードに関するパラメータ
-        - CoursewareHubの構築環境となるVCノードに関するパラメータを指定します
-    1. VCディスクに関するパラメータ
-        - CoursewareHubに関するデータやNotebook、ユーザのホームディレクトリなどに利用するVCディスクに関するパラメータを指定します
-    1. VCディスクの作成
-        - NFS用のVCディスクを作成します
-    1. VCノードの起動
+* [811: ノード数のスケジュール設定](notebooks/811-ノード数のスケジュール設定.ipynb) - 自動スケーリング設定
+* [812: スケジュール設定変更](notebooks/812-ノード数のスケジュール設定を変更する.ipynb)
+* [821: スケジュール設定削除](notebooks/821-ノード数のスケジュール設定を削除する.ipynb)
 
-    1. Docker Swarmの設定
-        - Docker Swarm の設定を行います
-* [031: VCノードの作成--構成3](notebooks/031-VCノード作成-構成3.ipynb)
-    1. はじめに
-        - このNotebookでは構成2で構築したNFSサーバに、新たなCoursewareHub環境を追加するためのノード作成を行います(構成3)
-    1. VCノードに関するパラメータ
-        - CoursewareHubの構築環境となるVCノードに関するパラメータを指定します
-    1. VCノードの起動
+#### 手動スケーリング
 
-    1. Docker Swarmの設定
-        - Docker Swarm の設定を行います
-* [121: CoursewareHubのセットアップ--ローカルユーザ認証](notebooks/121-CoursewareHubのセットアップ-ローカルユーザ認証.ipynb)
-    1. 概要
-        - このNotebookで構築するCoursewareHubの構成要素を以下に示します
-    1. パラメータの設定
+* [921: workerノード追加](notebooks/921-workerノードの追加.ipynb)
+* [922: workerノード削除](notebooks/922-workerノードの削除.ipynb)
 
-    1. 証明書の配置
-        - auth-proxyコンテナで使用するサーバ証明書、秘密鍵などのファイルを配置します
-    1. CoursewareHubのセットアップ
-        - CoursewareHubを構成するサービスやコンテナのセットアップを行います
-    1. コンテナの起動
+#### リソース監視
 
-    1. 管理者の登録
-        - CoursewareHubに管理ユーザを登録します
-    1. コンテンツの配備の準備
-        - CoursewareHubのコンテンツを格納するディレクトリを作成し、コンテンツの配置を行うNotebookを管理者のホームディレクトリに配置します
-    1. CoursewareHubにアクセスする
-        - 構築したCoursewareHub環境にアクセスして、正しく動作していることを確認してください
-* [211: 学認連携の設定を行う -- IdP-proxyを利用する](notebooks/211-学認連携の設定を行う-IdP-proxyを利用する.ipynb)
-    1. 概要
-        - このNotebookで設定するCoursewareHubと学認フェデレーションの構成要素を以下に示します
-    1. mAPグループの作成
-        - [学認クラウドゲートウェイサービス](https://cg.gakunin.jp/)にアクセスしてグループの作成などを行います
-    1. CoursewareHubの設定
-        - CoursewareHubに対して学認連携設定を行います
-    1. メタデータの更新
-        - 構築したCoursewareHubのメタデータを IdP-proxy に登録するまでは、学認によるログインを利用できません
-    1. CoursewareHubに学認IdPのアカウントでログインする
-        - 学認IdPのアカウントでCoursewareHubにログインできることを確認します
-* [311: 学認連携の設定を行う -- 直接学認フェデレーションを利用する](notebooks/311-学認連携の設定を行う-直接学認フェデレーションを利用する.ipynb)
-    1. 概要
-        - このNotebookで設定するCoursewareHubと学認フェデレーションの構成要素を以下に示します
-    1. mAPグループの作成
-        - [学認クラウドゲートウェイサービス](https://cg.gakunin.jp/)またはSP検証環境(テストフェデレーションの場合)にアクセスしてグループの作成などを行います
-    1. CoursewareHubの設定
-        - CoursewareHubに対して学認連携設定を行います
-    1. 学認にSP設置の申請を行う
-        - 申請を行う前に学認（GakuNin）の「[参加情報](https://www.gakunin.jp/join)」にてフェデレーション参加の流れを確認してください
-    1. 学認mAPとの連携
-        - CoursewareHubでは利用者をグループ管理するために[学認mAP](https://meatwiki.nii.ac.jp/confluence/display/gakuninmappublic/Home)を利用します
-    1. CoursewareHubに学認IdPのアカウントでログインする
-        - 学認IdPのアカウントでCoursewareHubにログインできることを確認します
-* [411: LTI認証連携の設定を行う -- Moodle](notebooks/411-LTI認証連携の設定を行う.ipynb)
-    1. はじめに
+* [801: リソース可視化](notebooks/801-リソース可視化.ipynb) - Grafanaダッシュボード登録
 
-    1. CoursewareHubをLTI外部ツールとして追加する
-        - CoursewareHubをLTI外部ツールとしてMoodleに登録します
-    1. CoursewareHubにLTI認証連携設定を行う
-        - CoursewareHubに対してLTI連携のための設定を行います
-    1. MoodleのコースにCoursewareHubへのリンクを追加する
-        - LTI外部ツールとして登録したCoursewareHubをアクティビティとしてコースに追加します
-* [511: VCノードの作成--IdP-proxy](notebooks/511-VCノード作成-IdP-proxy.ipynb)
-    1. はじめに
+### 6.3. セキュリティ・証明書管理
 
-    1. VCノードに関するパラメータ
-        - IdP-Proxyの構築環境となるVCノードに関するパラメータを指定します
-    1. VCノードの起動
-        - VCノードを起動します
-    1. Ansibleの設定
-        - VCノードをAnsibleで操作するための設定を行います
-* [521: IdP-proxyのセットアップ](notebooks/521-IdP-proxyのセットアップ.ipynb)
-    1. はじめに
+* [741: サーバ証明書の更新](notebooks/741-サーバ証明書の更新.ipynb) - SSL証明書更新
 
-    1. 操作対象の設定
-        - 操作対象となるAnsibleのグループ名を指定します
-    1. パラメータの設定
+### 6.4. システム操作
 
-    1. 証明書の配置
-        - IdP-proxyで使用するサーバ証明書、秘密鍵などのファイルを配置します
-    1. IdP-proxyのセットアップ
-        - IdP-proxyコンテナで必要となるファイルを準備する Ansible Playbook を実行します
-    1. IdP-proxyコンテナの起動
-        - コンテナイメージを取得します
-    1. 学認にSP設置の申請を行う
-        - 申請を行う前に学認（GakuNin）の「[参加情報](https://www.gakunin.jp/join)」にてフェデレーション参加の流れを確認してください
-    1. 学認mAPとの連携
-        - CoursewareHubでは利用者グループを管理するために[学認mAP](https://meatwiki.nii.ac.jp/confluence/display/gakuninmappublic/Home)を利用します
-* [541: auth-proxyのメタデータを登録する](notebooks/541-IdP-proxyへauth-proxyのメタデータを登録する.ipynb)
-    1. 概要
-        - このNotebookでは「211-学認連携の設定を行う-IdP-proxyを利用する.ipynb」で設定したauth-proxyコンテナからメタデータを取得してIdP-proxyへの登録を行います
-    1. 操作対象の設定
-        - 操作対象となるAnsibleのグループ名を指定します
-    1. メタデータの追加
-        - CoursewareHub(auth-proxy)のメタデータをIdP-proxyに登録します
-* [591: IdP-proxyの削除](notebooks/591-IdP-proxyの削除.ipynb)
-    1. パラメータの指定
-
-    1. 構築環境の削除
-        - 起動したVCノードを削除します
-    1. Ansible設定のクリア
-        - 削除した環境に対応するAnsibleの設定をクリアします
-* [711: CoursewareHubのパラメータ変更](notebooks/711-CoursewareHubのパラメータ変更.ipynb)
-    1. 概要
-
-    1. パラメータの更新
-
-    1. コンテナの更新
-
-    1. CoursewareHubにアクセスする
-        - パラメータを更新したCoursewareHub環境にアクセスして正しく動作していることを確認してください
-* [721: 管理者の追加](notebooks/721-管理者の追加.ipynb)
-    1. はじめに
-        - このNotebookは、CoursewareHub環境構築の際に誤った管理者情報を登録したなどの理由により、CoursewareHub環境に管理者としてログインできるユーザが存在しないなどの状況を回避するためのものです
-    1. UnitGroup名
-        - 操作対象となるVCPのUnitGroup名を指定します
-    1. パラメータの設定
-        - 追加する管理者の情報を指定します
-    1. 管理者の追加
-        - CoursewareHubに管理ユーザを登録します
-    1. コンテンツの配備の準備
-        - CoursewareHubのコンテンツを格納するディレクトリを作成し、コンテンツの配置を行うNotebookを管理者のホームディレクトリに配置します
-    1. CoursewareHubにアクセスする
-        - 追加した管理者ユーザでログインできることを確認してください
-* [731: 講義用Notebook環境のイメージ登録](notebooks/731-講義用Notebook環境のイメージ登録.ipynb)
-    1. 概要
-        - CoursewareHubでは管理ユーザ（講師）が[repo2docker](https://github.com/jupyterhub/repo2docker)を利用して講義用のNotebook実行環境をカスタマイズする機能を備えています
-    1. カスタムイメージの定義
-        - CoursewareHubで利用する講義用のカスタムイメージについて説明します
-    1. カスタムイメージの管理
-
-* [741: サーバ証明書の更新](notebooks/741-サーバ証明書の更新.ipynb)
-    1. 概要
-
-    1. 証明書の更新
-        - auth-proxyなどのコンテナで使用するサーバ証明書、秘密鍵を更新します
-    1. コンテナの更新
-        - コンテナを起動しなおして更新したサーバ証明書を反映させます
-    1. CoursewareHubにアクセスする
-        - 証明書を更新したCoursewareHub環境にアクセスして正しく動作していることを確認してください
-* [801: リソース可視化](notebooks/801-リソース可視化.ipynb)
-    1. 概要
-        - 以下に示す３つのダッシュボードをgrafanaに追加し、CoursewareHub環境のリソース利用状況を可視化します
-    1. grafanaダッシュボードの登録
-        - VC Controllerに配備されている grafana にダッシュボードを登録します
-* [811: ノード数変更のスケジュールを設定する](notebooks/811-ノード数のスケジュール設定.ipynb)
-    1. 概要
-        - workerノードの起動数を変更するスケジュールを設定します
-    1. パラメータの指定
-        - VCノードのスケールアウト、スケールインを行うのに必要となるパラメータを指定します
-    1. スケジュール定義
-
-    1. 配備
-        - スケジュール設定に関する資材をmanagerノードに配備してサービスを開始するように設定します
-    1. CoursewareHubのculling設定
-        - CoursewareHubを構成するJupyterHubコンテナに環境変数を設定することでculling設定を有効にすることができます
-* [812: ノード数のスケジュール設定を変更する](notebooks/812-ノード数のスケジュール設定を変更する.ipynb)
-    1. パラメータの指定
-        - スケジュールを変更するのに必要となるパラメータを指定します
-    1. スケジュール定義の変更
-
-    1. 配備
-        - スケジュールの定義ファイルを配置します
-* [821: ノード数のスケジュール設定を削除する](notebooks/821-ノード数のスケジュール設定を削除する.ipynb)
-    1. パラメータの指定
-        - スケジュール設定を削除するのに必要となるパラメータを指定します
-    1. スケジュール設定の削除
-
-* [831: 古い形式のスケジュール設定を移行する](notebooks/831-古い形式のスケジュール設定を移行する.ipynb)
-    1. パラメータの指定
-        - 新しいスケジュール定義に移行するために必要となるパラメータを指定します
-    1. 設定状況の確認
-        - 現在設定されている状態を確認します
-    1. 新しいスケジュール定義形式に移行する
-
-    1. 配備
-        - 新しい形式に変換したスケジュール定義を用いてスケジュール設定に関する資材をmanagerノードに配備します
 * [911: ノードの停止](notebooks/911-ノードの停止.ipynb)
-    1. パラメータの指定
-        - ノードの停止を行うのに必要となるパラメータを入力します
-    1. ノードの停止
-        - 現在のノードの状態を確認します
 * [912: ノードの再開](notebooks/912-ノードの再開.ipynb)
-    1. パラメータの指定
-        - ノードを再開するのに必要となるパラメータを入力します
-    1. ノードの再開
-        - 現在のノードの状態を確認します
-    1. 状態の確認
-        - docker swarmで実行しているサービスの状態を確認します
-* [921: workerノードの追加](notebooks/921-workerノードの追加.ipynb)
-    1. パラメータの指定
-        - workerノードを追加するのに必要となるパラメータを入力します
-    1. ノードの追加
-
-    1. 管理者ユーザの設定
-        - 構築環境のJupyterHubでは講師権限を持つ管理ユーザが操作を行うためのインベントリファイルが配置されています
-* [922: workerノードの削除](notebooks/922-workerノードの削除.ipynb)
-    1. パラメータの指定
-        - workerノードを削除するのに必要となるパラメータを入力します
-    1. ノードの削除
-
-    1. 管理者ユーザの設定
-        - 構築環境のJupyterHubでは講師権限を持つ管理ユーザが操作を行うためのインベントリファイルが配置されています
-* [941: mdx VMのデプロイとVCP既存サーバ (SSH) モード セットアップ](notebooks/941-mdx仮想マシンの準備.ipynb)
-    1. 前提条件
-        - 1. VCコントローラが動作していること
-    1. 準備
-        - 1. mdx REST API 認証トークン設定
-    1. mdx VM 作成
-        - 1. VCP SDK mdx用プラグインモジュールの読み込み
-    1. VCP既存サーバ (SSH) モード セットアップ
-        - 1. mdx VMへの疎通確認
-    1. VCコントローラ公開鍵設定
-        - VCコントローラがmdx VMを既存サーバ(SSH) モードで制御するにはSSH接続を使用します
-    1. まとめ
-        - ここまでで、mdx VMに対してVCコントローラからSSHでVC Nodeをデプロイ可能な環境の準備が整いました
 * [991: CoursewareHub環境の削除](notebooks/991-CoursewareHub環境の削除.ipynb)
-    1. パラメータの指定
 
-    1. 構築環境の削除
+## 7. Notebookの関連図
 
-    1. Ansible設定のクリア
-        - 削除した環境に対応するAnsibleの設定をクリアします
+![関連図-cwh](images/notebooks0.svg)
+
+## 8. 参考資料
+
+* [CoursewareHub](https://coursewarehub.github.io/)
+* [CoursewareHub-LC_platform](https://github.com/NII-cloud-operation/CoursewareHub-LC_platform)
+* [JupyterHub](https://jupyterhub.readthedocs.io/)
+* [Jupyter Notebook](https://jupyter.org/)  

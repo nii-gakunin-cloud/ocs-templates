@@ -4,6 +4,7 @@ from inspect import currentframe, getframeinfo
 from ipaddress import AddressValueError, IPv4Address, IPv4Network
 from logging import getLogger
 from pathlib import Path
+from urllib.parse import urlparse, urlunparse, urljoin
 
 from IPython.display import HTML, display
 
@@ -335,3 +336,16 @@ def check_parameter_vcnode_all_ipaddress(value, params, _kwargs):
         if _ipaddress_reachable(addr)[1]:
             msg = f"指定されたIPアドレスは他のノードで利用されています: {addr}"
             raise CwhParameterError(msg, frame=currentframe())
+
+
+def simple_url_normalize(url, path = None):
+    parsed = urlparse(url)
+    base_url = urlunparse((
+        parsed.scheme.lower(),
+        parsed.netloc.lower(),
+        parsed.path,
+        parsed.params,
+        parsed.query,
+        parsed.fragment,
+    ))
+    return urljoin(base_url, path) if path is not None else base_url
