@@ -31,19 +31,19 @@ target "moodle" {
   matrix = {
     item = [
       {
-        version = "5.0.1"
+        version = "5.0.2"
         php = "8.4"
       },
       {
-        version = "4.5.5"
+        version = "4.5.6"
         php = "8.3"
       },
       {
-        version = "4.4.9"
+        version = "4.4.10"
         php = "8.3"
       },
       {
-        version = "4.1.19"
+        version = "4.1.20"
         php = "8.1"
       },
     ]
