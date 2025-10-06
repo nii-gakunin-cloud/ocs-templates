@@ -1,5 +1,5 @@
 # はじめに
-学認クラウドオンデマンド構築サービス（OCS）とOpen OnDemandの概要 (./pdf/OCSとOODの概要-r0.pdf)
+学認クラウドオンデマンド構築サービス（OCS）とOpen OnDemandの概要 [説明資料](./pdf/OCSとOODの概要-r0.pdf)
 
 # VcpSDKを利用したOpenOnDemandのセットアップ
 
@@ -41,3 +41,4 @@ Open OnDemandはOpenHPCと同様、VCノードのBaseコンテナにインスト
 
 
 「[050-JupyterNotebookのセットアップ](./050-JupyterNotebook%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97.ipynb)」のNotebookは、Jupyter Notebookサーバをジョブとして実行するための設定を示したものです。通常のバッチジョブを実行するだけであれば、実行する必要はありません。
+
