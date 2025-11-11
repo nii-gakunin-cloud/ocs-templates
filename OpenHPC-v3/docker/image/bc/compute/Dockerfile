@@ -26,10 +26,8 @@ RUN perl -pi -e 's/# End of file/\* soft memlock unlimited\n$&/s' /etc/security/
 #RUN echo "account    required     pam_slurm.so" >> $CHROOT/etc/pam.d/sshd
 
 # -------------------------------------------------------
-# Configure rsyslog on SMS and computes (Section 3.8.4.7)
+# Optionally, enable nhc and configure (Section 3.8.4.13)
 # -------------------------------------------------------
-
-# Optionally, enable nhc and configure
 RUN dnf -y install nhc-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*

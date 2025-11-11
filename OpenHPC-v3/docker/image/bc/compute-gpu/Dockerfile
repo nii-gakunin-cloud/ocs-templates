@@ -1,4 +1,4 @@
-FROM golang:1.24-bookworm AS builder
+FROM golang:1.25-bookworm AS builder
 RUN go install github.com/mindprince/nvidia_gpu_prometheus_exporter@latest
 
 FROM ohpc-compute

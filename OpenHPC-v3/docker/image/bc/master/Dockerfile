@@ -26,10 +26,8 @@ RUN perl -pi -e 's/# End of file/\* soft memlock unlimited\n$&/s' /etc/security/
  && perl -pi -e 's/# End of file/\* hard memlock unlimited\n$&/s' /etc/security/limits.conf
 
 # -------------------------------------------------------
-# Configure rsyslog on SMS and computes (Section 3.8.4.12)
+# Optionally, enable nhc and configure (Section 3.8.4.13)
 # -------------------------------------------------------
-
-# Optionally, enable nhc and configure
 RUN dnf -y install nhc-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
@@ -49,28 +47,28 @@ RUN dnf -y install \
 # -------------------------------
 # Install Compilers (Section 4.2)
 # -------------------------------
-RUN dnf -y install gnu14-compilers-ohpc \
+RUN dnf -y install gnu15-compilers-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # --------------------------------
 # Install MPI Stacks (Section 4.3)
 # --------------------------------
-RUN dnf -y install openmpi5-pmix-gnu14-ohpc mpich-ofi-gnu14-ohpc \
+RUN dnf -y install openmpi5-pmix-gnu15-ohpc mpich-ofi-gnu15-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------
 # Install Performance Tools (Section 4.4)
 # ---------------------------------------
-RUN dnf -y install ohpc-gnu14-perf-tools \
+RUN dnf -y install ohpc-gnu15-perf-tools \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
 # ---------------------------------------
 # Setup default development environment (Section 4.5)
 # ---------------------------------------
-RUN dnf -y install lmod-defaults-gnu14-openmpi5-ohpc \
+RUN dnf -y install lmod-defaults-gnu15-openmpi5-ohpc \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
@@ -78,15 +76,15 @@ RUN dnf -y install lmod-defaults-gnu14-openmpi5-ohpc \
 # Install 3rd Party Libraries and Tools (Section 4.6)
 # ---------------------------------------------------
 RUN dnf -y install \
-      ohpc-gnu14-serial-libs \
-      ohpc-gnu14-io-libs \
-      ohpc-gnu14-python-libs \
-      ohpc-gnu14-runtimes \
+      ohpc-gnu15-serial-libs \
+      ohpc-gnu15-io-libs \
+      ohpc-gnu15-python-libs \
+      ohpc-gnu15-runtimes \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 RUN dnf -y install \
-      ohpc-gnu14-mpich-parallel-libs \
-      ohpc-gnu14-openmpi5-parallel-libs \
+      ohpc-gnu15-mpich-parallel-libs \
+      ohpc-gnu15-openmpi5-parallel-libs \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 

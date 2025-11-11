@@ -43,6 +43,6 @@ variable "REGISTRY" {
 }
 
 variable "TAG" {
-  default = "3.3.1"
+  default = "3.4"
 }
 
