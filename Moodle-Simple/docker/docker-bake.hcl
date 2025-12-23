@@ -31,24 +31,33 @@ target "moodle" {
   matrix = {
     item = [
       {
-        version = "5.0.2"
+        version = "5.1.1"
         php = "8.4"
       },
       {
-        version = "4.5.6"
-        php = "8.3"
+        version = "5.0.4"
+        php = "8.4"
+        target = "v4"
       },
       {
-        version = "4.4.10"
+        version = "4.5.8"
         php = "8.3"
+        target = "v4"
       },
       {
-        version = "4.1.20"
+        version = "4.4.12"
+        php = "8.3"
+        target = "v4"
+      },
+      {
+        version = "4.1.22"
         php = "8.1"
+        target = "v4"
       },
     ]
   }
   context = "./moodle"
+  target = try(item.target, null)
   args = {
     MOODLE_VERSION = item.version
     PHP_VERSION = item.php
@@ -57,13 +66,39 @@ target "moodle" {
 }
 
 target "ssl" {
+  name = "ssl-${item.variant}"
+  matrix = {
+    item = [
+      {
+        variant = "v4"
+        target = "v4"
+      },
+      {
+        variant = "v5"
+      },
+    ]
+  }
   context = "./ssl"
-  tags = date_tag("ssl")
+  target = try(item.target, null)
+  tags = date_tag("ssl-${item.variant}")
 }
 
 target "shibboleth" {
+  name = "shibboleth-${item.variant}"
+  matrix = {
+    item = [
+      {
+        variant = "v4"
+        target = "v4"
+      },
+      {
+        variant = "v5"
+      },
+    ]
+  }
   context = "./shibboleth"
-  tags = date_tag("shibboleth")
+  target = try(item.target, null)
+  tags = date_tag("shibboleth-${item.variant}")
 }
 
 target "base" {

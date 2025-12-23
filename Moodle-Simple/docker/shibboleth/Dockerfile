@@ -1,12 +1,9 @@
 # syntax=docker/dockerfile:1
-FROM rockylinux/rockylinux:9.6.20250531
+FROM rockylinux/rockylinux:9.7.20251123 AS base
 
 RUN dnf -y update \
  && dnf -y install httpd mod_ssl which \
  && dnf clean all \
- && mkdir -p /var/www/moodle \
- && rm -rf /var/www/html \
- && ln -s /var/www/moodle /var/www/html \
  && mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf.dist \
  && touch /etc/httpd/conf.d/welcome.conf \
  && sed -i -e '/<\/VirtualHost>/iIncludeOptional conf.d/moodle.conf' /etc/httpd/conf.d/ssl.conf \
@@ -28,8 +25,26 @@ RUN dnf -y install epel-release 'dnf-command(config-manager)' \
  && dnf -y install supervisor \
  && dnf clean all
 
-COPY etc /etc
 COPY scripts /usr/local/bin
+COPY etc /etc
+
+FROM base AS v4
+
+RUN mkdir -p /var/www/moodle \
+ && rm -rf /var/www/html \
+ && ln -s /var/www/moodle /var/www/html
+COPY etc.v4/httpd/conf.d/moodle.conf /etc/httpd/conf.d/moodle.conf
+
+EXPOSE 443
+CMD ["/usr/local/bin/init"]
+HEALTHCHECK CMD curl -fskI https://localhost/admin || exit 1
+
+FROM base
+
+RUN mkdir -p /var/www/moodle/public \
+ && rm -rf /var/www/html \
+ && ln -s /var/www/moodle/public /var/www/html
+
 EXPOSE 443
 CMD ["/usr/local/bin/init"]
 HEALTHCHECK CMD curl -fskI https://localhost/admin || exit 1

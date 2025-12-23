@@ -123,8 +123,15 @@ services:
         condition: service_healthy
 {% if httpd is defined %}
 {% if httpd == "httpd" %}
+{% set moodle_version = moodle_image_name.split(':')[-1] %}
   httpd:
-    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:ssl
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:ssl-
+    {%- if moodle_version is version('5.1', '>=') -%}
+      v5
+    {%- else -%}
+      v4
+    {%- endif %}
+
     restart: always
     init: true
     container_name: httpd
@@ -162,8 +169,15 @@ services:
 {% endif %}
 {% endif %}
 {% elif httpd == "shibboleth" %}
+{% set moodle_version = moodle_image_name.split(':')[-1] %}
   shibboleth:
-    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:shibboleth
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:shibboleth-
+    {%- if moodle_version is version('5.1', '>=') -%}
+      v5
+    {%- else -%}
+      v4
+    {%- endif %}
+
     restart: on-failure:5
     container_name: shibboleth
     hostname: {{ moodle_url | urlsplit('hostname') }}

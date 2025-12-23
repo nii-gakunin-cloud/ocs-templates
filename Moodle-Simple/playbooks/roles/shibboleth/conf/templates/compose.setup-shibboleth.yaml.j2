@@ -1,5 +1,12 @@
+{% set moodle_version = moodle_image_name.split(':')[-1] %}
 services:
   setup-shibboleth:
-    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:shibboleth
+    image: harbor.vcloud.nii.ac.jp/vcp/moodle-simple:shibboleth-
+    {%- if moodle_version is version('5.1', '>=') -%}
+      v5
+    {%- else -%}
+      v4
+    {%- endif %}
+
     container_name: setup-shibboleth
     command: /bin/bash
