@@ -1,0 +1,5 @@
+- name: Setup OpenHPC Slurm configuration
+  hosts: all
+  become: true
+  roles:
+    - openhpc-slurm

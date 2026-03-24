@@ -1,11 +1,24 @@
 from vcpsdk.plugins.mdx_ext import MdxResourceExt, SLEEP_TIME_SEC, DEPLOY_VM_SLEEP_COUNT
 from multiprocessing import Pool
+import socket
 import subprocess
 import time
 import re
 
 MDX_VM_SERVER_CATALOG = "16a41081-a1cf-428e-90d0-a147b3aa6fc2"
 MDX_VM_SERVER_TEMPLATE_NAME = "UT-20220412-2043-ubuntu-2004-server"
+
+
+def use_ipv4_only():
+    """IPv4接続を強制する。mdx REST APIエンドポイントにIPv6で接続すると到達不可となる場合がある。"""
+    old_getaddrinfo = socket.getaddrinfo
+    def new_getaddrinfo(*args, **kwargs):
+        responses = old_getaddrinfo(*args, **kwargs)
+        return [response
+                for response in responses
+                if response[0] == socket.AF_INET]
+    socket.getaddrinfo = new_getaddrinfo
+
 
 def mdx_get_vm_spec(mdx, pack_num, use_gpu, disk_size, segment_id, shared_key,
     vm_catalog=MDX_VM_SERVER_CATALOG,
@@ -26,6 +39,22 @@ def mdx_get_vm_spec(mdx, pack_num, use_gpu, disk_size, segment_id, shared_key,
         ],
         shared_key=shared_key,
         storage_network=storage_net
+    )
+
+def mdx_get_compute_vm_spec_from_feature(mdx, feature_config, segment_id, shared_key,
+    vm_catalog=MDX_VM_SERVER_CATALOG,
+    vm_template_name=MDX_VM_SERVER_TEMPLATE_NAME,
+    storage_net="portgroup"):
+    """feature_configからmdx計算ノード用VMスペックを生成する。"""
+    pack_num = feature_config.get("mdx_pack_num", 4)
+    use_gpu = feature_config.get("use_gpu", False)
+    disk_size = feature_config.get("root_size", 40)
+
+    return mdx_get_vm_spec(
+        mdx, pack_num, use_gpu, disk_size, segment_id, shared_key,
+        vm_catalog=vm_catalog,
+        vm_template_name=vm_template_name,
+        storage_net=storage_net
     )
 
 def mdx_deploy_vms(mdx, vms, spec, project='', verbose=False):

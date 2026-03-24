@@ -1,0 +1,15 @@
+[Unit]
+Description=Setup hostname from NFS-shared hosts file
+After=mount-nfs.service
+Requires=mount-nfs.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/sysconfig/hostname-setup
+ExecStart=/etc/vcp/bin/setup-hostname.sh
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

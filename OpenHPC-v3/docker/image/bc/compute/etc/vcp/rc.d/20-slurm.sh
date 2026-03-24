@@ -1,21 +1,18 @@
 #!/bin/bash
 
-declare -A node_params
-
 setup_directory() {
   mkdir -p /var/log/slurm /var/spool/slurmd
   chown slurm:slurm /var/log/slurm /var/spool/slurmd
-  sed -i -r -e "/LogFile=/s#/var/log/(slurm[a-z].*\.log)#/var/log/slurm/\1#" /etc/slurm/slurm.conf
-  sed -i -r -e "/PidFile=/s#/var/run/(slurm[a-z].*\.pid)#/run/slurm/\1#" /etc/slurm/slurm.conf
 }
 
 setup_slurm_conf() {
   if [ -f /var/lib/vcp/.20-slurm ]; then
     return
   fi
-  /usr/local/bin/jinja2 -o /etc/sysconfig/slurmd /etc/vcp/rc.d/slurmd.j2
-  /usr/local/bin/jinja2 -o /etc/slurm/slurm.conf /etc/vcp/rc.d/slurm.conf.j2
+  /usr/local/bin/jinja2 -o /etc/sysconfig/slurmd /etc/vcp/rc.d/templates/slurmd.j2
+  /usr/local/bin/jinja2 -o /etc/slurm/slurm.conf /etc/vcp/rc.d/templates/slurm.conf.j2
   chown slurm:slurm /etc/slurm/slurm.conf
+
   mkdir -p /var/lib/vcp
   touch /var/lib/vcp/.20-slurm
 }

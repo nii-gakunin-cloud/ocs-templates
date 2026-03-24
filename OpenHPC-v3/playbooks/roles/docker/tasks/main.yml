@@ -14,8 +14,19 @@
           - containerd.io
           - docker-buildx-plugin
           - docker-compose-plugin
+          - fuse-overlayfs
         update_cache: yes
         state: present
+- name: Configure Docker daemon
+  copy:
+    content: |
+      {
+        "storage-driver": "fuse-overlayfs"
+      }
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: "0644"
 - name: Start and enable Docker Engine
   systemd:
     name: docker

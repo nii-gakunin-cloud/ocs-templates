@@ -13,7 +13,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import TypeAlias, TypedDict, cast
 
-from group import load_group_var
+from group import load_group_var, load_group_vars
 
 CMD_SCHEDULE_UTILS = ".venv/bin/vcp-schedule-utils"
 
@@ -256,19 +256,24 @@ def get_schedule(params: dict) -> list[OcsNodeSchedule]:
     return schedules
 
 
-def _get_default_node_count(ugroup_name: str, params: dict) -> int:
+def _get_target_feature(ugroup_name: str, params: dict) -> str:
+    if "schedule_target_feature" in params:
+        return params["schedule_target_feature"]
+    value = load_group_var(ugroup_name, "vcnode_schedule_target_feature")
+    if value is not None:
+        return value
+    msg = f"vcnode_schedule_target_feature is not defined in {ugroup_name}"
+    raise ValueError(msg)
+
+
+def _get_default_node_count(params: dict, feature_config: dict) -> int:
     if "schedule_default_compute_nodes" in params:
         return int(params["schedule_default_compute_nodes"])
-    value = load_group_var(ugroup_name, "compute_nodes")
-    return int(value) if value is not None else 0
+    return feature_config.get("nodes", 0)
 
 
-def _get_max_compute_nodes(ugroup_name: str) -> int:
-    value = load_group_var(ugroup_name, "max_compute_nodes")
-    if value is not None:
-        return int(value)
-    msg = f"max_compute_nodes is not defined in {ugroup_name}"
-    raise ValueError(msg)
+def _get_max_compute_nodes(feature_config: dict) -> int:
+    return len(feature_config["ip_addresses"])
 
 
 def _get_down_type(params: dict) -> str:
@@ -285,9 +290,12 @@ def _get_drain_time(params: dict) -> int:
 
 
 def _get_default_params(ugroup_name: str, params: dict) -> NodeDefaultParams:
+    target_feature = _get_target_feature(ugroup_name, params)
+    gvars = load_group_vars(ugroup_name)
+    feature_config = gvars["slurm_features"][target_feature]
     return {
-        "node_count": _get_default_node_count(ugroup_name, params),
-        "max_node_count": _get_max_compute_nodes(ugroup_name),
+        "node_count": _get_default_node_count(params, feature_config),
+        "max_node_count": _get_max_compute_nodes(feature_config),
         "down_type": _get_down_type(params),
         "drain_time": _get_drain_time(params),
     }

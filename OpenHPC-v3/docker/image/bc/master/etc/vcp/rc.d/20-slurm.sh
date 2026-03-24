@@ -2,8 +2,6 @@
 
 : ${MASTER_HOSTNAME:=$(hostname)}
 
-declare -A node_params
-
 setup_directory() {
   mkdir -p /var/log/slurm
   chown slurm:slurm /var/log/slurm
@@ -21,11 +19,14 @@ setup_slurm_conf() {
     return
   fi
   export MASTER_HOSTNAME
-  /usr/local/bin/jinja2 -o /etc/slurm/slurm.conf /etc/vcp/rc.d/slurm.conf.j2
+
+  # slurm.conf本体の生成（slurm.conf.j2から）
+  # パーティション設定はAnsibleでpost-deploymentに追加される
+  /usr/local/bin/jinja2 -o /etc/slurm/slurm.conf /etc/vcp/rc.d/templates/slurm.conf.j2
   chown slurm:slurm /etc/slurm/slurm.conf
-  if [ -n "GPUS" ]; then
-    /usr/local/bin/jinja2 -o /etc/slurm/gres.conf /etc/vcp/rc.d/gres.conf.j2
-  fi
+
+  # gres.conf はイメージに同梱済み（configless modeで計算ノードに配布される）
+
   mkdir -p /var/lib/vcp
   touch /var/lib/vcp/.20-slurm
 }

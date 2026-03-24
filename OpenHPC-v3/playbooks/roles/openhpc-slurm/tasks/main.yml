@@ -1,0 +1,39 @@
+---
+# OpenHPC Slurm Configuration Role
+# Manages slurm.conf and hosts.ohpc generation
+
+- name: Ensure slurm configuration directory exists
+  file:
+    path: /etc/slurm
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Ensure ohpc pub directory exists
+  file:
+    path: /opt/ohpc/pub/etc
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Generate slurm.conf from template
+  template:
+    src: slurm.conf.j2
+    dest: /etc/slurm/slurm.conf
+    owner: slurm
+    group: slurm
+    mode: '0644'
+    backup: yes
+  notify: Reconfigure Slurm
+
+- name: Generate hosts.ohpc from template
+  template:
+    src: hosts.ohpc.j2
+    dest: /opt/ohpc/pub/etc/hosts.ohpc
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  notify: Reload CoreDNS

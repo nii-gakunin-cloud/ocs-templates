@@ -46,8 +46,8 @@ setup_fstab() {
 
   # Append default NFS entries
   cat >> /etc/fstab <<EOF
-${MASTER_HOSTNAME}:/ohpc/pub /opt/ohpc/pub nfs nfsvers=4,ro,nodev  0 0
-${MASTER_HOSTNAME}:/home     /home         nfs nfsvers=4,rw,nodev  0 0
+${MASTER_HOSTNAME}:/home     /home         nfs nfsvers=4,rw,nodev,nosharecache  0 0
+${MASTER_HOSTNAME}:/ohpc/pub /opt/ohpc/pub nfs nfsvers=4,ro,nodev,nosharecache  0 0
 EOF
 
   # Append additional NFS entries if provided

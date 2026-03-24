@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rockylinux/rockylinux:9.6.20250531
+FROM rockylinux/rockylinux:9.7.20251123
 
 ENV container=docker
 # hadolint ignore=DL3003,SC2086

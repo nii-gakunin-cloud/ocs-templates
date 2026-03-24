@@ -2,8 +2,8 @@
   become: true
   roles:
     - role: docker
-      when: vcnode_schedule is not defined
+      when: not (install_via_schedule | default(false))
     - role: nvidia-container-toolkit
-      when: vcnode_schedule is not defined and compute_use_gpu
+      when: not (install_via_schedule | default(false)) and feature_use_gpu
     - role: use-docker-for-schedule
-      when: vcnode_schedule is defined
+      when: install_via_schedule | default(false)

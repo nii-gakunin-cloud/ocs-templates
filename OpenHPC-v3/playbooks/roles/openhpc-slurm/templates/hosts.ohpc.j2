@@ -1,0 +1,16 @@
+# OpenHPC cluster hosts
+# Managed by Ansible - DO NOT EDIT MANUALLY
+
+# Master node
+{{ master_ipaddress }}    {{ master_hostname }} {{ master_hostname }}.{{ dns_domain }}
+
+# Compute nodes
+{% for feature_name, feature_config in slurm_features.items() %}
+{%   set ip_addresses = feature_config.ip_addresses %}
+{%   set hostname_template = feature_config.hostname_template %}
+# Feature: {{ feature_name }} ({{ ip_addresses | length }} nodes)
+{%   for ip_address in ip_addresses %}
+{%     set hostname = hostname_template.format(loop.index) %}
+{{ ip_address }}    {{ hostname }} {{ hostname }}.{{ dns_domain }}
+{%   endfor %}
+{% endfor %}

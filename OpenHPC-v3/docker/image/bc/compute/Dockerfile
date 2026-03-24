@@ -40,22 +40,15 @@ RUN dnf -y remove singularity-ce \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
-# VCP customize
-COPY etc /etc/
-
 # hadolint ignore=DL3041
 RUN systemctl disable NetworkManager-wait-online \
- && systemctl enable mount-nfs munge slurmd \
- && systemctl mask emergency.service \
- && systemctl mask emergency.target \
+ && systemctl enable munge slurmd \
+ && systemctl mask emergency.service emergency.target getty@.service \
  && dnf -y install hostname squashfs-tools \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
-# ------------------------------------------------------------
-# Apptainer
-# ------------------------------------------------------------
-RUN dnf -y remove singularity-ce \
- && dnf -y install apptainer \
- && dnf clean all \
- && rm -rf /var/cache/dnf/*
+# VCP customize
+COPY etc /etc/
+
+RUN systemctl enable mount-nfs hostname-setup

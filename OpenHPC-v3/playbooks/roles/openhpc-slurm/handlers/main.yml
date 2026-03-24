@@ -1,0 +1,11 @@
+---
+# Handlers for OpenHPC Slurm Configuration Role
+
+- name: Reconfigure Slurm
+  command: scontrol reconfigure
+  when: slurm_running | default(true)
+
+- name: Reload CoreDNS
+  systemd_service:
+    name: coredns
+    state: reloaded

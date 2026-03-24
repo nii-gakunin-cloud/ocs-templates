@@ -1,5 +1,10 @@
 FROM ohpc-common
 
+# OpenHPC固有のメタデータ
+LABEL jp.ac.nii.vcloud.ocs.openhpc.slurm_conf_template="2.0"
+LABEL jp.ac.nii.vcloud.ocs.openhpc.partition_support="multi"
+LABEL jp.ac.nii.vcloud.ocs.openhpc.coredns_enabled="true"
+
 # ------------------------------------------------------------
 # Add baseline OpenHPC and provisioning services (Section 3.3)
 # ------------------------------------------------------------
@@ -97,10 +102,7 @@ RUN systemctl enable munge \
 # ----------------------------
 RUN systemctl disable NetworkManager-wait-online chronyd \
  && systemctl enable nfs-server \
- && systemctl mask emergency.service \
- && systemctl mask emergency.target
-
-COPY etc /etc/
+ && systemctl mask emergency.service emergency.target getty@.service
 
 RUN sed -i -e '1,/TaskPlugin=/s/^TaskPlugin=/#TaskPlugin=/' /etc/slurm/slurm.conf \
  && sed -i -e '1,/JobCompType=/s/^JobCompType=/#JobCompType=/' /etc/slurm/slurm.conf
@@ -112,3 +114,19 @@ RUN dnf -y remove singularity-ce \
  && dnf -y install apptainer \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
+
+# ------------------------------------------------------------
+# CoreDNS
+# ------------------------------------------------------------
+ARG COREDNS_VERSION=1.14.1
+RUN curl -fsSL "https://github.com/coredns/coredns/releases/download/v${COREDNS_VERSION}/coredns_${COREDNS_VERSION}_linux_amd64.tgz" -o /tmp/coredns.tgz \
+ && tar -xzf /tmp/coredns.tgz -C /tmp \
+ && mv /tmp/coredns /usr/bin/coredns \
+ && chmod +x /usr/bin/coredns \
+ && rm -f /tmp/coredns.tgz \
+ && mkdir -p /etc/coredns
+
+# VCP customize
+COPY etc /etc/
+
+RUN systemctl enable coredns

@@ -9,9 +9,9 @@ services:
       UGROUP_NAME: {{ ugroup_name }}
       UNIT_NAME: {{ compute_unit_name }}
       CONTROLLER: {{ master_ipaddress }}
-      IP_ADDRESS: {% for it in compute_etc_hosts -%}
+      IP_ADDRESS: {% for it in feature_ip_addresses -%}
               {{ it }}
-              {%- if not loop.last -%} , {%- endif -%}
+              {%- if not loop.last -%},{%- endif -%}
           {%- endfor %}
 
       TZ: Asia/Tokyo

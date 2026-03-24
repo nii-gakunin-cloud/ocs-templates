@@ -33,8 +33,8 @@ target "compute-gpu" {
 function "tag" {
   params = [name]
   result = [
-    "${REGISTRY}/vcp/openhpc:${name}-${TAG}-dyn",
-    "${REGISTRY}/vcp/openhpc:${name}-${TAG}-dyn-${formatdate("YYYYMMDD", timestamp())}",
+    "${REGISTRY}/vcp/openhpc:${name}-${TAG}-multi",
+    "${REGISTRY}/vcp/openhpc:${name}-${TAG}-multi-${formatdate("YYYYMMDD", timestamp())}",
   ]
 }
 

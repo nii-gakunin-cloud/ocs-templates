@@ -77,14 +77,32 @@ blockdiag {
                 shape = line;
                 style = none;
                 orientation = portrait;
+                "083";
+                "084";
+            }
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
                 "911";
                 "912";
             }
         }
         group {
-            label = "破棄";
-            color = "#6a5d21";
-            "920";
+            shape = line;
+            style = none;
+            orientation = portrait;
+            group {
+                label = "Partition管理";
+                color = "#b6c5a4";
+                "085";
+                "086";
+            }
+            group {
+                label = "破棄";
+                color = "#6a5d21";
+                "920";
+            }
         }
     }
     group {

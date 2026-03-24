@@ -1,0 +1,93 @@
+{% if cluster_name is defined -%}
+ClusterName={{ cluster_name }}
+{% else -%}
+ClusterName=cluster
+{%- endif %}
+SlurmctldHost={{ master_hostname }}
+
+MpiDefault=none
+ProctrackType=proctrack/cgroup
+ReturnToService=1
+SlurmctldPidFile=/var/run/slurm/slurmctld.pid
+SlurmctldPort=6817
+SlurmdPidFile=/var/run/slurm/slurmd.pid
+SlurmdPort=6818
+SlurmdSpoolDir=/var/spool/slurmd
+SlurmUser=slurm
+StateSaveLocation=/var/spool/slurmctld
+SwitchType=switch/none
+
+# TIMERS
+InactiveLimit=0
+KillWait=30
+MinJobAge=300
+SlurmctldTimeout=120
+SlurmdTimeout=300
+Waittime=0
+
+# SCHEDULING
+SchedulerType=sched/backfill
+SelectType=select/cons_tres
+SelectTypeParameters=CR_Core_Memory
+
+# LOGGING AND ACCOUNTING
+AccountingStorageType=accounting_storage/none
+JobAcctGatherFrequency=30
+JobAcctGatherType=jobacct_gather/none
+SlurmctldDebug=info
+SlurmctldLogFile=/var/log/slurm/slurmctld.log
+SlurmdDebug=info
+SlurmdLogFile=/var/log/slurm/slurmd.log
+
+# OpenHPC default configuration
+TaskPlugin=task/affinity
+PropagateResourceLimitsExcept=MEMLOCK
+JobCompType=jobcomp/filetxt
+Epilog=/etc/slurm/slurm.epilog.clean
+SlurmctldParameters=enable_configless
+LaunchParameters=use_interactive_step
+{%- if enable_nss_slurm | default(false) -%}
+,enable_nss_slurm
+{%- endif %}
+
+# ============================================================================
+# DYNAMIC NODES CONFIGURATION
+# ============================================================================
+
+{% set has_gpu = namespace(value=false) %}
+{% for feature_name, feature_config in slurm_features.items() %}
+{%   if feature_config.get('use_gpu', false) %}
+{%     set has_gpu.value = true %}
+{%   endif %}
+{% endfor %}
+{% if has_gpu.value %}
+GresTypes=gpu
+{% endif %}
+
+{% set total_max_nodes = namespace(value=0) %}
+{% for feature_name, feature_config in slurm_features.items() %}
+{%   set total_max_nodes.value = total_max_nodes.value + feature_config['ip_addresses']|length %}
+{% endfor %}
+MaxNodeCount={{ total_max_nodes.value }}
+
+{% for feature_name, feature_config in slurm_features.items() %}
+NodeSet=ns-{{ feature_name }} Feature={{ feature_name }}
+{% endfor %}
+
+# ============================================================================
+# PARTITIONS
+# ============================================================================
+
+{% for partition_name, partition_config in slurm_partitions.items() %}
+PartitionName={{ partition_name }} Nodes={{ partition_config.nodesets | join(',') }} Default={% if partition_config.get('default', false) %}YES{% else %}NO{% endif %} State=UP
+{%- if partition_config.get('allow_groups') %} AllowGroups={{ partition_config.allow_groups | join(',') }}{% endif %}
+
+{% endfor %}
+
+# ============================================================================
+# CUSTOM CONFIGURATION
+# ============================================================================
+
+{% if slurm_custom_conf_content is defined and slurm_custom_conf_content %}
+{{ slurm_custom_conf_content }}
+{% endif %}

@@ -1,0 +1,7 @@
+---
+# Default variables for OpenHPC Slurm Configuration Role
+
+cluster_name: "{{ ugroup_name }}"
+enable_nss_slurm: true
+dns_domain: "ohpc.internal"
+slurm_running: true
