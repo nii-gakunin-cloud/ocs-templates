@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rockylinux/rockylinux:9.7.20251123 AS base
+FROM rockylinux/rockylinux:9.8.20260525.0 AS base
 
 RUN dnf -y update \
  && dnf -y install httpd mod_ssl which \

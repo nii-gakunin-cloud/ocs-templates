@@ -1,0 +1,9 @@
+- hosts: all
+  tasks:
+  - include_role:
+      name: moodle/carryover
+      tasks_from: prepare
+  - include_role:
+      name: moodle/conf
+  - include_role:
+      name: moodle/carryover

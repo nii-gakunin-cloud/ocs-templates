@@ -315,8 +315,21 @@ def setup_yaml_od() -> None:
     )
 
 
+# 選択可能な minor バージョンと、その最小の patch バージョン
+# PHP の CVE-2026-109618, CVE-2026-109619 に対応したコンテナイメージより古いものは除外する
+MIN_PATCH_VERSIONS = {
+    (4, 5): 15,
+    (5, 1): 8,
+    (5, 2): 4,
+    (5, 3): 0,
+}
+
+
 def check_version(version: str) -> bool:
-    vers = [int(x) for x in version.split(".")]
-    if len(vers) < 2 or len(vers) > 3:
+    if not re.fullmatch(r"\d+\.\d+(\.\d+)?", version):
         return False
-    return (vers[0] == 4 and vers[1] >= 5) or vers[0] == 5
+    vers = [int(x) for x in version.split(".")]
+    min_patch = MIN_PATCH_VERSIONS.get((vers[0], vers[1]))
+    if min_patch is None:
+        return False
+    return len(vers) == 2 or vers[2] >= min_patch

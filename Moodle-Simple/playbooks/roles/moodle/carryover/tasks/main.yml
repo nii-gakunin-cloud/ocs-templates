@@ -1,0 +1,65 @@
+# moodle/conf の後に実行し、退避された conf.{日時}, php.{日時} から引き継ぐ
+- set_fact:
+    conf_backup: "/srv/moodle/moodle/conf.{{ date_time.stdout }}"
+    php_backup: "/srv/moodle/moodle/data/php.{{ date_time.stdout }}"
+    conf_base: "{{ moodle_update_dir }}/conf.base"
+
+- shell:
+    chdir: /srv/moodle
+    cmd: >-
+      test ! -d {{ conf_backup }}/ca-trust
+      || cp -a {{ conf_backup }}/ca-trust moodle/conf/
+  become: true
+
+# 更新前のイメージの設定ファイルを、3-way マージの基準として取得する
+- file:
+    path: "{{ conf_base }}"
+    state: directory
+- shell:
+    cmd: |
+      set -e
+      docker rm -f carryover-base > /dev/null 2>&1 || true
+      docker create --name carryover-base {{ base_image.stdout }} > /dev/null
+      for path in /etc/httpd /etc/php-fpm.conf /etc/php-fpm.d /etc/php.ini /etc/php.d; do
+        docker cp -a carryover-base:$path {{ conf_base }} || true
+      done
+      docker rm carryover-base > /dev/null
+    executable: /bin/bash
+  become: true
+
+- script:
+    cmd: >-
+      merge_conf.py {{ conf_base }} {{ conf_backup }} /srv/moodle/moodle/conf
+      {{ moodle_update_dir }}/conf-merge.txt
+    executable: /usr/bin/python3
+  become: true
+  register: conf_merge
+- debug:
+    var: conf_merge.stdout_lines
+
+- shell:
+    chdir: /srv/moodle/moodle/data
+    cmd: |
+      set -euo pipefail
+      old={{ php_backup | basename }}
+      new=php
+      if [ -d "$old/public" ]; then old="$old/public"; fi
+      if [ -d "$new/public" ]; then new="$new/public"; fi
+      while read -r dir; do
+        if [ -z "$dir" ]; then
+          continue
+        elif [ -e "$new/$dir" ]; then
+          echo "新しいイメージに含まれるため引き継がない: $dir"
+        elif [ -d "$old/$dir" ]; then
+          mkdir -p "$(dirname "$new/$dir")"
+          cp -a "$old/$dir" "$new/$dir"
+          echo "引き継ぎ: $dir"
+        else
+          echo "ファイルが見つからないため引き継がない: $dir"
+        fi
+      done < {{ moodle_update_dir }}/plugins.txt | tee {{ moodle_update_dir }}/plugins-carryover.txt
+    executable: /bin/bash
+  become: true
+  register: plugins_carryover
+- debug:
+    var: plugins_carryover.stdout_lines

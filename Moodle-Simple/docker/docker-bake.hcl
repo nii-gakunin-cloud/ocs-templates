@@ -31,17 +31,30 @@ target "moodle" {
   matrix = {
     item = [
       {
-        version = "5.1.3"
+        version = "5.3.0"
         php = "8.4"
+        php_min_patch = "8.4.27"
       },
       {
-        version = "5.0.6"
+        version = "5.2.4"
         php = "8.4"
+        php_min_patch = "8.4.27"
+      },
+      {
+        version = "5.1.8"
+        php = "8.4"
+        php_min_patch = "8.4.27"
+      },
+      {
+        version = "5.0.11"
+        php = "8.4"
+        php_min_patch = "8.4.27"
         target = "v4"
       },
       {
-        version = "4.5.10"
+        version = "4.5.15"
         php = "8.3"
+        php_min_patch = "8.3.36"
         target = "v4"
       },
     ]
@@ -51,6 +64,7 @@ target "moodle" {
   args = {
     MOODLE_VERSION = item.version
     PHP_VERSION = item.php
+    PHP_MIN_PATCH = item.php_min_patch
   }
   tags = moodle_tag(item.version)
 }

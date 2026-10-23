@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rockylinux/rockylinux:9.7.20251123 AS base
+FROM rockylinux/rockylinux:9.8.20260525.0 AS base
 
 RUN dnf -y update \
  && dnf -y install 'dnf-command(config-manager)' \
@@ -16,11 +16,12 @@ RUN dnf -y update \
 RUN ln -sf /dev/stdout /var/log/httpd/access_log \
   && ln -sf /dev/stderr /var/log/httpd/error_log
 
-ARG REMI_URL=http://ftp.riken.jp/Linux/remi/enterprise/remi-release-9.rpm
+ARG REMI_URL=https://rpms.remirepo.net/enterprise/remi-release-9.rpm
 RUN dnf -y install ${REMI_URL} \
  && dnf clean all
 
 ARG PHP_VERSION=8.4
+ARG PHP_MIN_PATCH=8.4.27
 RUN dnf -y module reset php \
  && dnf -y module install php:remi-${PHP_VERSION} \
  && dnf -y install \
@@ -34,6 +35,7 @@ RUN dnf -y module reset php \
   php-ldap \
   php-sodium \
   php-tidy \
+ && php -r 'exit(version_compare(PHP_VERSION, getenv("PHP_MIN_PATCH"), ">=") ? 0 : 1);' \
  && dnf clean all
 
 COPY php/php-opcache.ini /tmp

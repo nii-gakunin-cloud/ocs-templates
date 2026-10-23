@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rockylinux/rockylinux:9.7.20251123
+FROM rockylinux/rockylinux:9.8.20260525.0
 
 ENV container=docker
 # hadolint ignore=DL3003,SC2086
@@ -35,6 +35,7 @@ RUN dnf -y install \
       which \
       rsyslog \
       cronie \
+      fuse-overlayfs \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 

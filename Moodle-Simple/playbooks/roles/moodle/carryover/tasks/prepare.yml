@@ -1,0 +1,28 @@
+- assert:
+    that: moodle_update_id is defined
+- file:
+    path: "{{ moodle_update_dir }}"
+    state: directory
+# 標準以外のプラグインの一覧と、更新前のイメージは停止前のコンテナから取得する
+- copy:
+    src: list_plugins.php
+    dest: "{{ moodle_update_dir }}/list_plugins.php"
+- shell:
+    chdir: /srv/moodle
+    cmd: >-
+      docker compose exec -T moodle /usr/bin/php
+      < {{ moodle_update_dir }}/list_plugins.php
+      > {{ moodle_update_dir }}/plugins.txt
+- command:
+    chdir: /srv/moodle
+    cmd: cat {{ moodle_update_dir }}/plugins.txt
+  register: plugins
+  changed_when: false
+- debug:
+    var: plugins.stdout_lines
+- command: docker inspect moodle --format {{ '{{.Image}}' }}
+  register: base_image
+  changed_when: false
+- command:
+    chdir: /srv/moodle
+    cmd: docker compose stop moodle

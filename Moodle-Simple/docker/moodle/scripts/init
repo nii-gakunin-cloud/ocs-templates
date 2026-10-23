@@ -38,6 +38,7 @@ init_moodle() {
       ["pathtogs"]="'/usr/bin/gs'"
       ["pathtopython"]="'/usr/bin/python3'"
       ["preventexecpath"]="true"
+      ["routerconfigured"]="true"
     )
 
     for param in ${!params[@]}; do
