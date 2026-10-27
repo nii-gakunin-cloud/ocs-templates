@@ -1,0 +1,173 @@
+# For more information on configuration, see:
+#   * Official English Documentation: http://nginx.org/en/docs/
+#   * Official Russian Documentation: http://nginx.org/ru/docs/
+
+user www-data;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+# Load dynamic modules. See /usr/share/nginx/README.dynamic.
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+    #log_format debug_log_fmt "[DEBUG][$time_local] $dbg";
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    keepalive_timeout   65;
+    types_hash_max_size 2048;
+    client_max_body_size 50M;
+
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        ''      close;
+    }
+
+    server {
+        listen 80;
+        server_name hub;
+        root /var/www/htdocs;
+
+        location /.well-known/acme-challenge/ {
+        }
+
+        location / {
+            return 301 https://$host$request_uri;
+        }
+    }
+
+    server {
+        listen 443 ssl;
+        server_name hub;
+        root /var/www/htdocs;
+        index login.php logout.php;
+
+        ssl_certificate "/etc/nginx/live-certs/server.cer";
+        ssl_certificate_key "/etc/nginx/live-certs/server.key";
+
+        ssl_ciphers "AES128+EECDH:AES128+EDH";
+        ssl_protocols TLSv1.2;
+        ssl_prefer_server_ciphers on;
+        ssl_session_cache shared:SSL:10m;
+        add_header Strict-Transport-Security "max-age=63072000; includeSubDomains";
+        add_header X-Content-Type-Options nosniff;
+        resolver_timeout 5s;
+
+        resolver 127.0.0.11 valid=10s;
+
+        location ^~ /login {
+            rewrite /login /php/login.php permanent;
+        }
+
+        location ^~ /logout {
+            rewrite /logout /php/logout.php permanent;
+        }
+
+        location ^~ /hub/login {
+            rewrite /login /php/login.php permanent;
+        }
+
+        location ^~ /no_author {
+            internal;
+            rewrite /no_author /html/no_author.html break;
+        }
+
+        location ~ [^/]\.php(/|$) {
+            fastcgi_split_path_info ^(.+\.php)(/.*)$;
+            fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+            #set $dbg "dbg0: $fastcgi_script_name";
+            #access_log /var/log/nginx/debug.log debug_log_fmt;
+        }
+
+        location ^~ /simplesaml {
+            alias /var/www/simplesamlphp/public;
+
+            location ~ ^(?<prefix>/simplesaml)(?<phpfile>.+?\.php)(?<pathinfo>/.*)?$ {
+                fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+                fastcgi_index index.php;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$phpfile;
+                fastcgi_param PATH_INFO $pathinfo if_not_empty;
+            }
+        }
+
+        location / {
+            set $jupyterhub_url http://{{ environ("HUB_NAME") | default("jupyterhub", true) }}:8000;
+            proxy_pass $jupyterhub_url;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-NginX-Proxy true;
+            proxy_set_header X-Scheme $scheme;
+
+            # WebSocket support
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_read_timeout 86400;
+        }
+
+        location ^~ /entrance/ {
+            internal;
+            set $entrance $upstream_http_x_reproxy_url;
+            proxy_pass $entrance;
+            set $r_user $upstream_http_x_remote_user;
+            proxy_set_header REMOTE_USER $r_user;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-NginX-Proxy true;
+            proxy_set_header X-Scheme $scheme;
+        }
+    }
+
+    server {
+        listen 5000 ssl;
+
+        ssl_certificate "/etc/nginx/live-certs/server.cer";
+        ssl_certificate_key "/etc/nginx/live-certs/server.key";
+
+        ssl_ciphers "AES128+EECDH:AES128+EDH";
+        ssl_protocols TLSv1.2;
+        ssl_prefer_server_ciphers on;
+        ssl_session_cache shared:SSL:10m;
+        resolver_timeout 5s;
+        resolver 127.0.0.11 valid=10s;
+
+        client_max_body_size 0;
+        chunked_transfer_encoding on;
+
+        location / {
+            # [CoursewareHub テンプレートでの変更] 上流では proxy_pass にホスト名を直接指定しているため、nginx の起動時に
+            # registry の名前解決を行う。swarm では registry より先に auth-proxy が起動すると名前解決に失敗し、nginx が
+            # 起動しない。変数を介して指定し、接続のたびに resolver で名前解決させる
+            set $registry_url http://{{ environ("REGISTRY_SERVER") | default("registry", true) }}:5000;
+            proxy_pass $registry_url;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-NginX-Proxy true;
+            proxy_set_header X-Scheme $scheme;
+        }
+    }
+}

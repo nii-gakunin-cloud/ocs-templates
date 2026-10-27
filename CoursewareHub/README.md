@@ -328,10 +328,13 @@ CoursewareHubの複数コース機能は、JupyterHubの**Named Server**機能�
 
 ### 6.3. セキュリティ・証明書管理
 
-* [741: サーバ証明書の更新](notebooks/741-サーバ証明書の更新.ipynb) - SSL証明書更新
+* [741: サーバ証明書の更新](notebooks/741-サーバ証明書の更新.ipynb) - 手動配置した証明書ファイルの更新
+* [742: ACMEサーバの切り替え](notebooks/742-ACMEサーバの切り替え.ipynb) - staging から本番への切り替えなど
+* [743: サーバ証明書の取得方式の変更](notebooks/743-サーバ証明書の取得方式の変更.ipynb) - ACME による自動取得と証明書ファイルの手動配置の切り替え
 
 ### 6.4. システム操作
 
+* [751: CoursewareHubの更新](notebooks/751-CoursewareHubの更新.ipynb) - 以前のテンプレートで構築した環境を、このテンプレートで構築した状態に更新
 * [911: ノードの停止](notebooks/911-ノードの停止.ipynb)
 * [912: ノードの再開](notebooks/912-ノードの再開.ipynb)
 * [991: CoursewareHub環境の削除](notebooks/991-CoursewareHub環境の削除.ipynb)

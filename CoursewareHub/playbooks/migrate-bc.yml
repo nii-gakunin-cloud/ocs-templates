@@ -1,4 +1,0 @@
-- hosts: all
-  roles:
-    - role: migrate-bc
-  become: true

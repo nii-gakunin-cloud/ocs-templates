@@ -1,6 +1,6 @@
 services:
   idp-proxy:
-    image: niicloudoperation/coursewarehub-idp-proxy:master
+    image: {{ idp_proxy_image }}
     environment:
 {% if cg_fqdn is defined %}
       CG_FQDN: {{ cg_fqdn }}
@@ -18,6 +18,12 @@ services:
 {% if cgidp_metadata is defined %}
       - "./metadata/cgidp-metadata.xml:/var/www/simplesamlphp/metadata/xml/cgidp-metadata.xml:ro"
 {% endif %}
+      # [暫定対応] SimpleSAMLphp のログの出力先のディレクトリがコンテナイメージにないため、tmpfs で用意する。
+      # ない場合は SimpleSAMLphp 2.5 以降が CRIT のログを出す。上流のイメージで対応されたら取り除く
+      - type: tmpfs
+        target: /var/www/simplesamlphp/log
+        tmpfs:
+          size: 67108864
     ports:
       - 443:443
     healthcheck:
@@ -25,4 +31,3 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
-

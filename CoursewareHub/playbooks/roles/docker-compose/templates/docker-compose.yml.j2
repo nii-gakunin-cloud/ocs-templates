@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   auth-proxy:
     deploy:
@@ -6,14 +5,15 @@ services:
         constraints:
           - node.role == manager    
       replicas: 1
+{% if use_acme | bool %}
+      # 証明書の取得に失敗すると auth-proxy コンテナは終了する。すぐに再起動して取得を繰り返すと ACME サーバの
+      # レート制限 (Let's Encrypt の本番は同じホスト名の認証の失敗が1時間に5回まで) に達するため、間隔を空ける
+      restart_policy:
+        delay: 15m
+{% endif %}
     depends_on:
       - jupyterhub
-    healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost/php/login.php"]
-      interval: 30s
-      timeout: 3s
-      retries: 3
-      start_period: 5s
+    # healthcheck はコンテナイメージに定義されたものを利用する
     environment:
       AUTH_FQDN: "{{ auth_fqdn }}"
       CRON_SECRET: "{{ cron_secret }}"
@@ -41,6 +41,12 @@ services:
     ports:
       - 80:80
       - 443:443
+      # registry への接続は auth-proxy の nginx が TLS を終端して registry に中継する
+      - 5000:5000
+{% if use_acme | bool %}
+    secrets:
+      - acme-config
+{% endif %}
     volumes:
       - read_only: true
         source: {{ httpd_certs_dir }}
@@ -49,6 +55,11 @@ services:
       - read_only: true
         source: {{ hub_const_file }}
         target: /var/www/lib/hub-const.php
+        type: bind
+      # registry の名前解決を起動時に行わないよう変更した nginx.conf のテンプレート (auth-proxy ロール参照)
+      - read_only: true
+        source: {{ auth_proxy_nginx_template }}
+        target: /etc/templates/nginx.conf.j2
         type: bind
       - read_only: true
         source: {{ lti_cfg_dir }}/{{ lti_private_key_file}}
@@ -66,6 +77,20 @@ services:
         source: {{ saml_certs_dir }}
         target: /var/www/simplesamlphp/cert
         type: bind
+      # [暫定対応] SimpleSAMLphp のログの出力先のディレクトリがコンテナイメージにないため、tmpfs で用意する。
+      # ない場合は SimpleSAMLphp 2.5 以降が CRIT のログを出す。上流のイメージで対応されたら取り除く
+      - target: /var/www/simplesamlphp/log
+        type: tmpfs
+        tmpfs:
+          size: 67108864
+{% if use_acme | bool %}
+      - source: {{ certbot_data_dir }}
+        target: /etc/letsencrypt
+        type: bind
+      - source: {{ certbot_logs_dir }}
+        target: /var/log/letsencrypt
+        type: bind
+{% endif %}
 
   jupyterhub:
     deploy:
@@ -86,8 +111,10 @@ services:
       CONCURRENT_SPAWN_LIMIT: "{{ concurrent_spawn_limit | default('20')}}"
 {% if cull_server is defined %}
       CULL_SERVER: '{{ cull_server }}'
-{% endif %}
-{% if cull_server_every is defined %}
+      # [暫定対応] jupyterhub-idle-culler 2.0 は --cull-every=0 で起動に失敗するため、0 または未指定の場合は
+      # 1.x と同じく timeout の半分を渡す。上流のイメージで対応されたら取り除く
+      CULL_SERVER_EVERY: '{{ (cull_server_every | default(0) | int > 0) | ternary(cull_server_every | default(0) | int, (cull_server_idle_timeout | default(600) | int) // 2) }}'
+{% elif cull_server_every is defined %}
       CULL_SERVER_EVERY: '{{ cull_server_every }}'
 {% endif %}
 {% if cull_server_idle_timeout is defined %}
@@ -146,9 +173,12 @@ services:
       - source: {{ home_dir }}
         target: /jupyter/users
         type: bind
-{% if migration is defined %}
-    extra_hosts:
-      - "{{master_fqdn}}:{{manager_ipaddress}}"
+{% if registry_ca_required | bool %}
+      # Let's Encrypt の staging のテスト用 CA などを Hub と environments サービスに信頼させる (registry-ca ロール参照)
+      - read_only: true
+        source: {{ registry_ca_bundle_file }}
+        target: /etc/ssl/certs/ca-certificates.crt
+        type: bind
 {% endif %}
     command: >
       /bin/bash -c
@@ -190,18 +220,16 @@ services:
       replicas: 1
     init: true
     healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider --no-check-certificate https://localhost:5000/ || exit 1"]
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:5000/ || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 5
     image: registry:2
     networks:
       - backend
-    ports:
-      - 5000:5000
     environment:
-      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/auth-proxy.chained.cer
-      REGISTRY_HTTP_TLS_KEY: /certs/auth-proxy.key
+      # auth-proxy を経由した外部からの URL (registry が返す Location ヘッダなどに用いる)
+      REGISTRY_HTTP_HOST: "https://{{ master_fqdn }}:5000"
       REGISTRY_AUTH: htpasswd
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
@@ -214,13 +242,14 @@ services:
         source: {{registry_password_file}}
         target: /auth/htpasswd
         type: bind
-      - read_only: true
-        source: {{httpd_certs_dir}}
-        target: /certs
-        type: bind
 
 networks:
   backend:
     external: true
     name: {{backend_network_name}}
 
+{% if use_acme | bool %}
+secrets:
+  acme-config:
+    file: ./acme-config.sh
+{% endif %}

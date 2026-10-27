@@ -1,0 +1,65 @@
+# registry の TLS 証明書を発行した CA が OS の信頼ストアに含まれていない場合
+# (Let's Encrypt の staging など) に、その CA を docker daemon と jupyterhub コンテナに信頼させる。
+# docker daemon は /etc/docker/certs.d/<registry>/ 配下の *.crt をレジストリへの接続ごとに
+# 参照するため、配置後に docker daemon を再起動する必要はない。
+# registry から pull を行う worker ノードにも必要なため swarm の全ノードに配置する。
+- set_fact:
+    registry_ca_cert_urls: "{{ registry_ca_cert_urls_by_acme_server[acme_server] if registry_ca_required | bool else [] }}"
+
+- block:
+    - file:
+        path: "{{ registry_certs_d_dir }}"
+        state: directory
+        mode: '0755'
+    - get_url:
+        url: "{{ item }}"
+        dest: "{{ registry_certs_d_dir }}/{{ item | basename | splitext | first }}.crt"
+        mode: '0644'
+      loop: "{{ registry_ca_cert_urls }}"
+    - find:
+        paths: "{{ registry_certs_d_dir }}"
+        patterns: "*.crt"
+      register: registry_ca_placed
+    # ACME サーバの切り替えなどで不要になった CA 証明書を除去する
+    - file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ registry_ca_placed.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+      when: (item.path | basename) not in expected_names
+      vars:
+        expected_names: "{{ registry_ca_cert_urls | map('basename') | map('splitext') | map('first') | map('regex_replace', '$', '.crt') | list }}"
+
+    # jupyterhub コンテナの Hub と environments サービスは registry の API に直接 HTTPS で接続する。
+    # environments サービスには SSL_CERT_FILE などの環境変数が引き継がれないため、
+    # OS の CA 証明書に追加の CA を連結したファイルを作成し、コンテナの OS の CA 証明書と置き換える
+    - command: "{{ ansible_facts.python.executable }} -c 'import ssl; print(ssl.get_default_verify_paths().openssl_cafile)'"
+      register: os_ca_bundle_path
+      changed_when: false
+    - slurp:
+        src: "{{ os_ca_bundle_path.stdout }}"
+      register: os_ca_bundle
+    - slurp:
+        src: "{{ registry_certs_d_dir }}/{{ item | basename | splitext | first }}.crt"
+      loop: "{{ registry_ca_cert_urls }}"
+      register: registry_ca_certs
+    - file:
+        path: "{{ registry_ca_bundle_dir }}"
+        state: directory
+        mode: '0755'
+    - copy:
+        content: "{{ ([os_ca_bundle] + registry_ca_certs.results) | map(attribute='content') | map('b64decode') | map('trim') | join('\n') }}\n"
+        dest: "{{ registry_ca_bundle_file }}"
+        mode: '0644'
+  when: registry_ca_required | bool
+
+# 追加の CA が不要な場合 (本番の CA へ切り替えた場合や ACME を利用しない場合) は
+# 配置済みのものをディレクトリごと除去する
+- file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ registry_certs_d_dir }}"
+    - "{{ registry_ca_bundle_dir }}"
+  when: not (registry_ca_required | bool)

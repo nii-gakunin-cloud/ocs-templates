@@ -2,39 +2,61 @@
     path: "{{httpd_certs_dir}}"
     state: directory
     recurse: true
-- copy:
-    src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.key"
-    dest: "{{httpd_certs_dir}}/auth-proxy.key"
-    remote_src: yes
-- stat:
-    path: "/home/{{ansible_user}}/certs/{{master_fqdn}}.chained.cer"
-  register: chained_file_status
-- copy:
-    src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.chained.cer"
-    dest: "{{httpd_certs_dir}}/auth-proxy.chained.cer"
-    remote_src: yes
-  when: chained_file_status.stat.exists
+
+# auth-proxy コンテナイメージは /etc/nginx/certs/server.cer, server.key を参照する
 - block:
     - copy:
-        src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.cer"
-        dest: "{{httpd_certs_dir}}/auth-proxy.chained.cer"
+        src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.key"
+        dest: "{{httpd_certs_dir}}/server.key"
         remote_src: yes
-    - shell:
-        cat "/home/{{ansible_user}}/certs/{{intermediate_certfile}}" >> "{{httpd_certs_dir}}/auth-proxy.chained.cer"
-      when: intermediate_certfile is defined
-  when: not chained_file_status.stat.exists
+    - stat:
+        path: "/home/{{ansible_user}}/certs/{{master_fqdn}}.chained.cer"
+      register: chained_file_status
+    - copy:
+        src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.chained.cer"
+        dest: "{{httpd_certs_dir}}/server.cer"
+        remote_src: yes
+      when: chained_file_status.stat.exists
+    - block:
+        - copy:
+            src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.cer"
+            dest: "{{httpd_certs_dir}}/server.cer"
+            remote_src: yes
+        - shell:
+            cat "/home/{{ansible_user}}/certs/{{intermediate_certfile}}" >> "{{httpd_certs_dir}}/server.cer"
+          when: intermediate_certfile is defined
+      when: not chained_file_status.stat.exists
+  when: not (use_acme | bool)
+
+# auth-proxy コンテナの start.sh は server.cer, server.key があると ACME を利用しないため、
+# 手動配置で利用していたものを除去する
+- block:
+    - file:
+        path: "{{httpd_certs_dir}}/server.cer"
+        state: absent
+    - file:
+        path: "{{httpd_certs_dir}}/server.key"
+        state: absent
+  when: use_acme | bool
+
 - file:
     path: "{{saml_certs_dir}}"
     state: directory
     recurse: true
-- copy:
-    src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.key"
-    dest: "{{saml_certs_dir}}/auth-proxy.key"
-    remote_src: yes
-- copy:
-    src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.cer"
-    dest: "{{saml_certs_dir}}/auth-proxy.cer"
-    remote_src: yes
+
+# SAML 用の証明書には手動配置したサーバ証明書を流用する。ACME の証明書は流用せず、別の SAML 用の
+# 証明書の配置にも対応していないため、211/311 では use_acme=True の場合に学認連携の設定を中止する
+- block:
+    - copy:
+        src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.key"
+        dest: "{{saml_certs_dir}}/auth-proxy.key"
+        remote_src: yes
+    - copy:
+        src: "/home/{{ansible_user}}/certs/{{master_fqdn}}.cer"
+        dest: "{{saml_certs_dir}}/auth-proxy.cer"
+        remote_src: yes
+  when: not (use_acme | bool)
+
 - copy:
     src: "/home/{{ansible_user}}/certs/{{auth_fqdn}}.cer"
     dest: "{{saml_certs_dir}}/idp-proxy.cer"
@@ -42,3 +64,23 @@
   when:
     - auth_fqdn is defined
     - auth_fqdn | length > 0
+
+- block:
+    - file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ certbot_data_dir }}"
+        - "{{ certbot_logs_dir }}"
+    - file:
+        path: "{{ compose_dir }}"
+        state: directory
+    # docker stack deploy は ansible_user で実行し、secret のファイルは docker CLI が読むため
+    # ansible_user の所有とする (EAB の鍵を含むため他のユーザには読ませない)
+    - template:
+        src: acme-config.sh.j2
+        dest: "{{ compose_dir }}/acme-config.sh"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0600'
+  when: use_acme | bool

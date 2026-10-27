@@ -1,0 +1,18 @@
+use_acme: false
+acme_server: ""
+
+# OS の信頼ストアに含まれない CA で署名する ACME サーバ (directory URL) ごとに、信頼させる CA 証明書の取得元 URL を定義する。
+# 現状は Let's Encrypt の staging のみ対応 (RSA 用の X1 と ECDSA 用の X2)。
+registry_ca_cert_urls_by_acme_server:
+  "https://acme-staging-v02.api.letsencrypt.org/directory":
+    - https://letsencrypt.org/certs/staging/letsencrypt-stg-root-x1.pem
+    - https://letsencrypt.org/certs/staging/letsencrypt-stg-root-x2.pem
+
+# 追加の CA 証明書が必要かどうか (docker-compose ロールからも参照する)
+registry_ca_required: "{{ (use_acme | bool) and (acme_server in registry_ca_cert_urls_by_acme_server) }}"
+
+registry_certs_d_dir: "/etc/docker/certs.d/{{master_fqdn}}:5000"
+
+# OS の CA 証明書に追加の CA 証明書を連結したファイル (jupyterhub コンテナの OS の CA 証明書と置き換える)
+registry_ca_bundle_dir: "{{jupyterhub_cfg_dir}}/registry-ca"
+registry_ca_bundle_file: "{{registry_ca_bundle_dir}}/ca-certificates.crt"

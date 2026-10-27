@@ -1,4 +1,4 @@
 idp_proxy_dir: /srv/idp-proxy
 idp_proxy_cert_dir: "{{ idp_proxy_dir }}/cert"
 idp_proxy_metadata_dir: "{{ idp_proxy_dir }}/metadata"
-
+idp_proxy_image: "niicloudoperation/coursewarehub-idp-proxy:2026.10.1"

@@ -29,3 +29,12 @@
           mode: 0755
     when:
       - ansible_os_family == "Alpine"
+  # Ubuntu のベースコンテナには docker compose plugin が含まれているため追加しない
+  - block:
+      - apt:
+          upgrade: safe
+          update_cache: yes
+      - apt:
+          name: tree
+    when:
+      - ansible_os_family == "Debian"

@@ -57,6 +57,14 @@ blockdiag {
                 style = none;
                 orientation = portrait;
                 "741";
+                "742";
+                "743";
+            }
+            group {
+                shape = line;
+                style = none;
+                orientation = portrait;
+                "751";
             }
         }
         group {

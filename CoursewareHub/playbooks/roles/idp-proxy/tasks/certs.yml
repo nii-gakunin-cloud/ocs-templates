@@ -2,32 +2,47 @@
     path: "{{idp_proxy_cert_dir}}"
     state: directory
     recurse: true
+
+# IdP-proxy コンテナイメージの nginx は /etc/cert/server.cer, server.key を参照する。
+# これらがないと start.sh は ACME モードで起動するため、手動配置したサーバ証明書と秘密鍵を配置する
 - copy:
     src: "certs/{{auth_fqdn}}.key"
-    dest: "{{idp_proxy_cert_dir}}/idp-proxy.key"
+    dest: "{{idp_proxy_cert_dir}}/server.key"
     remote_src: yes
 - stat:
     path: "certs/{{auth_fqdn}}.chained.cer"
   register: chained_file_status
 - copy:
-    src: "certs/{{auth_fqdn}}.cer"
-    dest: "{{idp_proxy_cert_dir}}/idp-proxy.cer"
-    remote_src: yes
-- copy:
     src: "certs/{{auth_fqdn}}.chained.cer"
-    dest: "{{idp_proxy_cert_dir}}/idp-proxy.chained.cer"
+    dest: "{{idp_proxy_cert_dir}}/server.cer"
     remote_src: yes
   when: chained_file_status.stat.exists
 - block:
     - copy:
         src: "certs/{{auth_fqdn}}.cer"
-        dest: "{{idp_proxy_cert_dir}}/idp-proxy.chained.cer"
+        dest: "{{idp_proxy_cert_dir}}/server.cer"
         remote_src: yes
     - shell:
-        cat "certs/{{intermediate_certfile}}" >> "{{idp_proxy_cert_dir}}/idp-proxy.chained.cer"
+        cat "certs/{{intermediate_certfile}}" >> "{{idp_proxy_cert_dir}}/server.cer"
       when: intermediate_certfile is defined
   when: not chained_file_status.stat.exists
-- get_url:
-    url: "{{metadata_signer_url}}"
-    dest: "{{idp_proxy_cert_dir}}/gakunin-signer.cer"
 
+# SimpleSAMLphp は idp-proxy.cer, idp-proxy.key を参照する
+- copy:
+    src: "certs/{{auth_fqdn}}.key"
+    dest: "{{idp_proxy_cert_dir}}/idp-proxy.key"
+    remote_src: yes
+- copy:
+    src: "certs/{{auth_fqdn}}.cer"
+    dest: "{{idp_proxy_cert_dir}}/idp-proxy.cer"
+    remote_src: yes
+
+# メタデータ検証用の証明書はコンテナイメージに組み込まれている。/etc/cert に同じ名前のファイルがあると
+# 組み込まれたものが上書きされるため、以前のテンプレートが配置したものを除去する。
+# idp-proxy.chained.cer は server.cer に置き換えたため除去する
+- file:
+    path: "{{idp_proxy_cert_dir}}/{{item}}"
+    state: absent
+  loop:
+    - gakunin-signer.cer
+    - idp-proxy.chained.cer

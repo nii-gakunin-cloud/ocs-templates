@@ -5,6 +5,16 @@
 - template:
     src: hub-const.php.j2
     dest: "{{hub_const_file}}"
+# 上流のイメージの nginx.conf.j2 で registry への中継の名前解決を起動時に行わないよう変更したもの。
+# コンテナ内で jinja2 により展開されるので、ansible の template ではなく copy で配置する。
+# 上流で修正されたイメージに更新する際に、このファイルと docker-compose.yml のマウントを削除する
+- file:
+    path: "{{ auth_proxy_nginx_template | dirname }}"
+    state: directory
+- copy:
+    src: nginx.conf.j2
+    dest: "{{ auth_proxy_nginx_template }}"
+    mode: '0644'
 - file:
     path: "{{saml_metadata_dir}}"
     state: directory

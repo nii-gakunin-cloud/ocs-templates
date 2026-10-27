@@ -1,3 +1,12 @@
 httpd_certs_dir: "{{jupyterhub_cfg_dir}}/nginx/certs"
 saml_certs_dir: "{{jupyterhub_cfg_dir}}/simplesamlphp/cert"
 
+use_acme: false
+certbot_data_dir: /jupyter/certbot
+certbot_logs_dir: /jupyter/certbot-logs
+
+acme_server: ""
+acme_eab_kid: ""
+acme_eab_hmac_key: ""
+acme_email: ""
+acme_key_type: ""

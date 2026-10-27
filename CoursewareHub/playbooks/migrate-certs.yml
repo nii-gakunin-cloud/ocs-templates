@@ -1,6 +1,0 @@
-- hosts: all
-  become: true
-  tasks:
-    - import_role:
-        name: certs
-        tasks_from: migrate

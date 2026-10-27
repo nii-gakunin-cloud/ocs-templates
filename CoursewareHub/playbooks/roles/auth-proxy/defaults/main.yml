@@ -1,2 +1,4 @@
 saml_metadata_dir: "{{jupyterhub_cfg_dir}}/simplesamlphp/metadata/xml"
 hub_const_file: "{{jupyterhub_cfg_dir}}/hub-const.php"
+# auth-proxy コンテナの nginx.conf のテンプレート (イメージの /etc/templates/nginx.conf.j2 を置き換える)
+auth_proxy_nginx_template: "{{jupyterhub_cfg_dir}}/nginx/nginx.conf.j2"

@@ -8,8 +8,6 @@
     src: lti.json.j2
     dest: "{{lti_cfg_dir}}/{{lti_cfg_file}}"
     backup: yes
-- import_tasks: migration.yml
-  when: migration is defined
 - name: Generate RSA key pair.
   shell:
     cmd: "openssl genrsa -out {{lti_private_key_file}}"
