@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/serf agent -node=${SERF_NODE_ID} -bind=${PRIVATE_IP}:7947 -discover=vccluster_${VCCC_ID} -join=${VCCCTR_IPADDR}
+ExecStart=/usr/local/bin/serf agent -protocol=4 -node=${SERF_NODE_ID} -bind=${PRIVATE_IP}:7947 -discover=vccluster_${VCCC_ID} -join=${VCCCTR_IPADDR}
 KillSignal=SIGINT
 Restart=always
 RestartSec=10

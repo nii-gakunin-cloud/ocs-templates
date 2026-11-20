@@ -6,6 +6,7 @@ set -eu
 mkdir -p /etc/docker
 cat > /etc/docker/daemon.json <<EOF
 {
+  "storage-driver": "fuse-overlayfs",
   "insecure-registries" : ["${VCCCTR_IPADDR}:5000", "${VCCCTR_IPADDR}:5001"],
   "log-driver": "${LOG_DRIVER}"
 }

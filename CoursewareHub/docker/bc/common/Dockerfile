@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rockylinux/rockylinux:9.7.20251123
+FROM rockylinux/rockylinux:9.8.20260525.0
 
 ENV container=docker
 # hadolint ignore=DL3003,SC2086
@@ -14,7 +14,8 @@ RUN (cd /lib/systemd/system/sysinit.target.wants/ && for i in *; do [ $i = syste
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
 
-RUN dnf -y install \
+RUN dnf -y update \
+ && dnf -y install \
       openssh-server \
       openssh-clients \
       iproute \
@@ -35,6 +36,7 @@ RUN dnf -y install \
       jq \
       which \
       xfsprogs \
+      fuse-overlayfs \
  && dnf clean all \
  && rm -rf /var/cache/dnf/*
 
@@ -65,7 +67,7 @@ ARG CADVISOR_VERSION=v0.49.2
 RUN curl -fsSL -o /usr/local/bin/cadvisor "https://github.com/google/cadvisor/releases/download/${CADVISOR_VERSION}/cadvisor-${CADVISOR_VERSION}-linux-amd64" \
  && chmod +x /usr/local/bin/cadvisor
 
-ARG SERF_VERSION=0.8.0
+ARG SERF_VERSION=0.8.2
 RUN curl -fsSL -o serf.zip "https://releases.hashicorp.com/serf/${SERF_VERSION}/serf_${SERF_VERSION}_linux_amd64.zip" \
  && unzip serf.zip -d /usr/local/bin/ \
  && rm serf.zip
