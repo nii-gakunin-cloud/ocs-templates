@@ -21,7 +21,7 @@ RUN dnf -y install ${REMI_URL} \
  && dnf clean all
 
 ARG PHP_VERSION=8.4
-ARG PHP_MIN_PATCH=8.4.27
+ARG PHP_MIN_PATCH=8.4.28
 RUN dnf -y module reset php \
  && dnf -y module install php:remi-${PHP_VERSION} \
  && dnf -y install \
